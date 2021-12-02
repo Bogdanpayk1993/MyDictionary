@@ -4,20 +4,22 @@ import Work_With_Database from '../work_with_database';
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = { reply:"X" }
+        this.state = {}
     }
 
     getReply = () => {
-        var reply = Work_With_Database({name: 'Bogdan', surname: 'Krochak'})
+        var reply = Work_With_Database({require: 'SELECT * FROM users'})
         reply.then((value) => {
-            this.setState({reply: value})
+            var json = JSON.parse(value)
+            this.setState({...this.setState, ...json})
         })
     }
 
     render() { 
+        console.log(this.state[0])
         return ( 
             <>
-                <p> {this.state.reply} </p>
+                <p> {} </p>
                 <button onClick={this.getReply}> Надіслати </button>
             </>
          );
