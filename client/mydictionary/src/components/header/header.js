@@ -11,15 +11,21 @@ class Header extends Component {
         var reply = Work_With_Database({require: 'SELECT * FROM users'})
         reply.then((value) => {
             var json = JSON.parse(value)
-            this.setState({...this.setState, ...json})
+            this.setState(json)
         })
     }
 
     render() { 
-        console.log(this.state[0])
         return ( 
             <>
-                <p> {} </p>
+                {
+                    Object.keys(this.state).length != 0 ?
+                    (
+                        Object.keys(this.state).map((el) => <p> {`${this.state[el]['id']} - ${this.state[el]['Name']} - ${this.state[el]['Surname']} - ${this.state[el]['Email']}`} </p>)
+                    ):(
+                        null
+                    )
+                }
                 <button onClick={this.getReply}> Надіслати </button>
             </>
          );
