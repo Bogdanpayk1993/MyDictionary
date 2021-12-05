@@ -1,14 +1,10 @@
 import './App.css';
-import LoginButton from "./components/Auth0/LoginButton"
-import LogoutButton from './components/Auth0/LogoutButton';
-import Profile from './components/Auth0/Profile';
+import Dictionary from './components/Dictionary';
 
 function App() {
   return (
     <div className="App">
-      <LoginButton />
-      <LogoutButton />
-      <Profile />
+      <Dictionary />
     </div>
   );
 }

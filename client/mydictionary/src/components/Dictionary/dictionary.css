@@ -1,0 +1,26 @@
+.First_div {
+    width: 30vw;
+    height: 5vh;
+    float: left;
+}
+
+.Second_div {
+    width: 40vw;
+    height: 5vh;
+    float: left;    
+}
+
+.Third_div {
+    width: 30vw;
+    height: 5vh;
+    float: left;
+    
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.Third_div button {
+    margin-left: 1vw;
+    margin-right: 2vw;
+}
