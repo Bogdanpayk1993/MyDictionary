@@ -21,7 +21,7 @@ class Header extends Component {
                 {
                     Object.keys(this.state).length != 0 ?
                     (
-                        Object.keys(this.state).map((el) => <p> {`${this.state[el]['id']} - ${this.state[el]['Name']} - ${this.state[el]['Surname']} - ${this.state[el]['Email']}`} </p>)
+                        Object.keys(this.state).map((el) => <p key={el}> {`${this.state[el]['id']} - ${this.state[el]['Name']} - ${this.state[el]['Surname']} - ${this.state[el]['Email']}`} </p>)
                     ):(
                         null
                     )

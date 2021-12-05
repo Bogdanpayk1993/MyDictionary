@@ -1,10 +1,14 @@
 import './App.css';
-import Header from './components/header';
+import LoginButton from "./components/Auth0/LoginButton"
+import LogoutButton from './components/Auth0/LogoutButton';
+import Profile from './components/Auth0/Profile';
 
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <LoginButton />
+      <LogoutButton />
+      <Profile />
     </div>
   );
 }
