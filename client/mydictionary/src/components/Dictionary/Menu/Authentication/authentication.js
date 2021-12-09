@@ -5,7 +5,7 @@ import LogoutBotton from '../../../Auth0/LogoutButton';
 import Work_With_Database from '../../../work_with_database';
 import './authentication.css';
 
-async function getdata(user, setUserId)
+async function getUserData(user, setUserId)
 {
     let json
 
@@ -31,7 +31,7 @@ function Authentication(setUserId) {
      const { user, isAuthenticated } = useAuth0();
 
     if (isAuthenticated) {
-       getdata(user, setUserId)
+       getUserData(user, setUserId)
     }
 
     return (

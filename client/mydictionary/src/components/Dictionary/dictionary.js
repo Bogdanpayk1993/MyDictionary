@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import Body from './Body/body';
 import Menu from './Menu/menu';
 
 function Dictionary() {
@@ -8,7 +9,13 @@ function Dictionary() {
         <>
             <Menu setUserId={setUserId} /> 
             {
-                
+                !isNaN(userId) ? 
+                (
+                    <Body userId={userId} />
+                ) :
+                (
+                    null
+                )
             }
         </>
     )

@@ -1,0 +1,14 @@
+.Body > div {
+    height: 95vh;
+    float: left;
+    display: flex;
+    justify-content: center;
+}
+
+.Body > div:nth-child(odd) {
+    width: 30vw;
+}
+
+.Body > div:nth-child(even) {
+    width: 40vw;
+}

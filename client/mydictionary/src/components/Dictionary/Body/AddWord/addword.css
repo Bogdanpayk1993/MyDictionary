@@ -1,0 +1,28 @@
+.AddWord {
+    border-radius: 0.5vw;
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: silver;
+}
+
+.AddWord label {
+    display: block;
+    width: 100%;
+}
+
+.AddWord label label {
+    text-align: right;
+}
+
+.AddWord input {
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.AddWord button {
+    margin-top: 1vh;
+    margin-right: 2vw;
+}
