@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Work_With_Database from '../../../work_with_database';
 import './addword.css';
 
-function AddWord(userId) {
+function AddWord(props) { 
 
     const englishRef = useRef()
     const ukraineRef = useRef()
@@ -10,8 +10,10 @@ function AddWord(userId) {
     async function Add() 
     {
         let json
-        let user_Id = userId.userId.userId 
         let word_Id
+        let user_Id = props.userId
+        let wordList = props.wordList
+        let setWordList = props.setWordList
         
         let reply = Work_With_Database({require: `SELECT * FROM words WHERE english='${englishRef.current.value}' AND ukrainian='${ukraineRef.current.value}'`})
         await reply.then((value) => {
@@ -37,6 +39,7 @@ function AddWord(userId) {
 
         if (Object.keys(json).length == 0) {
             reply = Work_With_Database({require: `INSERT INTO userswords (userId,wordId) VALUE ('${user_Id}','${word_Id}')`})
+            setWordList({...wordList, [Object.keys(wordList).length]: {english : englishRef.current.value, ukrainian : ukraineRef.current.value}})
         }
 
         englishRef.current.value = ""

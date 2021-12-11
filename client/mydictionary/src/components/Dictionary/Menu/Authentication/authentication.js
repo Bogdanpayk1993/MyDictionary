@@ -14,7 +14,7 @@ async function getUserData(user, setUserId)
         json = JSON.parse(value)
         if (Object.keys(json).length != 0)
         {
-            setUserId.setUserId.setUserId(json[0].id)
+            setUserId(json[0].id)
         }
     })
     
@@ -22,16 +22,16 @@ async function getUserData(user, setUserId)
         let reply = Work_With_Database({require: `INSERT INTO users (name,email) VALUES ('${user.name}', '${user.email}')`})
         await reply.then((value) => {
             json = JSON.parse(value)
-            setUserId.setUserId.setUserId(json.insertId)
+            setUserId(json.insertId)
         })
     }
 }
 
-function Authentication(setUserId) {
+function Authentication(props) {
      const { user, isAuthenticated } = useAuth0();
 
     if (isAuthenticated) {
-       getUserData(user, setUserId)
+       getUserData(user, props.setUserId)
     }
 
     return (

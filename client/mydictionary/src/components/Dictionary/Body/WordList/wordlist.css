@@ -1,0 +1,21 @@
+.WordList {
+    height: 88vh;
+    padding-top: 1vh;
+}
+
+.WordList p {
+    margin: 0%;
+    margin-bottom: 0.5vw;
+}
+
+.WordList p div {
+    width: 18vw;
+}
+
+.WordList p div:nth-child(1) {
+    float: left;
+}
+
+.WordList p div:nth-child(2) {
+    float: right;
+}

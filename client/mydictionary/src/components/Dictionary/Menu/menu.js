@@ -2,7 +2,7 @@ import React from 'react';
 import Authentication from './Authentication/authentication';
 import './menu.css';
 
-function Menu(setUserId) {
+function Menu(props) {
     return (
         <div className="Menu">
             <div>
@@ -12,7 +12,7 @@ function Menu(setUserId) {
             
             </div> 
             <div>
-                <Authentication setUserId={setUserId} />
+                <Authentication setUserId={props.setUserId} />
             </div>
         </div>
     )
