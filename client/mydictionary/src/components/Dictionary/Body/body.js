@@ -17,16 +17,16 @@ async function getWordList(userId, setWordList) {
 
     if (Object.keys(json).length != 0)
     {
-        for(let i = 0; i < Object.keys(json).length; i++) {
+        await Object.keys(json).map(async (el) => {
             let json1
-            let word_Id = json[i]['wordId'] 
+            let word_Id = json[el]['wordId'] 
             let reply = Work_With_Database({require: `SELECT * FROM words WHERE id='${word_Id}'`})
             await reply.then((value) => {
                 json1 = JSON.parse(value)
-                wordList = {...wordList, [i]: {english : json1[0]['english'], ukrainian : json1[0]['ukrainian']}}
+                wordList = {...wordList, [el]: {english : json1[0]['english'], ukrainian : json1[0]['ukrainian']}}
             })
-        }
-        setWordList(wordList)
+            setWordList(wordList)
+        })
     }
 }
 
