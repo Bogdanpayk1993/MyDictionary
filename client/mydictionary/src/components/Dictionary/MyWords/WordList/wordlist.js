@@ -8,11 +8,11 @@ function WordList(props) {
                 Object.keys(props['wordList']).length != 0 ?
                     (
                         Object.keys(props['wordList']).map(el => (
-                            <p key={el}>
+                            <div key={el}>
                                 <div> {props['wordList'][el]['english']} </div> - <div> {props['wordList'][el]['ukrainian']} </div>
-                            </p>
+                            </div>
                         ))
-                    ):
+                    ) :
                     (
                         <p> You don't have words </p>
                     )

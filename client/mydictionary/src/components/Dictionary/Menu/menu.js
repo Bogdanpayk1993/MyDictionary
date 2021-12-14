@@ -1,6 +1,7 @@
 import React from 'react';
 import Authentication from './Authentication/authentication';
 import './menu.css';
+import Nav from './Nav/nav';
 
 function Menu(props) {
     return (
@@ -9,7 +10,7 @@ function Menu(props) {
 
             </div>
             <div>
-            
+                <Nav setPage={props.setPage} />
             </div> 
             <div>
                 <Authentication setUserId={props.setUserId} />
