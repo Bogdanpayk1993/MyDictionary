@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import AddWord from './AddWord/addword';
 import WordList from './WordList/wordlist';
 import Work_With_Database from '../../work_with_database';
-import './mywords.css';
 
 async function getWordList(userId, setWordList) {
 
@@ -37,18 +36,10 @@ function MyWords(props) {
     }
 
     return (
-        <div className="MyWords">
-            <div>
-
-            </div>
-            <div>
-                <AddWord userId={props.userId} wordList={wordList} setWordList={setWordList} />
-                <WordList wordList={wordList} />
-            </div>
-            <div>
-
-            </div>
-        </div>
+        <>
+            <AddWord userId={props.userId} wordList={wordList} setWordList={setWordList} />
+            <WordList wordList={wordList} />
+        </>
     )
 }
 

@@ -1,0 +1,20 @@
+.PeopleList {
+    height: 88vh;
+    padding-top: 1vh;
+}
+
+.PeopleList div {
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.PeopleList div div:nth-child(1) {
+    width: 60%;
+}
+
+.PeopleList div div:nth-child(2) {
+    width: 40%;
+}

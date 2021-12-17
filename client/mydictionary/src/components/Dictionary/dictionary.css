@@ -1,0 +1,12 @@
+.Dictionary > div {
+    height: 95vh;
+    float: left;
+}
+
+.Dictionary > div:nth-child(odd) {
+    width: 30vw;
+}
+
+.Dictionary > div:nth-child(even) {
+    width: 40vw;
+}
