@@ -3,6 +3,7 @@ import Menu from './Menu/menu';
 import MyWords from './MyWords/mywords';
 import People from './People/people';
 import './dictionary.css';
+import Words from './Words';
 
 function Dictionary() {
     const [userId, setUserId] = useState(NaN)
@@ -28,7 +29,13 @@ function Dictionary() {
                                 {
                                     page == "People" ?
                                         (
-                                            <People userId={userId} />
+                                            <People userId={userId} setPage={setPage} />
+                                        ) : (null)
+                                }
+                                {
+                                    !isNaN(page) ?
+                                        (
+                                            <Words page={page} />
                                         ) : (null)
                                 }
                             </div>
