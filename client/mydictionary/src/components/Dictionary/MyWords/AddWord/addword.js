@@ -23,7 +23,7 @@ function AddWord(props) {
         })
 
         if (Object.keys(json).length == 0) {
-            reply = Work_With_Database({ require: `INSERT INTO words (english,ukrainian) VALUE ('${englishRef.current.value}','${ukraineRef.current.value}')` })
+            reply = Work_With_Database({ require: `INSERT INTO words (english,ukrainian) VALUES ('${englishRef.current.value}','${ukraineRef.current.value}')` })
             await reply.then((value) => {
                 json = JSON.parse(value)
                 word_Id = json.insertId
@@ -36,7 +36,7 @@ function AddWord(props) {
         })
 
         if (Object.keys(json).length == 0) {
-            reply = Work_With_Database({ require: `INSERT INTO userswords (userId,wordId) VALUE ('${user_Id}','${word_Id}')` })
+            reply = Work_With_Database({ require: `INSERT INTO userswords (userId,wordId) VALUES ('${user_Id}','${word_Id}')` })
             setWordList({ ...wordList, [Object.keys(wordList).length]: { english: englishRef.current.value, ukrainian: ukraineRef.current.value } })
         }
 

@@ -5,33 +5,32 @@ import LogoutBotton from '../../../Auth0/LogoutButton';
 import Work_With_Database from '../../../work_with_database';
 import './authentication.css';
 
-async function getUserData(user, setUserId)
-{
+async function getUserData(user, setUserId) {
     let json
 
-    let reply = Work_With_Database({require: `SELECT * FROM users WHERE email='${user.email}'`})
+    let reply = Work_With_Database({ require: `SELECT * FROM users WHERE email='${user.email}'` })
     await reply.then((value) => {
         json = JSON.parse(value)
-        if (Object.keys(json).length != 0)
-        {
+        if (Object.keys(json).length != 0) {
             setUserId(json[0].id)
         }
     })
-    
+
     if (Object.keys(json).length == 0) {
-        let reply = Work_With_Database({require: `INSERT INTO users (name,email) VALUES ('${user.name}', '${user.email}')`})
+        let reply = Work_With_Database({ require: `INSERT INTO users (name,email) VALUES ('${user.name}', '${user.email}')` })
         await reply.then((value) => {
             json = JSON.parse(value)
+            console.log(json.insertId)
             setUserId(json.insertId)
         })
     }
 }
 
 function Authentication(props) {
-     const { user, isAuthenticated } = useAuth0();
+    const { user, isAuthenticated } = useAuth0();
 
-    if (isAuthenticated) {
-       getUserData(user, props.setUserId)
+    if (isAuthenticated && isNaN(props.userId)) {
+        getUserData(user, props.setUserId)
     }
 
     return (

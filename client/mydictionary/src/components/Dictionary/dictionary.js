@@ -11,7 +11,7 @@ function Dictionary() {
 
     return (
         <>
-            <Menu setUserId={setUserId} setPage={setPage} />
+            <Menu userId={userId} setUserId={setUserId} setPage={setPage} />
             {
                 !isNaN(userId) ?
                     (
