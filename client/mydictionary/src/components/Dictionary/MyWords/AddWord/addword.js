@@ -24,9 +24,11 @@ function AddWord(props) {
 
         if (Object.keys(json).length == 0) {
             reply = Work_With_Database({ require: `INSERT INTO words (english,ukrainian) VALUES ('${englishRef.current.value}','${ukraineRef.current.value}')` })
+            
+            reply = Work_With_Database({ require: `SELECT * FROM words WHERE english='${englishRef.current.value}' AND ukrainian='${ukraineRef.current.value}'` })
             await reply.then((value) => {
                 json = JSON.parse(value)
-                word_Id = json.insertId
+                word_Id = json[0].id
             })
         }
 

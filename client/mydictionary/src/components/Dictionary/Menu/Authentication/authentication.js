@@ -17,13 +17,15 @@ async function getUserData(user, setUserId) {
     })
 
     if (Object.keys(json).length == 0) {
-        let reply = Work_With_Database({ require: `INSERT INTO users (name,email) VALUES ('${user.name}', '${user.email}')` })
+        reply = Work_With_Database({ require: `INSERT INTO users (name,email) VALUES ('${user.name}', '${user.email}')` })
+
+        reply = Work_With_Database({ require: `SELECT * FROM users WHERE email='${user.email}'` })
         await reply.then((value) => {
             json = JSON.parse(value)
-            console.log(json.insertId)
-            setUserId(json.insertId)
+            setUserId(json[0].id)
         })
     }
+
 }
 
 function Authentication(props) {
