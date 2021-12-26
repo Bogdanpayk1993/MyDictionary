@@ -17,11 +17,10 @@ async function getWordList(userId, setWordList) {
     if (Object.keys(json).length != 0) {
         for (let i = 0; i < Object.keys(json).length; i++) {
             let json1
-            let word_Id = json[i]['wordId']
-            let reply = Work_With_Database({ require: `SELECT * FROM words WHERE id='${word_Id}'` })
+            let reply = Work_With_Database({ require: `SELECT * FROM words WHERE id='${json[i]['wordId']}'` })
             await reply.then((value) => {
                 json1 = JSON.parse(value)
-                wordList = {...wordList, [i]: { english: json1[0]['english'], ukrainian: json1[0]['ukrainian']}}
+                wordList = {...wordList, [i]: {id: json[i]['id'], english: json1[0]['english'], ukrainian: json1[0]['ukrainian']}}
             })
         }
         setWordList(wordList)
@@ -38,7 +37,7 @@ function MyWords(props) {
     return (
         <>
             <AddWord userId={props.userId} wordList={wordList} setWordList={setWordList} />
-            <WordList wordList={wordList} />
+            <WordList wordList={wordList} setWordList={setWordList} />
         </>
     )
 }

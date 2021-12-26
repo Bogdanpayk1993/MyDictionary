@@ -22,3 +22,36 @@
 .WordList div div:nth-child(2) {
     float: right;
 }
+
+.WordList .delete {
+    position: fixed;
+    display: flex;
+    width: 40vw;
+    height: 95vh;
+    margin-top: -7vh;
+    background-color: rgba(0, 0, 0, 60%);
+}
+
+.WordList .delete div {
+    display: block;
+    background-color: lightgray;
+    border-radius: 0.5vw;
+}
+
+.WordList .delete div div{
+    width: 8vw;
+    margin: 0px;
+}
+
+.WordList .delete div div:nth-child(2) {
+    float: left;
+}
+
+.WordList .delete div div:nth-child(3) {
+    float: right;
+}
+
+.WordList .delete button {
+    width: 4vw;
+    margin: 0.5vw;
+}

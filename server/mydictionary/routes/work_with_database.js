@@ -43,7 +43,7 @@ router.post('/', function (req, res) {
                 res.send(result)
             })
         }
-        if (req.body.require[0] == "I") {
+        if (req.body.require[0] == "I" || req.body.require[0] == "D") {
             await db.run(req.body.require, function (err, result) {
                 console.log(req.body.require)
                 console.log(result)

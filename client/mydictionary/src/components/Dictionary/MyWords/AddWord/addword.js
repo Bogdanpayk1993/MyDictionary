@@ -24,7 +24,7 @@ function AddWord(props) {
 
         if (Object.keys(json).length == 0) {
             reply = Work_With_Database({ require: `INSERT INTO words (english,ukrainian) VALUES ('${englishRef.current.value}','${ukraineRef.current.value}')` })
-            
+
             reply = Work_With_Database({ require: `SELECT * FROM words WHERE english='${englishRef.current.value}' AND ukrainian='${ukraineRef.current.value}'` })
             await reply.then((value) => {
                 json = JSON.parse(value)
@@ -39,7 +39,13 @@ function AddWord(props) {
 
         if (Object.keys(json).length == 0) {
             reply = Work_With_Database({ require: `INSERT INTO userswords (userId,wordId) VALUES ('${user_Id}','${word_Id}')` })
-            setWordList({ ...wordList, [Object.keys(wordList).length]: { english: englishRef.current.value, ukrainian: ukraineRef.current.value } })
+
+            reply = Work_With_Database({ require: `SELECT * FROM userswords WHERE userId='${user_Id}' AND wordId='${word_Id}'` })
+            await reply.then((value) => {
+                json = JSON.parse(value)
+            })
+
+            setWordList({ ...wordList, [Object.keys(wordList).length]: { id: json[0]['id'], english: englishRef.current.value, ukrainian: ukraineRef.current.value } })
         }
 
         englishRef.current.value = ""
