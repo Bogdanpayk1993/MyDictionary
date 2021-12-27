@@ -20,11 +20,13 @@ async function getWordList(userId, setWordList) {
             let reply = Work_With_Database({ require: `SELECT * FROM words WHERE id='${json[i]['wordId']}'` })
             await reply.then((value) => {
                 json1 = JSON.parse(value)
-                wordList = {...wordList, [i]: {id: json[i]['id'], english: json1[0]['english'], ukrainian: json1[0]['ukrainian']}}
+                wordList = {...wordList, [json[i]['id']]: {id: json[i]['id'], english: json1[0]['english'], ukrainian: json1[0]['ukrainian']}}
             })
         }
         setWordList(wordList)
     }
+
+    console.log(wordList)
 }
 
 function MyWords(props) {

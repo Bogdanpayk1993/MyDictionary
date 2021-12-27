@@ -8,12 +8,12 @@
     background-color: silver;
 }
 
-.AddWord label {
+.AddWord div {
     display: block;
     width: 100%;
 }
 
-.AddWord label label {
+.AddWord div div {
     text-align: right;
 }
 

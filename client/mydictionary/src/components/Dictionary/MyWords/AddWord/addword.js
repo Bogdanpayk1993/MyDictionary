@@ -45,7 +45,7 @@ function AddWord(props) {
                 json = JSON.parse(value)
             })
 
-            setWordList({ ...wordList, [Object.keys(wordList).length]: { id: json[0]['id'], english: englishRef.current.value, ukrainian: ukraineRef.current.value } })
+            setWordList({ ...wordList, [json[0]['id']]: { id: json[0]['id'], english: englishRef.current.value, ukrainian: ukraineRef.current.value } })
         }
 
         englishRef.current.value = ""
@@ -54,14 +54,14 @@ function AddWord(props) {
 
     return (
         <div className="AddWord">
-            <label>
+            <div>
                 <input placeholder="English" ref={englishRef} ></input>
                 -
                 <input placeholder="Ukrainian" ref={ukraineRef} ></input>
-                <label>
+                <div>
                     <button onClick={Add}> Add word </button>
-                </label>
-            </label>
+                </div>
+            </div>
         </div>
     )
 }
