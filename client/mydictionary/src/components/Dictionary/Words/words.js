@@ -27,7 +27,7 @@ async function getData(userId, setUserName, setWordList) {
             let reply = Work_With_Database({ require: `SELECT * FROM words WHERE id='${word_Id}'` })
             await reply.then((value) => {
                 json1 = JSON.parse(value)
-                wordList = {...wordList, [i]: { english: json1[0]['english'], ukrainian: json1[0]['ukrainian']}}
+                wordList = {...wordList, [json[i]['id']]: { english: json1[0]['english'], ukrainian: json1[0]['ukrainian']}}
             })
         }
         setWordList(wordList)
@@ -46,7 +46,7 @@ function Words(props) {
     return (
         <div>
             <div className='UserInformation'>
-                <span> {userName} </span>
+                <span> {userName}  </span> <span> <button> Sing up </button> </span>
             </div>
             <div className='WordList'>
                 {

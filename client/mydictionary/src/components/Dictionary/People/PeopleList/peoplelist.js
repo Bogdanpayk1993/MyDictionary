@@ -11,7 +11,7 @@ function PeopleList(props) {
                     (
                         Object.keys(props['peopleList']).map(el => (
                             <div key={el} onClick={() => setPage(props['peopleList'][el]['id'])}>
-                                <div> {props['peopleList'][el]['name']} </div> <div> <button> Follow </button> </div> 
+                                <div> {props['peopleList'][el]['name']} </div> <div> <button> Sing up </button> </div> 
                             </div>
                         ))
                     ) : 

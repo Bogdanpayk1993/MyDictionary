@@ -1,0 +1,15 @@
+.Subscribers {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Subscribers div {
+    width: 96%;
+    height: 96%;
+}
+
+.Subscribers div p {
+    margin: 0px;
+}

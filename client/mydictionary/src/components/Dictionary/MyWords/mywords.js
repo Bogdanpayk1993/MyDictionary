@@ -25,8 +25,6 @@ async function getWordList(userId, setWordList) {
         }
         setWordList(wordList)
     }
-
-    console.log(wordList)
 }
 
 function MyWords(props) {

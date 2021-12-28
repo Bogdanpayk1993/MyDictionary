@@ -4,6 +4,8 @@ import MyWords from './MyWords/mywords';
 import People from './People/people';
 import './dictionary.css';
 import Words from './Words';
+import Subscriptions from './subscriptions/subscriptions';
+import Subscribers from './subscribers/subscribers';
 
 function Dictionary() {
     const [userId, setUserId] = useState(NaN)
@@ -17,7 +19,8 @@ function Dictionary() {
                     (
                         <div className='Dictionary'>
                             <div>
-
+                                    <Subscriptions />
+                                    <Subscribers />
                             </div>
                             <div>
                                 {

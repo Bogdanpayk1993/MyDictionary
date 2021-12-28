@@ -9,5 +9,15 @@
 }
 
 .UserInformation span {
+    width: 50%;
     margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.UserInformation span:nth-child(1) {
+    text-align: left;
+}
+
+.UserInformation span:nth-child(2) {
+    text-align: right;
 }

@@ -1,0 +1,15 @@
+.Subscriptions {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Subscriptions div {
+    width: 96%;
+    height: 96%;
+}
+
+.Subscriptions div p {
+    margin: 0px;
+}
