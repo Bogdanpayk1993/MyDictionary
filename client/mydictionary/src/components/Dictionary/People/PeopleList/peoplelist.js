@@ -3,7 +3,7 @@ import Work_With_Database from '../../../work_with_database';
 import './peoplelist.css';
 
 async function signUp(el, globalUserId, userId, peopleList, setPeopleList) {
-    /*let json
+    let json
 
     let reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscriber='${globalUserId}' and subscription='${userId}'` })
     await reply.then((value) => {
@@ -12,9 +12,9 @@ async function signUp(el, globalUserId, userId, peopleList, setPeopleList) {
 
     if (Object.keys(json).length == 0) {
         let reply = Work_With_Database({ require: `INSERT INTO subscribers (subscriber, subscription) VALUES ('${globalUserId}','${userId}')` })
-    }*/
+    }
 
-    setPeopleList(...peopleList, peopleList[el]['statys'] = true)
+    setPeopleList({...peopleList, [el]: {...peopleList[el], ['statys']: true}})
 }
 
 function PeopleList(props) {
@@ -38,7 +38,7 @@ function PeopleList(props) {
                                 <div onClick={() => props.setPage(peopleList[el]['id'])}> {peopleList[el]['name']} </div>
                                 <div>
                                     {
-                                        peopleList[el]['statys'] != "true" ?
+                                        peopleList[el]['statys'] != true ?
                                             <button onClick={() => signUp(el, props['userId'], peopleList[el]['id'], peopleList, setPeopleList)} > Sign up </button>
                                             : null
                                     }

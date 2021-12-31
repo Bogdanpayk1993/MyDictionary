@@ -25,9 +25,9 @@ async function getPeopleList(userId, wantedPerson, peopleList, setPeopleList) {
         })
 
         if (Object.keys(json1).length != 0) {
-            json[users[i]]['statys'] = true
+            json = {...json, [users[i]]: {...json[users[i]], ['statys']: true}}
         } else {
-            json[users[i]]['statys'] = false
+            json = {...json, [users[i]]: {...json[users[i]], ['statys']: false}}
         }
 
     }
