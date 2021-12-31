@@ -13,7 +13,25 @@ async function getPeopleList(userId, wantedPerson, peopleList, setPeopleList) {
 
     let user = Object.keys(json).find(el => json[el]['id'] == userId)
     delete json[user]
-    
+
+    let users = Object.keys(json)
+
+    for (let i = 0; i < users.length; i++) {
+        let json1 
+
+        reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscriber='${userId}' and subscription='${json[users[i]]['id']}'` })
+        await reply.then((value) => {
+            json1 = JSON.parse(value)
+        })
+
+        if (Object.keys(json1).length != 0) {
+            json[users[i]]['statys'] = true
+        } else {
+            json[users[i]]['statys'] = false
+        }
+
+    }
+
     if (Object.keys(peopleList).length != Object.keys(json).length) {
         setPeopleList(json)
     } else {
@@ -36,7 +54,7 @@ function People(props) {
     return (
         <>
             <SearchPeople setWantedPerson={setWantedPerson} />
-            <PeopleList peopleList={peopleList} setPage={setPage} />
+            <PeopleList userId={userId} setPage={setPage} peopleList={peopleList} />
         </>
     )
 }

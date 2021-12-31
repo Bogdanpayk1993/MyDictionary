@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Menu from './Menu/menu';
 import MyWords from './MyWords/mywords';
 import People from './People/people';
-import './dictionary.css';
 import Words from './Words';
 import Subscriptions from './subscriptions/subscriptions';
 import Subscribers from './subscribers/subscribers';
+import './dictionary.css';
 
 function Dictionary() {
     const [userId, setUserId] = useState(NaN)
@@ -38,7 +38,7 @@ function Dictionary() {
                                 {
                                     !isNaN(page) ?
                                         (
-                                            <Words page={page} />
+                                            <Words userId={userId} page={page} />
                                         ) : (null)
                                 }
                             </div>
