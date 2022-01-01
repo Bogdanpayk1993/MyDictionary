@@ -7,9 +7,17 @@
 
 .Subscriptions div {
     width: 96%;
-    height: 96%;
+    height: 92%;
 }
 
 .Subscriptions div p {
+    margin: 2%;
+}
+
+.Subscriptions div div {
+    width: 100%;
+}
+
+.Subscriptions div div p {
     margin: 0px;
 }

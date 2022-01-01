@@ -1,15 +1,23 @@
-.Subscribers {
+.Subscriptions {
     height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.Subscribers div {
+.Subscriptions div {
     width: 96%;
-    height: 96%;
+    height: 92%;
 }
 
-.Subscribers div p {
+.Subscriptions div p {
+    margin: 2%;
+}
+
+.Subscriptions div div {
+    width: 100%;
+}
+
+.Subscriptions div div p {
     margin: 0px;
 }

@@ -25,9 +25,7 @@ function PeopleList(props) {
             setPeopleList(props['peopleList'])
         }
     }
-
-    console.log(peopleList)
-
+    
     return (
         <div className='PeopleList'>
             {
