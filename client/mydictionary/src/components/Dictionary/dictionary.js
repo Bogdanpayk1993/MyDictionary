@@ -56,16 +56,18 @@ async function getSubscribers(userId, setSubscribers) {
 function Dictionary() {
     const [userId, setUserId] = useState(NaN)
     const [page, setPage] = useState("Words")
-    const [subscriptions, setSubscriptions] = useState({})
+    const [subscriptions, setSubscriptions] = useState(undefined)
     const [subscribers, setSubscribers] = useState(undefined)
 
-    if (!isNaN(userId) && Object.keys(subscriptions).length == null) {
+    if (!isNaN(userId) && subscriptions == undefined) {
         getSubscriptions(userId, setSubscriptions)
     }
 
     if (!isNaN(userId) && subscribers == undefined) {
         getSubscribers(userId, setSubscribers) 
     }
+
+    console.log(subscriptions)
 
     return (
         <>
