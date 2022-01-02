@@ -48,13 +48,15 @@ function People(props) {
     const [peopleList, setPeopleList] = useState(Array())
     const userId = props.userId
     const setPage = props.setPage
+    const subscriptions = props.subscriptions
+    const setSubscriptions = props.setSubscriptions
 
     getPeopleList(userId, wantedPerson, peopleList, setPeopleList)
 
     return (
         <>
             <SearchPeople setWantedPerson={setWantedPerson} />
-            <PeopleList userId={userId} setPage={setPage} peopleList={peopleList} />
+            <PeopleList userId={userId} setPage={setPage} peopleList={peopleList} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
         </>
     )
 }

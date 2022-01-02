@@ -3,8 +3,8 @@ import Menu from './Menu/menu';
 import MyWords from './MyWords/mywords';
 import People from './People/people';
 import Words from './Words';
-import Subscriptions from './subscriptions/subscriptions';
-import Subscribers from './subscribers/subscribers';
+import Subscriptions from './Subscriptions/subscriptions';
+import Subscribers from './Subscribers/subscribers';
 import Work_With_Database from '../work_with_database';
 import './dictionary.css';
 
@@ -56,10 +56,10 @@ async function getSubscribers(userId, setSubscribers) {
 function Dictionary() {
     const [userId, setUserId] = useState(NaN)
     const [page, setPage] = useState("Words")
-    const [subscriptions, setSubscriptions] = useState(undefined)
+    const [subscriptions, setSubscriptions] = useState({})
     const [subscribers, setSubscribers] = useState(undefined)
 
-    if (!isNaN(userId) && subscriptions == undefined) {
+    if (!isNaN(userId) && Object.keys(subscriptions).length == null) {
         getSubscriptions(userId, setSubscriptions)
     }
 
@@ -88,13 +88,13 @@ function Dictionary() {
                                 {
                                     page == "People" ?
                                         (
-                                            <People userId={userId} setPage={setPage} />
+                                            <People userId={userId} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
                                         ) : (null)
                                 }
                                 {
                                     !isNaN(page) ?
                                         (
-                                            <Words userId={userId} page={page} />
+                                            <Words userId={userId} page={page} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
                                         ) : (null)
                                 }
                             </div>

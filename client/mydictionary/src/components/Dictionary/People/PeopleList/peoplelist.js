@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Work_With_Database from '../../../work_with_database';
 import './peoplelist.css';
 
-async function signUp(el, globalUserId, userId, peopleList, setPeopleList) {
+async function subscribe(el, globalUserId, userId, peopleList, setPeopleList, subscriptions, setSubscriptions) {
     let json
 
     let reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscriber='${globalUserId}' and subscription='${userId}'` })
@@ -12,13 +12,28 @@ async function signUp(el, globalUserId, userId, peopleList, setPeopleList) {
 
     if (Object.keys(json).length == 0) {
         let reply = Work_With_Database({ require: `INSERT INTO subscribers (subscriber, subscription) VALUES ('${globalUserId}','${userId}')` })
+
+        reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${userId}'` })
+        await reply.then((value) => {
+            json = JSON.parse(value)
+        })
+
+        setPeopleList({...peopleList, [el]: {...peopleList[el], ['statys']: true}})
+
+        if (Object.keys(subscriptions).length == 0) {
+            setSubscriptions({ ...subscriptions, ['0']: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
+        } else {
+            setSubscriptions({ ...subscriptions, [subscriptions.length]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
+        }
     }
 
-    setPeopleList({...peopleList, [el]: {...peopleList[el], ['statys']: true}})
+    
 }
 
 function PeopleList(props) {
     const [peopleList, setPeopleList] = useState(NaN)
+    const subscriptions = props.subscriptions 
+    const setSubscriptions = props.setSubscriptions
 
     if (Object.keys(props['peopleList']).length != 0) {
         if (Object.keys(props['peopleList']).length != Object.keys(peopleList).length) {
@@ -37,7 +52,7 @@ function PeopleList(props) {
                                 <div>
                                     {
                                         peopleList[el]['statys'] != true ?
-                                            <button onClick={() => signUp(el, props['userId'], peopleList[el]['id'], peopleList, setPeopleList)} > Sign up </button>
+                                            <button onClick={() => subscribe(el, props['userId'], peopleList[el]['id'], peopleList, setPeopleList, subscriptions, setSubscriptions)} > Subscribe </button>
                                             : null
                                     }
                                 </div>

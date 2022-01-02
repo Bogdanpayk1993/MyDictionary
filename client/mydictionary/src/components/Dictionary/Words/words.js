@@ -4,18 +4,16 @@ import './words.css';
 import '../MyWords/WordList/wordlist.css';
 
 async function getData(globalUserId, userId, setWordList, setUserName, setUserStatys) {
-
     let json
-    let user_Id = userId
     let wordList = {}
 
-    let reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${user_Id}'` })
+    let reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${userId}'` })
     await reply.then((value) => {
         json = JSON.parse(value)
         setUserName(json[0]['name'])
     })
 
-    reply = Work_With_Database({ require: `SELECT * FROM userswords WHERE userId='${user_Id}'` })
+    reply = Work_With_Database({ require: `SELECT * FROM userswords WHERE userId='${userId}'` })
     await reply.then((value) => {
         json = JSON.parse(value)
     })
@@ -43,7 +41,7 @@ async function getData(globalUserId, userId, setWordList, setUserName, setUserSt
     }
 }
 
-async function signUp(globalUserId, userId, setUserStatys) {
+async function subscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions) {
     let json
 
     let reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscriber='${globalUserId}' and subscription='${userId}'` })
@@ -52,15 +50,39 @@ async function signUp(globalUserId, userId, setUserStatys) {
     })
 
     if (Object.keys(json).length == 0) {
-        let reply = Work_With_Database({ require: `INSERT INTO subscribers (subscriber, subscription) VALUES ('${globalUserId}','${userId}')` })
-    }
+        reply = Work_With_Database({ require: `INSERT INTO subscribers (subscriber, subscription) VALUES ('${globalUserId}','${userId}')` })
 
-    setUserStatys(true)
+        reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${userId}'` })
+        await reply.then((value) => {
+            json = JSON.parse(value)
+        })
+
+        setUserStatys(true)
+
+        if (Object.keys(subscriptions).length == 0) {
+            setSubscriptions({ ...subscriptions, ['0']: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
+        } else {
+            setSubscriptions({ ...subscriptions, [subscriptions.length]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
+        }
+    }
+}
+
+async function unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions) {
+    let reply = Work_With_Database({ require: `DELETE FROM subscribers WHERE subscriber='${globalUserId}' and subscription='${userId}'` })
+
+    setUserStatys(false)
+
+    let user = Object.keys(subscriptions).find(el => subscriptions[el]['id'] == userId)
+    delete subscriptions[user]
+
+    setSubscriptions({...subscriptions})
 }
 
 function Words(props) {
     const globalUserId = props.userId
     const userId = props.page
+    const subscriptions = props.subscriptions
+    const setSubscriptions = props.setSubscriptions
     const [userName, setUserName] = useState("")
     const [wordList, setWordList] = useState(NaN)
     const [userStatys, setUserStatys] = useState(false)
@@ -76,8 +98,9 @@ function Words(props) {
                 <span>
                     {
                         userStatys == false ?
-                            <button onClick={() => signUp(globalUserId, userId, setUserStatys)} > Sign up </button>
-                            : null
+                            <button onClick={() => subscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions)} > Subscribe </button>
+                            :
+                            <button onClick={() => unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions)}> Unsubscribe </button>
                     }
                 </span>
             </div>
