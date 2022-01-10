@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import AddWord from './AddWord/addword';
 import WordList from './WordList/wordlist';
-import Work_With_Database from '../../work_with_database';
+import Send_Request_For_Database from '../../send_request_for_database';
 
 async function getWordList(userId, setWordList) {
 
     let json
-    let user_Id = userId
     let wordList = {}
 
-    let reply = Work_With_Database({ require: `SELECT * FROM userswords WHERE userId='${user_Id}'` })
+    let reply = Send_Request_For_Database({ link: 'userswords/getUserId', userId: `${userId}` })
     await reply.then((value) => {
         json = JSON.parse(value)
     })
@@ -17,7 +16,7 @@ async function getWordList(userId, setWordList) {
     if (Object.keys(json).length != 0) {
         for (let i = 0; i < Object.keys(json).length; i++) {
             let json1
-            let reply = Work_With_Database({ require: `SELECT * FROM words WHERE id='${json[i]['wordId']}'` })
+            let reply = Send_Request_For_Database({ link: 'words/getId', id: `${json[i]['wordId']}` })
             await reply.then((value) => {
                 json1 = JSON.parse(value)
                 wordList = {...wordList, [json[i]['id']]: {id: json[i]['id'], english: json1[0]['english'], ukrainian: json1[0]['ukrainian']}}

@@ -1,6 +1,6 @@
-async function Work_With_Database(request) {
+async function Send_Request_For_Database(request) {
     let reply
-    await fetch("http://localhost:9000/database", {
+    await fetch(`http://localhost:9000/${request['link']}`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(request)
@@ -10,4 +10,4 @@ async function Work_With_Database(request) {
     return reply
 }
 
-export default Work_With_Database
+export default Send_Request_For_Database

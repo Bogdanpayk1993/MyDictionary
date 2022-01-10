@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Work_With_Database from '../../../work_with_database';
+import Send_Request_For_Database from '../../../send_request_for_database';
 import './wordlist.css';
 
 function delete_word(id, wordList, setWordList, setDelete) {
-    let reply = Work_With_Database({ require: `DELETE FROM userswords WHERE id=${id.globalId}` })
+    let reply = Send_Request_For_Database({ link: 'userswords/delete', id: `${id.globalId}` })
     delete wordList[id.id]
     setWordList({ ...wordList })
     setDelete(NaN)

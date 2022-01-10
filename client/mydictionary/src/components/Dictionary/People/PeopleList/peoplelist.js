@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
-import Work_With_Database from '../../../work_with_database';
+import Send_Request_For_Database from '../../../send_request_for_database';
 import './peoplelist.css';
 
 async function subscribe(el, globalUserId, userId, peopleList, setPeopleList, subscriptions, setSubscriptions) {
     let json
 
-    let reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscriber='${globalUserId}' and subscription='${userId}'` })
+    let reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
     await reply.then((value) => {
         json = JSON.parse(value)
     })
 
     if (Object.keys(json).length == 0) {
-        let reply = Work_With_Database({ require: `INSERT INTO subscribers (subscriber, subscription) VALUES ('${globalUserId}','${userId}')` })
+        let reply = Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
+        await reply.then((value) => {})
 
-        reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${userId}'` })
+        reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
         await reply.then((value) => {
             json = JSON.parse(value)
         })
 
         setPeopleList({...peopleList, [el]: {...peopleList[el], ['statys']: true}})
 
-        if (Object.keys(subscriptions).length == 0) {
+        if (JSON.stringify(subscriptions) == undefined) {
             setSubscriptions({ ...subscriptions, ['0']: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
         } else {
             setSubscriptions({ ...subscriptions, [subscriptions.length]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })

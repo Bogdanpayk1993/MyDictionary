@@ -5,14 +5,13 @@ import People from './People/people';
 import Words from './Words';
 import Subscriptions from './Subscriptions/subscriptions';
 import Subscribers from './Subscribers/subscribers';
-import Work_With_Database from '../work_with_database';
+import Send_Request_For_Database from '../send_request_for_database';
 import './dictionary.css';
-
 
 async function getSubscriptions(userId, setSubscriptions) {
     let json
 
-    let reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscriber='${userId}'` })
+    let reply = Send_Request_For_Database({ link: 'subscribers/getSubscriber', subscriber: `${userId}`})
     await reply.then((value) => {
         json = JSON.parse(value)
     })
@@ -21,7 +20,7 @@ async function getSubscriptions(userId, setSubscriptions) {
 
     if (Object.keys(json).length != 0) {
         for (let i = 0; i < Object.keys(json).length; i++) {
-            reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${json[i]['subscription']}'` })
+            reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscription']}` })
             await reply.then((value) => {
                 json1 = JSON.parse(value)
             })
@@ -34,7 +33,7 @@ async function getSubscriptions(userId, setSubscriptions) {
 async function getSubscribers(userId, setSubscribers) {
     let json
 
-    let reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscription='${userId}'` })
+    let reply = Send_Request_For_Database({ link: `subscribers/getSubscription`, subscription: `${userId}` })
     await reply.then((value) => {
         json = JSON.parse(value)
     })
@@ -43,7 +42,7 @@ async function getSubscribers(userId, setSubscribers) {
 
     if (Object.keys(json).length != 0) {
         for (let i = 0; i < Object.keys(json).length; i++) {
-            reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${json[i]['subscriber']}'` })
+            reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscriber']}` })
             await reply.then((value) => {
                 json1 = JSON.parse(value)
             })
@@ -56,18 +55,16 @@ async function getSubscribers(userId, setSubscribers) {
 function Dictionary() {
     const [userId, setUserId] = useState(NaN)
     const [page, setPage] = useState("Words")
-    const [subscriptions, setSubscriptions] = useState(undefined)
-    const [subscribers, setSubscribers] = useState(undefined)
-
-    if (!isNaN(userId) && subscriptions == undefined) {
+    const [subscriptions, setSubscriptions] = useState({})
+    const [subscribers, setSubscribers] = useState({})
+     
+    if (!isNaN(userId) && JSON.stringify(subscriptions) === '{}') {
         getSubscriptions(userId, setSubscriptions)
     }
 
-    if (!isNaN(userId) && subscribers == undefined) {
+    if (!isNaN(userId) && JSON.stringify(subscribers) === '{}') {
         getSubscribers(userId, setSubscribers) 
-    }
-
-    console.log(subscriptions)
+    } 
 
     return (
         <>

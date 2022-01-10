@@ -2,13 +2,13 @@ import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from '../../../Auth0/LoginButton';
 import LogoutBotton from '../../../Auth0/LogoutButton';
-import Work_With_Database from '../../../work_with_database';
+import Send_Request_For_Database from '../../../send_request_for_database';
 import './authentication.css';
 
 async function getUserData(user, setUserId) {
     let json
-
-    let reply = Work_With_Database({ require: `SELECT * FROM users WHERE email='${user.email}'` })
+    
+    let reply = Send_Request_For_Database({ link:'users/getEmail', wantedEmail: `${user.email}` })
     await reply.then((value) => {
         json = JSON.parse(value)
         if (Object.keys(json).length != 0) {
@@ -17,15 +17,15 @@ async function getUserData(user, setUserId) {
     })
 
     if (Object.keys(json).length == 0) {
-        reply = Work_With_Database({ require: `INSERT INTO users (name,email) VALUES ('${user.name}', '${user.email}')` })
+        let reply = Send_Request_For_Database({ link: 'users/set', userName: `${user.name}`, userEmail: `${user.email}` })
+        await reply.then((value) => {})
 
-        reply = Work_With_Database({ require: `SELECT * FROM users WHERE email='${user.email}'` })
-        await reply.then((value) => {
+        let reply1 = Send_Request_For_Database({ link:'users/getEmail', wantedEmail: `${user.email}` })
+        await reply1.then((value) => {
             json = JSON.parse(value)
             setUserId(json[0].id)
         })
     }
-
 }
 
 function Authentication(props) {

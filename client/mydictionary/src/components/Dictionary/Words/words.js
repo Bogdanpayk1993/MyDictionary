@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Work_With_Database from '../../work_with_database';
+import Send_Request_For_Database from '../../send_request_for_database';
 import './words.css';
 import '../MyWords/WordList/wordlist.css';
 
@@ -7,13 +7,13 @@ async function getData(globalUserId, userId, setWordList, setUserName, setUserSt
     let json
     let wordList = {}
 
-    let reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${userId}'` })
+    let reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
     await reply.then((value) => {
         json = JSON.parse(value)
         setUserName(json[0]['name'])
     })
 
-    reply = Work_With_Database({ require: `SELECT * FROM userswords WHERE userId='${userId}'` })
+    reply = Send_Request_For_Database({ link: 'userswords/getUserId', userId: `${userId}` })
     await reply.then((value) => {
         json = JSON.parse(value)
     })
@@ -22,7 +22,7 @@ async function getData(globalUserId, userId, setWordList, setUserName, setUserSt
         for (let i = 0; i < Object.keys(json).length; i++) {
             let json1
             let word_Id = json[i]['wordId']
-            let reply = Work_With_Database({ require: `SELECT * FROM words WHERE id='${word_Id}'` })
+            let reply = Send_Request_For_Database({ link: 'words/getId', id: `${word_Id}` })
             await reply.then((value) => {
                 json1 = JSON.parse(value)
                 wordList = { ...wordList, [json[i]['id']]: { english: json1[0]['english'], ukrainian: json1[0]['ukrainian'] } }
@@ -31,7 +31,7 @@ async function getData(globalUserId, userId, setWordList, setUserName, setUserSt
         setWordList(wordList)
     }
 
-    reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscriber='${globalUserId}' and subscription='${userId}'` })
+    reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
     await reply.then((value) => {
         json = JSON.parse(value)
     })
@@ -44,22 +44,22 @@ async function getData(globalUserId, userId, setWordList, setUserName, setUserSt
 async function subscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions) {
     let json
 
-    let reply = Work_With_Database({ require: `SELECT * FROM subscribers WHERE subscriber='${globalUserId}' and subscription='${userId}'` })
+    let reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
     await reply.then((value) => {
         json = JSON.parse(value)
     })
 
     if (Object.keys(json).length == 0) {
-        reply = Work_With_Database({ require: `INSERT INTO subscribers (subscriber, subscription) VALUES ('${globalUserId}','${userId}')` })
-
-        reply = Work_With_Database({ require: `SELECT * FROM users WHERE id='${userId}'` })
+        reply = Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
+        
+        reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
         await reply.then((value) => {
             json = JSON.parse(value)
         })
 
         setUserStatys(true)
 
-        if (Object.keys(subscriptions).length == 0) {
+        if (JSON.stringify(subscriptions) == undefined) {
             setSubscriptions({ ...subscriptions, ['0']: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
         } else {
             setSubscriptions({ ...subscriptions, [subscriptions.length]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
@@ -68,8 +68,7 @@ async function subscribe(globalUserId, userId, setUserStatys, subscriptions, set
 }
 
 async function unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions) {
-    let reply = Work_With_Database({ require: `DELETE FROM subscribers WHERE subscriber='${globalUserId}' and subscription='${userId}'` })
-
+    let reply = Send_Request_For_Database({ link: 'subscribers/delete', subscriber: `${globalUserId}`, subscription: `${userId}` }) 
     setUserStatys(false)
 
     let user = Object.keys(subscriptions).find(el => subscriptions[el]['id'] == userId)

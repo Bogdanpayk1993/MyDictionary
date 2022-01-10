@@ -3,7 +3,7 @@ import './searchpeople.css';
 
 function WantedPerson(setWantedPerson, nameRef) {
     if (nameRef.current.value != "") {
-        setWantedPerson(`WHERE name='${nameRef.current.value}'`)
+        setWantedPerson(nameRef.current.value)
     } else {
         setWantedPerson('')
     }

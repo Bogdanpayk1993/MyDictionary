@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import Work_With_Database from '../../../work_with_database';
+import Send_Request_For_Database from '../../../send_request_for_database';
 import './addword.css';
 
 function AddWord(props) {
@@ -14,7 +14,7 @@ function AddWord(props) {
         let wordList = props.wordList
         let setWordList = props.setWordList
 
-        let reply = Work_With_Database({ require: `SELECT * FROM words WHERE english='${englishRef.current.value}' AND ukrainian='${ukraineRef.current.value}'` })
+        let reply = Send_Request_For_Database({ link: 'words/getEnglishUkrainian', english: `${englishRef.current.value}`, ukrainian: `${ukraineRef.current.value}` })
         await reply.then((value) => {
             json = JSON.parse(value)
             if (Object.keys(json).length != 0) {
@@ -23,24 +23,27 @@ function AddWord(props) {
         })
 
         if (Object.keys(json).length == 0) {
-            reply = Work_With_Database({ require: `INSERT INTO words (english,ukrainian) VALUES ('${englishRef.current.value}','${ukraineRef.current.value}')` })
+            reply = Send_Request_For_Database({ link: 'words/set', english: `${englishRef.current.value}`, ukrainian: `${ukraineRef.current.value}` })
+            await reply.then((value) => {})
 
-            reply = Work_With_Database({ require: `SELECT * FROM words WHERE english='${englishRef.current.value}' AND ukrainian='${ukraineRef.current.value}'` })
+            reply = Send_Request_For_Database({ link: 'words/getEnglishUkrainian', english: `${englishRef.current.value}`, ukrainian: `${ukraineRef.current.value}` })
             await reply.then((value) => {
                 json = JSON.parse(value)
                 word_Id = json[0].id
             })
         }
 
-        reply = Work_With_Database({ require: `SELECT * FROM userswords WHERE userId='${user_Id}' AND wordId='${word_Id}'` })
+        reply = Send_Request_For_Database({ link: 'userswords/getUserIdWordId', userId: `${user_Id}`, wordId: `${word_Id}` })
         await reply.then((value) => {
             json = JSON.parse(value)
         })
 
-        if (Object.keys(json).length == 0) {
-            reply = Work_With_Database({ require: `INSERT INTO userswords (userId,wordId) VALUES ('${user_Id}','${word_Id}')` })
 
-            reply = Work_With_Database({ require: `SELECT * FROM userswords WHERE userId='${user_Id}' AND wordId='${word_Id}'` })
+        if (Object.keys(json).length == 0) {
+            reply = Send_Request_For_Database({ link: 'userswords/set', userId: `${user_Id}`, wordId: `${word_Id}` })
+            await reply.then((value) => {})
+
+            reply = Send_Request_For_Database({ link: 'userswords/getUserIdWordId', userId: `${user_Id}`, wordId: `${word_Id}` })
             await reply.then((value) => {
                 json = JSON.parse(value)
             })
