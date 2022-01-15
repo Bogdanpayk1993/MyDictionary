@@ -14,26 +14,28 @@ async function getSubscriptions(globalUserId, userId, subscriptionsList, setSubs
 
     if (Object.keys(json).length != 0) {
         for (let i = 0; i < Object.keys(json).length; i++) {
+            let id
             reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscription']}` })
             await reply.then((value) => {
                 let json2 = JSON.parse(value)
-                json1 = { ...json1, [i]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] } }
+                id = json2[0]['id']
+                json1 = { ...json1, [id]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] } }
             })
 
             let json3
 
-            reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${json1[i]['id']}` })
+            reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${json1[id]['id']}` })
             await reply.then((value) => {
                 json3 = JSON.parse(value)
             })
 
             if (Object.keys(json3).length != 0) {
-                json1 = { ...json1, [i]: { ...json1[i], ['statys']: true } }
+                json1 = { ...json1, [id]: { ...json1[id], ['statys']: true } }
             } else {
-                if (globalUserId == json1[i]['id']) {
-                    json1 = { ...json1, [i]: { ...json1[i], ['statys']: true } }
+                if (globalUserId == json1[id]['id']) {
+                    json1 = { ...json1, [id]: { ...json1[id], ['statys']: true } }
                 } else {
-                    json1 = { ...json1, [i]: { ...json1[i], ['statys']: false } }
+                    json1 = { ...json1, [id]: { ...json1[id], ['statys']: false } }
                 }
             }
         }
@@ -60,20 +62,16 @@ async function subscribe(el, globalUserId, userId, subscriptionsList, setSubscri
 
     if (Object.keys(json).length == 0) {
         let reply = Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
-        await reply.then((value) => {})
+        await reply.then((value) => { })
 
         reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
         await reply.then((value) => {
             json = JSON.parse(value)
         })
 
-        setSubscriptionsList({...subscriptionsList, [el]: {...subscriptionsList[el], ['statys']: true}})
+        setSubscriptionsList({ ...subscriptionsList, [el]: { ...subscriptionsList[el], ['statys']: true } })
 
-        if (JSON.stringify(subscriptions) == undefined) {
-            setSubscriptions({ ...subscriptions, ['0']: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
-        } else {
-            setSubscriptions({ ...subscriptions, [subscriptions.length]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
-        }
+        setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
     }
 }
 
@@ -93,7 +91,7 @@ function Subscriptions(props) {
     const [subscriptionsList, setSubscriptionsList] = useState({})
 
     getSubscriptions(globalUserId, userId, subscriptionsList, setSubscriptionsList)
-    
+
     return (
         <div className='PeopleList'>
             {
