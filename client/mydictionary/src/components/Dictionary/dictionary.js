@@ -23,7 +23,7 @@ async function getSubscriptions(userId, setSubscriptions) {
             reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscription']}` })
             await reply.then((value) => {
                 let json2 = JSON.parse(value)
-                json1 = {...json1, [i]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] }}
+                json1 = {...json1, [json2[0]['id']]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] }}
             })
         }
     }

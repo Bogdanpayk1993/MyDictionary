@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Send_Request_For_Database from '../../send_request_for_database';
 import WordList from './WordList/wordlist';
 import Subscriptions from './Subscriptions/subscriptions';
+import Subscribers from './Subscribers/subscribers';
 import './personprofile.css';
-
 
 async function getUserInformation(globalUserId, userId, setUserName, setUserStatys) {
     let json
@@ -42,11 +42,7 @@ async function subscribe(globalUserId, userId, setUserStatys, subscriptions, set
 
         setUserStatys(true)
 
-        if (JSON.stringify(subscriptions) == undefined) {
-            setSubscriptions({ ...subscriptions, ['0']: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
-        } else {
-            setSubscriptions({ ...subscriptions, [subscriptions.length]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
-        }
+        setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
     }
 }
 
@@ -98,20 +94,18 @@ function PersonProfile(props) {
                                 page == "Words" ?
                                     (
                                         <WordList userId={userId} />
-                                    )
-                                    : (null)
+                                    ) : (null)
                             }
                             {
                                 page == "Subscriptions" ?
                                     (
                                         <Subscriptions globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
-                                    )
-                                    : (null)
+                                    ) : (null)
                             }
                             {
                                 page == "Subscribers" ?
                                     (
-                                        <p> Subscribers </p>
+                                        <Subscribers globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
                                     ) : (null)
                             }
                         </>

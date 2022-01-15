@@ -21,11 +21,7 @@ async function subscribe(el, globalUserId, userId, peopleList, setPeopleList, su
 
         setPeopleList({...peopleList, [el]: {...peopleList[el], ['statys']: true}})
 
-        if (JSON.stringify(subscriptions) == undefined) {
-            setSubscriptions({ ...subscriptions, ['0']: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
-        } else {
-            setSubscriptions({ ...subscriptions, [subscriptions.length]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
-        }
+        setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
     }
 }
 
