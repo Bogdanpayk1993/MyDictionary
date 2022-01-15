@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from './Menu/menu';
 import MyWords from './MyWords/mywords';
 import People from './People/people';
-import Words from './Words';
+import PersonProfile from './PersonProfile';
 import Subscriptions from './Subscriptions/subscriptions';
 import Subscribers from './Subscribers/subscribers';
 import Send_Request_For_Database from '../send_request_for_database';
@@ -22,7 +22,8 @@ async function getSubscriptions(userId, setSubscriptions) {
         for (let i = 0; i < Object.keys(json).length; i++) {
             reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscription']}` })
             await reply.then((value) => {
-                json1 = JSON.parse(value)
+                let json2 = JSON.parse(value)
+                json1 = {...json1, [i]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] }}
             })
         }
     }
@@ -44,7 +45,8 @@ async function getSubscribers(userId, setSubscribers) {
         for (let i = 0; i < Object.keys(json).length; i++) {
             reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscriber']}` })
             await reply.then((value) => {
-                json1 = JSON.parse(value)
+                let json2 = JSON.parse(value)
+                json1 = {...json1, [i]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] }}
             })
         }
     }
@@ -93,7 +95,7 @@ function Dictionary() {
                                 {
                                     !isNaN(page) ?
                                         (
-                                            <Words userId={userId} page={page} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
+                                            <PersonProfile userId={userId} page={page} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
                                         ) : (null)
                                 }
                             </div>

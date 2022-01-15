@@ -14,9 +14,7 @@ function Subscribers(props) {
                     {
                         subscribers != undefined ? (
                             Object.keys(subscribers).map((el) => (
-                                <div onClick={() => setPage(subscribers[el]['id'])} key={el}>
-                                    <p> {subscribers[el]['name']} </p>
-                                </div>
+                                <p onClick={() => setPage(subscribers[el]['id'])} key={el}> {subscribers[el]['name']} </p>
                             ))
                         ) : null
                     }

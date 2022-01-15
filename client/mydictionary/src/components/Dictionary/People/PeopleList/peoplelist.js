@@ -27,8 +27,6 @@ async function subscribe(el, globalUserId, userId, peopleList, setPeopleList, su
             setSubscriptions({ ...subscriptions, [subscriptions.length]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
         }
     }
-
-    
 }
 
 function PeopleList(props) {

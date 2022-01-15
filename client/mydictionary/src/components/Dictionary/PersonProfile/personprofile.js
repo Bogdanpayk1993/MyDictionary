@@ -1,35 +1,18 @@
 import React, { useState } from 'react';
 import Send_Request_For_Database from '../../send_request_for_database';
-import './words.css';
-import '../MyWords/WordList/wordlist.css';
+import WordList from './WordList/wordlist';
+import Subscriptions from './Subscriptions/subscriptions';
+import './personprofile.css';
 
-async function getData(globalUserId, userId, setWordList, setUserName, setUserStatys) {
+
+async function getUserInformation(globalUserId, userId, setUserName, setUserStatys) {
     let json
-    let wordList = {}
 
     let reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
     await reply.then((value) => {
         json = JSON.parse(value)
         setUserName(json[0]['name'])
     })
-
-    reply = Send_Request_For_Database({ link: 'userswords/getUserId', userId: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
-    })
-
-    if (Object.keys(json).length != 0) {
-        for (let i = 0; i < Object.keys(json).length; i++) {
-            let json1
-            let word_Id = json[i]['wordId']
-            let reply = Send_Request_For_Database({ link: 'words/getId', id: `${word_Id}` })
-            await reply.then((value) => {
-                json1 = JSON.parse(value)
-                wordList = { ...wordList, [json[i]['id']]: { english: json1[0]['english'], ukrainian: json1[0]['ukrainian'] } }
-            })
-        }
-        setWordList(wordList)
-    }
 
     reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
     await reply.then((value) => {
@@ -51,7 +34,7 @@ async function subscribe(globalUserId, userId, setUserStatys, subscriptions, set
 
     if (Object.keys(json).length == 0) {
         reply = Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
-        
+
         reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
         await reply.then((value) => {
             json = JSON.parse(value)
@@ -68,32 +51,36 @@ async function subscribe(globalUserId, userId, setUserStatys, subscriptions, set
 }
 
 async function unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions) {
-    let reply = Send_Request_For_Database({ link: 'subscribers/delete', subscriber: `${globalUserId}`, subscription: `${userId}` }) 
+    let reply = Send_Request_For_Database({ link: 'subscribers/delete', subscriber: `${globalUserId}`, subscription: `${userId}` })
     setUserStatys(false)
 
     let user = Object.keys(subscriptions).find(el => subscriptions[el]['id'] == userId)
     delete subscriptions[user]
 
-    setSubscriptions({...subscriptions})
+    setSubscriptions({ ...subscriptions })
 }
 
-function Words(props) {
+function PersonProfile(props) {
     const globalUserId = props.userId
     const userId = props.page
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
+    const globalSetPage = props.setPage
     const [userName, setUserName] = useState("")
-    const [wordList, setWordList] = useState(NaN)
     const [userStatys, setUserStatys] = useState(false)
+    const [page, setPage] = useState("Words")
 
-    if (userName == "") {
-        getData(globalUserId, userId, setWordList, setUserName, setUserStatys)
-    }
+    getUserInformation(globalUserId, userId, setUserName, setUserStatys)
 
     return (
         <div>
             <div className='UserInformation'>
                 <span> {userName}  </span>
+                <span>
+                    <p onClick={() => setPage("Words")} > Words </p>
+                    <p onClick={() => setPage("Subscriptions")}> Subscriptions </p>
+                    <p onClick={() => setPage("Subscribers")}> Subscribers </p>
+                </span>
                 <span>
                     {
                         userStatys == false ?
@@ -103,23 +90,35 @@ function Words(props) {
                     }
                 </span>
             </div>
-            <div className='WordList'>
-                {
-                    Object.keys(wordList).length != 0 ?
-                        (
-                            Object.keys(wordList).map(el => (
-                                <div key={el}>
-                                    <div> {wordList[el]['english']} </div> - <div> {wordList[el]['ukrainian']} </div>
-                                </div>
-                            ))
-                        ) :
-                        (
-                            <p> Person don't have words </p>
-                        )
-                }
-            </div>
+            {
+                userName != "" ?
+                    (
+                        <>
+                            {
+                                page == "Words" ?
+                                    (
+                                        <WordList userId={userId} />
+                                    )
+                                    : (null)
+                            }
+                            {
+                                page == "Subscriptions" ?
+                                    (
+                                        <Subscriptions globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
+                                    )
+                                    : (null)
+                            }
+                            {
+                                page == "Subscribers" ?
+                                    (
+                                        <p> Subscribers </p>
+                                    ) : (null)
+                            }
+                        </>
+                    ) : (null)
+            }
         </div>
     )
 }
 
-export default Words;
+export default PersonProfile;

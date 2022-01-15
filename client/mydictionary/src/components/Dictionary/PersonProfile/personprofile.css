@@ -9,19 +9,32 @@
 }
 
 .UserInformation span {
-    width: 50%;
     margin-left: 1vw;
     margin-right: 1vw;
 }
 
 .UserInformation span:nth-child(1) {
+    width: 20%;
     text-align: left;
 }
 
 .UserInformation span:nth-child(2) {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}
+
+.UserInformation span:nth-child(3) {
+    width: 20%;
     text-align: right;
 }
 
-.UserInformation span:nth-child(2) button {
+.UserInformation span:nth-child(3) button {
     margin-right: 1vw;
+}
+
+.UserInformation span p {
+    float: left;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
 }

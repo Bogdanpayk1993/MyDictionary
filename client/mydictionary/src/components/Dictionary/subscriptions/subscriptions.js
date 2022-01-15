@@ -5,7 +5,7 @@ function Subscriptions(props) {
 
     const subscriptions = props.subscriptions
     const setPage = props.setPage
-
+    
     return (
         <div className='Subscriptions'>
             <div>
@@ -14,9 +14,7 @@ function Subscriptions(props) {
                     {
                         subscriptions != undefined ? (
                             Object.keys(subscriptions).map((el) => (
-                                <div onClick={() => setPage(subscriptions[el]['id'])} key={el}>
-                                    <p> {subscriptions[el]['name']} </p>
-                                </div>
+                                <p onClick={() => setPage(subscriptions[el]['id'])} key={el}> {subscriptions[el]['name']} </p>
                             ))
                         ) : null
                     }
