@@ -1,0 +1,19 @@
+.WordList div {
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.WordList div div {
+    width: 18vw;
+}
+
+.WordList div div:nth-child(1) {
+    float: left;
+}
+
+.WordList div div:nth-child(2) {
+    float: right;
+}

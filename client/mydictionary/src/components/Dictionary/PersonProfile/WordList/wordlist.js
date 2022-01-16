@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Send_Request_For_Database from '../../../send_request_for_database';
-import '../../MyWords/WordList/wordlist.css';
+import Word from '../../Word/word';
 
 async function getWordLis(userId, wordList, setWordList) {
     let json
@@ -46,9 +46,9 @@ function WordList(props) {
                     Object.keys(wordList).length != 0 ?
                         (
                             Object.keys(wordList).map(el => (
-                                <div key={el}>
-                                    <div> {wordList[el]['english']} </div> - <div> {wordList[el]['ukrainian']} </div>
-                                </div>
+                                <>
+                                    <Word word={wordList[el]} key={wordList[el]['id']} />
+                                </>
                             ))
                         ) :
                         (
