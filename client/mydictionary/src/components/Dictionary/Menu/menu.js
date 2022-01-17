@@ -13,7 +13,7 @@ function Menu(props) {
                 <Nav setPage={props.setPage} />
             </div> 
             <div>
-                <Authentication userId={props.userId} setUserId={props.setUserId} />
+                <Authentication userId={props.userId} setUserId={props.setUserId} setUserName={props.setUserName} />
             </div>
         </div>
     )

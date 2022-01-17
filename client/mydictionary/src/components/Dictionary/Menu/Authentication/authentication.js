@@ -5,7 +5,7 @@ import LogoutBotton from '../../../Auth0/LogoutButton';
 import Send_Request_For_Database from '../../../send_request_for_database';
 import './authentication.css';
 
-async function getUserData(user, setUserId) {
+async function getUserData(user, setUserId, setUserName) {
     let json
     
     let reply = Send_Request_For_Database({ link:'users/getEmail', wantedEmail: `${user.email}` })
@@ -13,6 +13,7 @@ async function getUserData(user, setUserId) {
         json = JSON.parse(value)
         if (Object.keys(json).length != 0) {
             setUserId(json[0].id)
+            setUserName(user.name)
         }
     })
 
@@ -24,6 +25,7 @@ async function getUserData(user, setUserId) {
         await reply1.then((value) => {
             json = JSON.parse(value)
             setUserId(json[0].id)
+            setUserName(user.name)
         })
     }
 }
@@ -32,7 +34,7 @@ function Authentication(props) {
     const { user, isAuthenticated } = useAuth0();
 
     if (isAuthenticated && isNaN(props.userId)) {
-        getUserData(user, props.setUserId)
+        getUserData(user, props.setUserId, props.setUserName)
     }
 
     return (

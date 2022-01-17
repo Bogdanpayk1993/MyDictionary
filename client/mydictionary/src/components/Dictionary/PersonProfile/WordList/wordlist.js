@@ -34,6 +34,8 @@ async function getWordLis(userId, wordList, setWordList) {
 }
 
 function WordList(props) {
+
+    const userName = props.userName
     const userId = props.userId
     const [wordList, setWordList] = useState({})
 
@@ -46,7 +48,7 @@ function WordList(props) {
                     Object.keys(wordList).length != 0 ?
                         (
                             Object.keys(wordList).map(el => (
-                                <Word word={wordList[el]} key={wordList[el]['id']} />
+                                <Word userName={userName} word={wordList[el]} key={wordList[el]['id']} />
                             ))
                         ) :
                         (

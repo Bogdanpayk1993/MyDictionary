@@ -56,6 +56,7 @@ async function getSubscribers(userId, setSubscribers) {
 
 function Dictionary() {
     const [userId, setUserId] = useState(NaN)
+    const [userName, setUserName] = useState("")
     const [page, setPage] = useState("Words")
     const [subscriptions, setSubscriptions] = useState({})
     const [subscribers, setSubscribers] = useState({})
@@ -70,7 +71,7 @@ function Dictionary() {
 
     return (
         <>
-            <Menu userId={userId} setUserId={setUserId} setPage={setPage} />
+            <Menu userId={userId} setUserId={setUserId} setUserName={setUserName} setPage={setPage} />
             {
                 !isNaN(userId) ?
                     (
@@ -83,7 +84,7 @@ function Dictionary() {
                                 {
                                     page == "Words" ?
                                         (
-                                            <MyWords userId={userId} />
+                                            <MyWords userId={userId} userName={userName} />
                                         ) : (null)
                                 }
                                 {
