@@ -46,9 +46,7 @@ function WordList(props) {
                     Object.keys(wordList).length != 0 ?
                         (
                             Object.keys(wordList).map(el => (
-                                <>
-                                    <Word word={wordList[el]} key={wordList[el]['id']} />
-                                </>
+                                <Word word={wordList[el]} key={wordList[el]['id']} />
                             ))
                         ) :
                         (

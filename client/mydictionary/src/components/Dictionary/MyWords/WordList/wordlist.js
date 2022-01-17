@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Send_Request_For_Database from '../../../send_request_for_database';
 import Word from '../../Word/word';
-import './wordlist.css';
+import Delete from './Delete/delete';
 
-function delete_word(id, wordList, setWordList, setDelete) {
+function deleteWord(id, wordList, setWordList, setDelete) {
     let reply = Send_Request_For_Database({ link: 'userswords/delete', id: `${id}` })
     delete wordList[id]
     setWordList({ ...wordList })
@@ -19,14 +19,7 @@ function WordList(props) {
             {
                 !isNaN(deleteWordId) ?
                     (
-                        <div className='delete'>
-                            <div> 
-                                <p> Do you want delete </p>
-                                <div> {props['wordList'][deleteWordId][`english`]} </div> - <div> {props['wordList'][deleteWordId]['ukrainian']} </div>
-                                <button onClick={() => delete_word(deleteWordId, props['wordList'], props['setWordList'], setDelete)}> Yes </button>
-                                <button onClick={() => setDelete(NaN)} > No </button>
-                            </div>
-                        </div>
+                       <Delete deleteWordId={deleteWordId}  wordList={props['wordList']} deleteWord={deleteWord} setWordList={props['setWordList']} setDelete={setDelete} />
                     ) :
                     (null)
             }

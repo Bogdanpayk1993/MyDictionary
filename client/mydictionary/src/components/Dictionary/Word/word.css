@@ -1,3 +1,8 @@
+.WordList {
+    height: 88vh;
+    padding-top: 1vh;
+}
+
 .WordList div {
     padding-top: 0.2vw;
     padding-bottom: 0.2vw;
