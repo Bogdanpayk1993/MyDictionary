@@ -10,7 +10,7 @@
     height: 0px;
 }
 
-.WordList div div {
+.WordList .Post div {
     padding-top: 0.2vw;
     padding-bottom: 0.2vw;
     display: flex;
@@ -18,22 +18,36 @@
     align-items: center;
 }
 
-.WordList div .Word {
+.WordList .Post div:nth-child(1) div {
+    width: 20vw;
+}
+
+.WordList .Post div:nth-child(1) div:nth-child(1) {
+    justify-content: left;
+    margin-left: 7.5vw;
+}
+
+.WordList .Post div:nth-child(1) div:nth-child(2) {
+    justify-content: right;
+    margin-right: 7.5vw;
+}
+
+.WordList .Post > div:nth-child(2) {
     width: 25vw;
     height: 25vw;
     margin-left: 7.5vw;
-    margin-left: 7.5vw;
+    margin-right: 7.5vw;
     background-color: aquamarine;
 }
 
-.WordList div div div {
+.WordList .Post > div:nth-child(2) div {
     width: 18vw;
 }
 
-.WordList div div div:nth-child(1) {
+.WordList .Post > div:nth-child(2) div:nth-child(1) {
     float: left;
 }
 
-.WordList div div div:nth-child(2) {
+.WordList .Post > div:nth-child(2) div:nth-child(2) {
     float: right;
 }

@@ -8,8 +8,8 @@ function Word(props) {
     const setDelete = props.setDelete
 
     return (
-        <div>
-            <div className='userInformation'>
+        <div className='Post'>
+            <div>
                 <div>
                     {userName}
                 </div>
@@ -22,7 +22,7 @@ function Word(props) {
                     }
                 </div>
             </div>
-            <div className='Word'>
+            <div>
                 <div> {word['english']} </div> - <div> {word['ukrainian']} </div>
             </div>
         </div>

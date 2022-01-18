@@ -1,6 +1,8 @@
 .delete {
     position: fixed;
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 40vw;
     height: 95vh;
     margin-top: -7vh;
@@ -8,25 +10,28 @@
 }
 
 .delete div {
-    display: block;
+    width: 36vw;
     background-color: lightgray;
     border-radius: 0.5vw;
 }
 
-.delete div div{
-    width: 8vw;
-    margin: 0px;
+.delete div div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.delete div div:nth-child(2) {
+.delete div div p:nth-child(1) {
+    width: 17vw;
     float: left;
 }
 
-.delete div div:nth-child(3) {
+.delete div div p:nth-child(2) {
+    width: 17vw;
     float: right;
 }
 
-.delete button {
+.delete div button {
     width: 4vw;
     margin: 0.5vw;
 }
