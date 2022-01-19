@@ -96,7 +96,7 @@ function Dictionary() {
                                 {
                                     !isNaN(page) ?
                                         (
-                                            <PersonProfile userId={userId} page={page} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
+                                            <PersonProfile userId={userId} userName={userName} page={page} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
                                         ) : (null)
                                 }
                             </div>

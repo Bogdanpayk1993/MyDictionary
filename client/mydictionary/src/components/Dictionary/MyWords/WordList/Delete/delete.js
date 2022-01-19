@@ -10,7 +10,7 @@ function Delete(props) {
     let setDelete = props.setDelete
 
     return (
-        <div className='delete'>
+        <div className='Delete'>
             <div>
                 <p> Do you want delete </p>
                 <div>

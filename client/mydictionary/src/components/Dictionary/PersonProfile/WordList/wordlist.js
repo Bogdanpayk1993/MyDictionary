@@ -35,6 +35,8 @@ async function getWordLis(userId, wordList, setWordList) {
 
 function WordList(props) {
 
+    const globalUserId = props.globalUserId
+    const globalUserName = props.globalUserName
     const userName = props.userName
     const userId = props.userId
     const [wordList, setWordList] = useState({})
@@ -48,7 +50,7 @@ function WordList(props) {
                     Object.keys(wordList).length != 0 ?
                         (
                             Object.keys(wordList).map(el => (
-                                <Word userName={userName} word={wordList[el]} key={wordList[el]['id']} />
+                                <Word userId={globalUserId} userName={userName} globalUserName={globalUserName} word={wordList[el]} key={wordList[el]['id']} />
                             ))
                         ) :
                         (

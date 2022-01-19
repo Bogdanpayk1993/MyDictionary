@@ -1,4 +1,4 @@
-.delete {
+.Delete {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -9,29 +9,29 @@
     background-color: rgba(0, 0, 0, 60%);
 }
 
-.delete div {
+.Delete div {
     width: 36vw;
     background-color: lightgray;
     border-radius: 0.5vw;
 }
 
-.delete div div {
+.Delete div div {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.delete div div p:nth-child(1) {
+.Delete div div p:nth-child(1) {
     width: 17vw;
     float: left;
 }
 
-.delete div div p:nth-child(2) {
+.Delete div div p:nth-child(2) {
     width: 17vw;
     float: right;
 }
 
-.delete div button {
+.Delete div button {
     width: 4vw;
     margin: 0.5vw;
 }

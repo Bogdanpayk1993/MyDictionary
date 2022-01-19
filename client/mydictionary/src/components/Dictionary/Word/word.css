@@ -40,14 +40,14 @@
     background-color: aquamarine;
 }
 
-.WordList .Post > div:nth-child(2) div {
+.WordList .Post div:nth-child(2) div {
     width: 18vw;
 }
 
-.WordList .Post > div:nth-child(2) div:nth-child(1) {
+.WordList .Post div:nth-child(2) div:nth-child(1) {
     float: left;
 }
 
-.WordList .Post > div:nth-child(2) div:nth-child(2) {
+.WordList .Post div:nth-child(2) div:nth-child(2) {
     float: right;
 }

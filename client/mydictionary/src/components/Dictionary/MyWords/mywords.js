@@ -38,7 +38,7 @@ function MyWords(props) {
     return (
         <>
             <AddWord userId={props.userId} wordList={wordList} setWordList={setWordList} />
-            <WordList userName={userName} wordList={wordList} setWordList={setWordList} />
+            <WordList userId={props.userId} userName={userName} wordList={wordList} setWordList={setWordList} />
         </>
     )
 }

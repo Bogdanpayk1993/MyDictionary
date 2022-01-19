@@ -58,10 +58,11 @@ async function unsubscribe(globalUserId, userId, setUserStatys, subscriptions, s
 
 function PersonProfile(props) {
     const globalUserId = props.userId
+    const globalSetPage = props.setPage
+    const globalUserName = props.userName
     const userId = props.page
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
-    const globalSetPage = props.setPage
     const [userName, setUserName] = useState("")
     const [userStatys, setUserStatys] = useState(false)
     const [page, setPage] = useState("Words")
@@ -93,7 +94,7 @@ function PersonProfile(props) {
                             {
                                 page == "Words" ?
                                     (
-                                        <WordList userName={userName} userId={userId} />
+                                        <WordList globalUserId={globalUserId} globalUserName={globalUserName} userName={userName} userId={userId} />
                                     ) : (null)
                             }
                             {
