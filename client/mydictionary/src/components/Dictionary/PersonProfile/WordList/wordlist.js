@@ -50,7 +50,7 @@ function WordList(props) {
                     Object.keys(wordList).length != 0 ?
                         (
                             Object.keys(wordList).map(el => (
-                                <Word userId={globalUserId} userName={userName} globalUserName={globalUserName} word={wordList[el]} key={wordList[el]['id']} />
+                                <Word userId={globalUserId} userName={userName} globalUserName={globalUserName} word={{...wordList[el], id: el}} key={wordList[el]['id']} />
                             ))
                         ) :
                         (

@@ -1,0 +1,21 @@
+.CommentsList hr {
+    margin: 0px;
+}
+
+.CommentsList .Comment {
+    width: 23vw;
+    background-color: lightgrey;
+    border-radius: 0.5vw;
+    margin-top: 0.5vw;
+    padding: 0.4vw;
+    text-align: left;
+}
+
+.CommentsList .Comment p {
+    margin: 0px;
+    margin-left: 0.6vw;
+}
+
+.CommentsList .Comment P:first-child {
+    font-weight: bold;
+}

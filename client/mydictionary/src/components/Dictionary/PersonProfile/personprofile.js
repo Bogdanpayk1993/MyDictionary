@@ -94,7 +94,7 @@ function PersonProfile(props) {
                             {
                                 page == "Words" ?
                                     (
-                                        <WordList globalUserId={globalUserId} globalUserName={globalUserName} userName={userName} userId={userId} />
+                                        <WordList globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} />
                                     ) : (null)
                             }
                             {

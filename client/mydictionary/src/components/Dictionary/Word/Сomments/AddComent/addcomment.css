@@ -1,0 +1,32 @@
+.AddComment {
+    width: 25vw;
+}
+
+.AddComment div {
+    text-align: left;
+}
+
+.AddComment div p {
+    width: 24vw;
+    margin: 0px;
+    margin-left: 1vw;
+    margin-top: 0.2vw;
+    margin-bottom: 0.2vw;
+    font-weight: bold;
+}
+
+.AddComment div div {
+    width: 25vw;
+    display: flex;
+}
+
+.AddComment div div textarea {
+    width: 19vw;
+    margin-left: 1vw;
+}
+
+.AddComment div div div {
+    width: 4vw;
+    margin-right: 1vw;
+    justify-content: right;
+}

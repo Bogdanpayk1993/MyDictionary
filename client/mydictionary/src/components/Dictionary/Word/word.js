@@ -26,9 +26,9 @@ function Word(props) {
                 </div>
             </div>
             <div>
-                <div> {word['english']} </div> - <div> {word['ukrainian']} </div>
+                <p> {word['english']} </p> - <p> {word['ukrainian']} </p>
             </div>
-            <Comments userId={userId} userName={globalUserName} />
+            <Comments userId={userId} userName={globalUserName} wordId={word['id']} />
         </div>
     )
 }
