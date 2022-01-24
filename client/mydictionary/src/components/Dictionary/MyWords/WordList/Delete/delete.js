@@ -12,7 +12,7 @@ function Delete(props) {
     return (
         <div className='Delete'>
             <div>
-                <p> Do you want delete </p>
+                <p> Do you want delete next word? </p>
                 <div>
                     <p> {wordList[deleteWordId][`english`]} </p> - <p> {wordList[deleteWordId]['ukrainian']} </p>
                 </div>

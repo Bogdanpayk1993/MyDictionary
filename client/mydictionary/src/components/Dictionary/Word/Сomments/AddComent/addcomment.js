@@ -7,7 +7,7 @@ function AddComment(props) {
     const newComment = useRef()
     let userId = props.userId
     let wordId = props.wordId
-    let userName = props.userName
+    let globalUserName = props.globalUserName
     let commentsList = props.commentsList
     let setCommentsList = props.setCommentsList
 
@@ -15,7 +15,7 @@ function AddComment(props) {
         let reply = Send_Request_For_Database({ link: 'comments/set', wordId: wordId, userId: userId, comment: newComment.current.value })
         await reply.then((value) => { })
 
-        setCommentsList({...commentsList, [commentsList.lenght]: { ['comment']: newComment.current.value, ['name']: userName }})
+        setCommentsList({...commentsList, [commentsList.lenght]: { ['comment']: newComment.current.value, ['name']: globalUserName }})
         
         newComment.current.value = ""
     }
@@ -23,7 +23,7 @@ function AddComment(props) {
     return (
         <div className='AddComment'>
             <div>
-                <p> {userName} </p>
+                <p> {globalUserName} </p>
                 <div>
                     <textarea placeholder='Your comment:' ref={newComment} />
                     <div>

@@ -33,7 +33,8 @@ function Comments(props) {
 
     const userId = props.userId
     const wordId = props.wordId
-    const userName = props.userName
+    const wordUserId = props.wordUserId
+    const globalUserName = props.globalUserName
     const [commentsList, setCommentsList] = useState({})
 
     if (JSON.stringify(commentsList) === '{}') {
@@ -42,8 +43,8 @@ function Comments(props) {
 
     return (
         <>
-            <AddComment userId={userId} wordId={wordId} userName={userName} commentsList={commentsList} setCommentsList={setCommentsList} />
-            <CommentsList commentsList={commentsList} />
+            <AddComment userId={userId} wordId={wordId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} />
+            <CommentsList userId={userId} wordUserId={wordUserId} commentsList={commentsList} setCommentsList={setCommentsList} />
         </>
     )
 }

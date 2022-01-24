@@ -18,4 +18,10 @@ router.post('/set', function (req, res) {
     })
 })
 
+router.post('/delete', function (req, res) {
+  db.serialize(function () {
+    db.run(`DELETE FROM comments WHERE id='${req['body']['id']}'`)
+  })
+})
+
 module.exports = router;

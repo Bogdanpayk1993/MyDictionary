@@ -17,7 +17,7 @@ async function getWordLis(userId, wordList, setWordList) {
             let reply = Send_Request_For_Database({ link: 'words/getId', id: `${json[i]['wordId']}` })
             await reply.then((value) => {
                 json1 = JSON.parse(value)
-                wordList1 = { ...wordList1, [json[i]['id']]: { english: json1[0]['english'], ukrainian: json1[0]['ukrainian'] } }
+                wordList1 = { ...wordList1, [json[i]['id']]: { english: json1[0]['english'], ukrainian: json1[0]['ukrainian'], userId: `${userId}` }}
             })
         }
 

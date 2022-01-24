@@ -28,7 +28,7 @@ function Word(props) {
             <div>
                 <p> {word['english']} </p> - <p> {word['ukrainian']} </p>
             </div>
-            <Comments userId={userId} userName={globalUserName} wordId={word['id']} />
+            <Comments userId={userId} globalUserName={globalUserName} wordId={word['id']} wordUserId={word['userId']} />
         </div>
     )
 }

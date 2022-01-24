@@ -11,11 +11,37 @@
     text-align: left;
 }
 
-.CommentsList .Comment p {
+.CommentsList .Comment div {
+    width: 23vw;
+    height: 17px;
+}
+
+.CommentsList .Comment div > div:nth-child(1) {
+    width: 16vw;
+    float: left;
+}
+
+.CommentsList .Comment div > div:nth-child(1) p {
+    margin: 0px;
+    margin-left: 0.6vw;    
+    font-weight: bold;
+}
+
+.CommentsList .Comment div > div:nth-child(2) {
+    width: 6.4vw;
+    margin-right: 0.6vw;
+    float: left;
+    text-align: right;
+}
+
+.CommentsList .Comment > div:nth-child(2) {
+    width: 23vw;
+    float: none;
+}
+
+.CommentsList .Comment > div:nth-child(2) p {
+    width: 23vw;
     margin: 0px;
     margin-left: 0.6vw;
 }
 
-.CommentsList .Comment P:first-child {
-    font-weight: bold;
-}
