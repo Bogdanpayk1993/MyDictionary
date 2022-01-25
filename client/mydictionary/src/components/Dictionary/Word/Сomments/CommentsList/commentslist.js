@@ -6,7 +6,7 @@ import './commentslist.css';
 function deleteComment(id, commentsList, setCommentsList, setDelete) {
     let leply = Send_Request_For_Database({ link: 'comments/delete', id: `${id}` })
     delete commentsList[id]
-    setCommentsList({...commentsList})
+    setCommentsList({ ...commentsList })
     setDelete(NaN)
 }
 
@@ -17,6 +17,7 @@ function CommentsList(props) {
     const commentsList = props.commentsList
     const setCommentsList = props.setCommentsList
     const [deleteCommentId, setDelete] = useState(NaN)
+    const [counterComments, setCounterComments] = useState(3)
 
     return (
         JSON.stringify(commentsList) !== '{}' ?
@@ -32,25 +33,32 @@ function CommentsList(props) {
                         }
                         <hr />
                         {
-                            Object.keys(commentsList).map((el) =>
-                                <div className='Comment' key={el}>
-                                    <div>
+                            Object.keys(commentsList).map((el, index) =>
+                                index < counterComments ?
+                                    <div className='Comment' key={el}>
                                         <div>
-                                            <p> {commentsList[el]['name']} </p>
+                                            <div>
+                                                <p> {commentsList[el]['name']} </p>
+                                            </div>
+                                            <div>
+                                                {
+                                                    commentsList[el]['userId'] == userId || wordUserId == userId ?
+                                                        <button onClick={() => setDelete(commentsList[el]['id'])} > Delete </button>
+                                                        :
+                                                        null
+                                                }
+                                            </div>
                                         </div>
                                         <div>
-                                            {
-                                                commentsList[el]['userId'] == userId || wordUserId == userId ?
-                                                    <button onClick={() => setDelete(commentsList[el]['id'])} > Delete </button>
-                                                    :
-                                                    null
-                                            }
+                                            <p> {commentsList[el]['comment']} </p>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <p> {commentsList[el]['comment']} </p>
-                                    </div>
-                                </div>)
+                                    </div> : (null))
+                        }
+                        {
+                            Object.keys(commentsList).length > counterComments ?
+                                <div className='MoreComments'>
+                                    <button onClick={() => setCounterComments(Object.keys(commentsList).length)}> More comments </button>
+                                </div> : (null)
                         }
                     </div>
                 </div>

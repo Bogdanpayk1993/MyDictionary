@@ -5,10 +5,15 @@
 .CommentsList .Comment {
     width: 23vw;
     background-color: lightgrey;
+    margin-top: 2%;
+    margin-bottom: 2%;
     border-radius: 0.5vw;
-    margin-top: 0.5vw;
     padding: 0.4vw;
     text-align: left;
+}
+
+.CommentsList .Comment:last-child {
+    margin-bottom: 0px;
 }
 
 .CommentsList .Comment div {
@@ -45,3 +50,11 @@
     margin-left: 0.6vw;
 }
 
+.CommentsList .MoreComments {
+    width: 23.8vw;
+    text-align: right;
+}
+
+.CommentsList .MoreComments button {
+    margin-right: 1vw;
+}
