@@ -32,9 +32,9 @@ async function getComments(wordId, setCommentsList) {
 function Comments(props) {
 
     const userId = props.userId
+    const globalUserName = props.globalUserName
     const wordId = props.wordId
     const wordUserId = props.wordUserId
-    const globalUserName = props.globalUserName
     const [commentsList, setCommentsList] = useState({})
 
     if (JSON.stringify(commentsList) === '{}') {

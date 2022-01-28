@@ -1,5 +1,6 @@
 import React from 'react';
 import Comments from './Сomments/comments';
+import Likes from './Likes/likes';
 import './word.css';
 
 function Word(props) {
@@ -28,6 +29,8 @@ function Word(props) {
             <div>
                 <p> {word['english']} </p> - <p> {word['ukrainian']} </p>
             </div>
+            <Likes userId={userId} globalUserName={globalUserName} wordId={word['id']} />
+            <hr />
             <Comments userId={userId} globalUserName={globalUserName} wordId={word['id']} wordUserId={word['userId']} />
         </div>
     )

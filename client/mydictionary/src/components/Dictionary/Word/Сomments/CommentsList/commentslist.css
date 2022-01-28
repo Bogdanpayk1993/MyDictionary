@@ -1,3 +1,7 @@
+.CommentsList {
+    width: 25vw;
+}
+
 .CommentsList hr {
     margin: 0px;
 }
@@ -5,6 +9,8 @@
 .CommentsList .Comment {
     width: 23vw;
     background-color: lightgrey;
+    margin-left: 0.6vw;
+    margin-right: 0.6vw;
     margin-top: 2%;
     margin-bottom: 2%;
     border-radius: 0.5vw;
@@ -33,8 +39,7 @@
 }
 
 .CommentsList .Comment div > div:nth-child(2) {
-    width: 6.4vw;
-    margin-right: 0.6vw;
+    width: 7vw;
     float: left;
     text-align: right;
 }
@@ -51,7 +56,7 @@
 }
 
 .CommentsList .MoreComments {
-    width: 23.8vw;
+    width: 25vw;
     text-align: right;
 }
 
