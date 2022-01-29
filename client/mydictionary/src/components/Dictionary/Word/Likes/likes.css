@@ -1,14 +1,37 @@
-.Likes div {
+.Likes > div {
     width: 50%;
+    height: 1vw;
 }
 
-.Likes div:nth-child(1) {
+.Likes > div:nth-child(1) {
     text-align: left;
     margin-left: 1vw;
     font-weight: bold;
 }
 
-.Likes div:nth-child(2) {
+.Likes > div:nth-child(1) p {
+    margin: 0px;
+}
+
+.Likes > div:nth-child(2) {
     text-align: right;
     margin-right: 1vw;
+}
+
+.Likes div .LikesList {
+    width: 100%;
+    height: 14.1vw;
+    margin-top: -15vw;
+    margin-left: -0.2vw;
+    padding: 0.5vw;
+    border-radius: 0.5vw;
+    background-color: lightgrey;
+}
+.Likes div .LikesList > div {
+    height: 13.5vw;
+    overflow: auto;
+}
+
+.Likes div .LikesList > div p {
+    width: 100%;
 }

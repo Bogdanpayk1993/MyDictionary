@@ -23,7 +23,7 @@ async function getLike(setLikes, setLikeStatus, userId, wordId) {
         }
 
         let index = Object.keys(json).find(el => json[el]['userId'] == userId)
-        
+
         if (index != undefined) {
             setLikeStatus(true)
         }
@@ -36,7 +36,7 @@ async function addLike(likes, setLikes, setLikeStatus, globalUserName, userId, w
     let json
 
     let reply = Send_Request_For_Database({ link: 'likes/set', userId: `${userId}`, wordId: `${wordId}` })
-    await reply.then((value) => { })
+    await reply.then((value) => {})
 
     setLikeStatus(true)
 
@@ -48,8 +48,10 @@ function Likes(props) {
     let userId = props.userId
     let globalUserName = props.globalUserName
     let wordId = props.wordId
+    let globalSetPage = props.globalSetPage
     const [likes, setLikes] = useState({})
     const [likeStatus, setLikeStatus] = useState(false)
+    const [watchingLikes, setWatchingLikes] = useState(false)
 
     if (JSON.stringify(likes) === '{}') {
         getLike(setLikes, setLikeStatus, userId, wordId)
@@ -58,7 +60,19 @@ function Likes(props) {
     return (
         <div className='Likes'>
             <div>
-                Likes: {Object.keys(likes).length}
+                <p onMouseEnter={() => setWatchingLikes(true)}> Likes: {Object.keys(likes).length} </p>
+                {
+                    watchingLikes == true && Object.keys(likes).length != 0 ?
+                        <div className='LikesList' onMouseLeave={() => setWatchingLikes(false)} >
+                            <div>
+                                {
+                                    Object.keys(likes).map(el => (
+                                        <p onClick={() => {likes[el]['userId'] != userId ? globalSetPage(likes[el]['userId']) : globalSetPage('Words')}} key={el}> {likes[el]['name']} </p>
+                                    ))
+                                }
+                            </div>
+                        </div> : null
+                }
             </div>
             <div>
                 {

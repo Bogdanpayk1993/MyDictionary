@@ -84,7 +84,7 @@ function Dictionary() {
                                 {
                                     page == "Words" ?
                                         (
-                                            <MyWords userId={userId} userName={userName} />
+                                            <MyWords userId={userId} userName={userName} globalSetPage={setPage} />
                                         ) : (null)
                                 }
                                 {

@@ -14,6 +14,7 @@ function WordList(props) {
 
     const userId = props.userId
     const userName = props.userName
+    const globalSetPage = props.globalSetPage
     const [deleteWordId, setDelete] = useState(NaN)
 
     return (
@@ -29,7 +30,7 @@ function WordList(props) {
                 Object.keys(props['wordList']).length != 0 ?
                     (
                         Object.keys(props['wordList']).map(el => (
-                            <Word userId={userId} userName={userName} globalUserName={userName} word={props['wordList'][el]} setDelete={setDelete} key={props['wordList'][el]['id']} /> 
+                            <Word userId={userId} userName={userName} globalUserName={userName} word={props['wordList'][el]} globalSetPage={globalSetPage} setDelete={setDelete} key={props['wordList'][el]['id']} /> 
                         ))
                     ) :
                     (

@@ -29,6 +29,7 @@ async function getWordList(userId, setWordList) {
 function MyWords(props) {
 
     const userName = props.userName
+    const globalSetPage = props.globalSetPage
     const [wordList, setWordList] = useState(NaN)
 
     if (Object.keys(wordList).length == 0) {
@@ -38,7 +39,7 @@ function MyWords(props) {
     return (
         <>
             <AddWord userId={props.userId} wordList={wordList} setWordList={setWordList} />
-            <WordList userId={props.userId} userName={userName} wordList={wordList} setWordList={setWordList} />
+            <WordList userId={props.userId} userName={userName} wordList={wordList} setWordList={setWordList} globalSetPage={globalSetPage} />
         </>
     )
 }

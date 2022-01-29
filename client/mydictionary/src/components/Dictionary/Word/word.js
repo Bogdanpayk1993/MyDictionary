@@ -10,9 +10,10 @@ function Word(props) {
     const globalUserName = props.globalUserName
     const word = props.word
     const setDelete = props.setDelete
+    const globalSetPage = props.globalSetPage
 
     return (
-        <div className='Post'>
+        <div className='Post' key={word['id']}>
             <div>
                 <div>
                     {userName}
@@ -29,7 +30,7 @@ function Word(props) {
             <div>
                 <p> {word['english']} </p> - <p> {word['ukrainian']} </p>
             </div>
-            <Likes userId={userId} globalUserName={globalUserName} wordId={word['id']} />
+            <Likes userId={userId} globalUserName={globalUserName} wordId={word['id']} globalSetPage={globalSetPage} />
             <hr />
             <Comments userId={userId} globalUserName={globalUserName} wordId={word['id']} wordUserId={word['userId']} />
         </div>
