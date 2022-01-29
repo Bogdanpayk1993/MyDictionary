@@ -16,6 +16,7 @@ function CommentsList(props) {
     const wordUserId = props.wordUserId
     const commentsList = props.commentsList
     const setCommentsList = props.setCommentsList
+    const globalSetPage = props.globalSetPage
     const [deleteCommentId, setDelete] = useState(NaN)
     const [counterComments, setCounterComments] = useState(3)
 
@@ -38,7 +39,7 @@ function CommentsList(props) {
                                     <div className='Comment' key={el}>
                                         <div>
                                             <div>
-                                                <p> {commentsList[el]['name']} </p>
+                                                <p onClick={() => {commentsList[el]['userId'] != userId ? globalSetPage(commentsList[el]['userId']) : globalSetPage(userId)}}> {commentsList[el]['name']} </p>
                                             </div>
                                             <div>
                                                 {

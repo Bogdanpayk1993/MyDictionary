@@ -10,6 +10,7 @@ function AddComment(props) {
     let globalUserName = props.globalUserName
     let commentsList = props.commentsList
     let setCommentsList = props.setCommentsList
+    let globalSetPage = props.globalSetPage
 
     async function sendComment() {
         let reply = Send_Request_For_Database({ link: 'comments/set', wordId: wordId, userId: userId, comment: newComment.current.value })
@@ -23,7 +24,7 @@ function AddComment(props) {
     return (
         <div className='AddComment'>
             <div>
-                <p> {globalUserName} </p>
+                <p onClick={() => globalSetPage("Words")}> {globalUserName} </p>
                 <div>
                     <textarea placeholder='Your comment:' ref={newComment} />
                     <div>
