@@ -39,7 +39,7 @@ function CommentsList(props) {
                                     <div className='Comment' key={el}>
                                         <div>
                                             <div>
-                                                <p onClick={() => {commentsList[el]['userId'] != userId ? globalSetPage(commentsList[el]['userId']) : globalSetPage(userId)}}> {commentsList[el]['name']} </p>
+                                                <p onClick={() => {commentsList[el]['userId'] != userId ? globalSetPage(commentsList[el]['userId']) : globalSetPage('MyWords')}}> {commentsList[el]['name']} </p>
                                             </div>
                                             <div>
                                                 {

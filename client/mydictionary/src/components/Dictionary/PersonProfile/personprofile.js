@@ -65,7 +65,7 @@ function PersonProfile(props) {
     const setSubscriptions = props.setSubscriptions
     const [userName, setUserName] = useState("")
     const [userStatys, setUserStatys] = useState(false)
-    const [page, setPage] = useState("Words")
+    const [page, setPage] = useState("MyWords")
 
     getUserInformation(globalUserId, userId, setUserName, setUserStatys)
 
@@ -74,7 +74,7 @@ function PersonProfile(props) {
             <div className='UserInformation'>
                 <span> {userName}  </span>
                 <span>
-                    <p onClick={() => setPage("Words")} > Words </p>
+                    <p onClick={() => setPage("MyWords")} > Words </p>
                     <p onClick={() => setPage("Subscriptions")}> Subscriptions </p>
                     <p onClick={() => setPage("Subscribers")}> Subscribers </p>
                 </span>
@@ -92,7 +92,7 @@ function PersonProfile(props) {
                     (
                         <>
                             {
-                                page == "Words" ?
+                                page == "MyWords" ?
                                     (
                                         <WordList globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} globalSetPage={globalSetPage} />
                                     ) : (null)

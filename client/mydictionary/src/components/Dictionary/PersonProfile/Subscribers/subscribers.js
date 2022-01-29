@@ -79,7 +79,7 @@ function setPage(setPage, userId, globalUserId) {
     if (globalUserId != userId) {
         setPage(userId)
     } else {
-        setPage("Words")
+        setPage("MyWords")
     }
 }
 
