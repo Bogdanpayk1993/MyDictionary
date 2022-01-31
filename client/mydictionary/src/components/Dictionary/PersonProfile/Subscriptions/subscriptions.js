@@ -75,19 +75,12 @@ async function subscribe(el, globalUserId, userId, subscriptionsList, setSubscri
     }
 }
 
-function setPage(setPage, userId, globalUserId) {
-    if (globalUserId != userId) {
-        setPage(userId)
-    } else {
-        setPage("MyWords")
-    }
-}
-
 function Subscriptions(props) {
     const globalUserId = props.globalUserId
     const userId = props.userId
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
+    const setPage = props.setPage
     const [subscriptionsList, setSubscriptionsList] = useState({})
 
     getSubscriptions(globalUserId, userId, subscriptionsList, setSubscriptionsList)
@@ -99,7 +92,7 @@ function Subscriptions(props) {
                     (
                         Object.keys(subscriptionsList).map(el => (
                             <div key={el}>
-                                <div onClick={() => setPage(props.setPage, subscriptionsList[el]['id'], globalUserId)} > {subscriptionsList[el]['name']} </div>
+                                <div onClick={() => {subscriptionsList[el]['id'] != globalUserId ? setPage(subscriptionsList[el]['id']) : setPage("MyWords")}}> {subscriptionsList[el]['name']} </div>
                                 <div>
                                     {
                                         subscriptionsList[el]['statys'] != true ?
