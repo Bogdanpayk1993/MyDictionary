@@ -3,9 +3,9 @@ var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('dictionary.db');
 
-router.post('/getSubscriber', function (req, res) {
+router.post('/getSubscribers', function (req, res) {
     db.serialize(function () {
-        db.all(`SELECT * FROM subscribers WHERE subscriber='${req['body']['subscriber']}'`, function (err, result) {
+        db.all(`SELECT users.id, users.name, users.email FROM subscribers JOIN users ON subscribers.subscriber='${req['body']['subscriber']}' AND subscribers.subscription==users.id`, function (err, result) {
             res.send(result)
         })
     })
@@ -13,7 +13,7 @@ router.post('/getSubscriber', function (req, res) {
 
 router.post('/getSubscription', function (req, res) {
     db.serialize(function () {
-        db.all(`SELECT * FROM subscribers WHERE subscription='${req['body']['subscription']}'`, function (err, result) {
+        db.all(`SELECT users.id, users.name, users.email FROM subscribers JOIN users ON subscribers.subscription='${req['body']['subscription']}' AND subscribers.subscriber==users.id`, function (err, result) {
             res.send(result)
         })
     })

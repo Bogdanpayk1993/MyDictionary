@@ -9,49 +9,27 @@ import Send_Request_For_Database from '../send_request_for_database';
 import './dictionary.css';
 
 async function getSubscriptions(userId, setSubscriptions) {
-    let json
-
-    let reply = Send_Request_For_Database({ link: 'subscribers/getSubscriber', subscriber: `${userId}`})
-    await reply.then((value) => {
-        json = JSON.parse(value)
+    let reply = await Send_Request_For_Database({ link: 'subscribers/getSubscribers', subscriber: `${userId}`})
+    let json = JSON.parse(reply)
+    
+    let json1 = {}
+    Object.entries(json).forEach(([key, value]) => {
+        json1[value['id']] = value
     })
 
-    let json1
-
-    if (Object.keys(json).length != 0) {
-        for (let i = 0; i < Object.keys(json).length; i++) {
-            reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscription']}` })
-            await reply.then((value) => {
-                let json2 = JSON.parse(value)
-                json1 = {...json1, [json2[0]['id']]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] }}
-            })
-        }
-    }
-
-    setSubscriptions(json1)
+    setSubscriptions({...json1})
 }
 
 async function getSubscribers(userId, setSubscribers) {
-    let json
+    let reply = await Send_Request_For_Database({ link: `subscribers/getSubscription`, subscription: `${userId}` })
+    let json = JSON.parse(reply)
 
-    let reply = Send_Request_For_Database({ link: `subscribers/getSubscription`, subscription: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
+    let json1 = {}
+    Object.entries(json).forEach(([key, value]) => {
+        json1[value['id']] = value
     })
 
-    let json1
-
-    if (Object.keys(json).length != 0) {
-        for (let i = 0; i < Object.keys(json).length; i++) {
-            reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscriber']}` })
-            await reply.then((value) => {
-                let json2 = JSON.parse(value)
-                json1 = {...json1, [json2[0]['id']]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] }}
-            })
-        }
-    }
-
-    setSubscribers(json1)
+    setSubscribers({...json1})
 }
 
 function Dictionary() {
@@ -68,7 +46,7 @@ function Dictionary() {
     if (!isNaN(userId) && JSON.stringify(subscribers) === '{}') {
         getSubscribers(userId, setSubscribers) 
     } 
-    
+
     return (
         <>
             <Menu userId={userId} setUserId={setUserId} setUserName={setUserName} setPage={setPage} />

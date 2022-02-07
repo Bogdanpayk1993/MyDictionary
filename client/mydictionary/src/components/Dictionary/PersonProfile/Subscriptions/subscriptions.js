@@ -3,25 +3,18 @@ import Send_Request_For_Database from '../../../send_request_for_database';
 import '../../People/PeopleList/peoplelist.css';
 
 async function getSubscriptions(globalUserId, userId, subscriptionsList, setSubscriptionsList) {
-    let json
 
-    let reply = Send_Request_For_Database({ link: 'subscribers/getSubscriber', subscriber: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
-    })
+    let reply = await Send_Request_For_Database({ link: 'subscribers/getSubscribers', subscriber: `${userId}` })
+    let json = JSON.parse(reply)
 
     let json1 = {}
+    Object.entries(json).forEach(([key, value]) => {
+        json1[value['id']] = value
+    })
 
     if (Object.keys(json).length != 0) {
-        for (let i = 0; i < Object.keys(json).length; i++) {
-            let id
-            reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['subscription']}` })
-            await reply.then((value) => {
-                let json2 = JSON.parse(value)
-                id = json2[0]['id']
-                json1 = { ...json1, [id]: { ['id']: json2[0]['id'], ['name']: json2[0]['name'], ['email']: json2[0]['email'] } }
-            })
-
+        for (let i = 0; i < Object.keys(json1).length; i++) {
+            let id = Object.keys(json1)[i]
             let json3
 
             reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${json1[id]['id']}` })
@@ -38,7 +31,7 @@ async function getSubscriptions(globalUserId, userId, subscriptionsList, setSubs
                     json1 = { ...json1, [id]: { ...json1[id], ['statys']: false } }
                 }
             }
-        }
+        } 
     }
 
     if (JSON.stringify(subscriptionsList) == '{}') {
@@ -49,7 +42,7 @@ async function getSubscriptions(globalUserId, userId, subscriptionsList, setSubs
         if (JSON.stringify(subscriptionsList) != JSON.stringify(json1)) {
             setSubscriptionsList(json1)
         }
-    }
+    } 
 }
 
 async function subscribe(el, globalUserId, userId, subscriptionsList, setSubscriptionsList, subscriptions, setSubscriptions) {
