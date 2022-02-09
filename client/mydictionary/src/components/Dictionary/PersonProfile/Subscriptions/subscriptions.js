@@ -12,7 +12,7 @@ async function getSubscriptions(globalUserId, userId, subscriptionsList, setSubs
         json1[value['id']] = value
     })
 
-    if (Object.keys(json).length != 0) {
+    if (Object.keys(json1).length != 0) {
         for (let i = 0; i < Object.keys(json1).length; i++) {
             let id = Object.keys(json1)[i]
             let json3
@@ -46,21 +46,15 @@ async function getSubscriptions(globalUserId, userId, subscriptionsList, setSubs
 }
 
 async function subscribe(el, globalUserId, userId, subscriptionsList, setSubscriptionsList, subscriptions, setSubscriptions) {
-    let json
 
-    let reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
-    })
+    let reply = await Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
+    let json = JSON.parse(reply)
 
     if (Object.keys(json).length == 0) {
         let reply = Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
-        await reply.then((value) => { })
 
-        reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
-        await reply.then((value) => {
-            json = JSON.parse(value)
-        })
+        reply = await Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
+        json = JSON.parse(reply)
 
         setSubscriptionsList({ ...subscriptionsList, [el]: { ...subscriptionsList[el], ['statys']: true } })
 

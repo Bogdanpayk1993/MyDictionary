@@ -30,7 +30,6 @@ router.post('/getSubscriberSubscription', function (req, res) {
 router.post('/set', function (req, res) {
     db.serialize(function () {
         db.run(`INSERT INTO subscribers (subscriber, subscription) VALUES ('${req['body']['subscriber']}','${req['body']['subscription']}')`)
-        res.send('ok')
     })
 })
 

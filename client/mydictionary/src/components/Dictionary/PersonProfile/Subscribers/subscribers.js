@@ -12,8 +12,8 @@ async function getSubscribers(globalUserId, userId, subscribersList, setSubscrib
         json1[value['id']] = value
     })
 
-    if (Object.keys(json).length != 0) {
-        for (let i = 0; i < Object.keys(json).length; i++) {
+    if (Object.keys(json1).length != 0) {
+        for (let i = 0; i < Object.keys(json1).length; i++) {
             let id = Object.keys(json1)[i]
             let json3
 
@@ -45,24 +45,18 @@ async function getSubscribers(globalUserId, userId, subscribersList, setSubscrib
     }
 }
 
-async function subscribe(globalUserId, userId, subscribersList, setSubscribersList, subscriptions, setSubscriptions) {
-    let json
+async function subscribe(el, globalUserId, userId, subscribersList, setSubscribersList, subscriptions, setSubscriptions) {
 
-    let reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
-    })
+    let reply = await Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
+    let json = JSON.parse(reply)
 
     if (Object.keys(json).length == 0) {
         let reply = Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
-        await reply.then((value) => { })
 
-        reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
-        await reply.then((value) => {
-            json = JSON.parse(value)
-        })
+        reply = await Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
+        json = JSON.parse(reply)
 
-        setSubscribersList({ ...subscribersList, [json[0]['id']]: { ...subscribersList[json[0]['id']], ['statys']: true } })
+        setSubscribersList({ ...subscribersList, [el]: { ...subscribersList[el], ['statys']: true } })
 
         setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
     }
@@ -89,7 +83,7 @@ function Subscribers(props) {
                                 <div>
                                     {
                                         subscribersList[el]['statys'] != true ?
-                                            <button onClick={() => subscribe(globalUserId, subscribersList[el]['id'], subscribersList, setSubscribersList, subscriptions, setSubscriptions)} > Subscribe </button>
+                                            <button onClick={() => subscribe(el, globalUserId, subscribersList[el]['id'], subscribersList, setSubscribersList, subscriptions, setSubscriptions)} > Subscribe </button>
                                             : null
                                     }
                                 </div>
