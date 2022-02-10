@@ -12,21 +12,13 @@ async function getComments(wordId, setCommentsList) {
     })
 
     let json1 = {}
-
-    for (let i = 0; i < Object.keys(json).length; i++) {
-        let json2
-
-        reply = Send_Request_For_Database({ link: 'users/getId', id: json[i]['userId'] })
-        await reply.then((value) => {
-            json2 = JSON.parse(value)
-        })
-
-        json1 = { ...json1, [json[i]['id']]: { ...json[i], ['name']: json2[0]['name'] } }
-    }
+    Object.entries(json).forEach(([key, value]) => {
+        json1[value['id']]= value
+    })
 
     if (JSON.stringify(json1) !== '{}') {
         setCommentsList(json1)
-    }
+    } 
 }
 
 function Comments(props) {

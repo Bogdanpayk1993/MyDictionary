@@ -13,8 +13,6 @@ async function getWordList(userId, setWordList) {
         json1[value['id']] = value
     })
 
-    console.log(json1)
-
     setWordList({...json1})
 }
 

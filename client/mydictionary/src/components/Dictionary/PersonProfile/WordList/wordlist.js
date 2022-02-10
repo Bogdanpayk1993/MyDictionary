@@ -13,8 +13,6 @@ async function getWordLis(userId, wordList, setWordList) {
         json1[value['id']] = value
     })
 
-    console.log(json1)
-
     wordList1 = {...json1}
 
     if (JSON.stringify(wordList) == '{}') {

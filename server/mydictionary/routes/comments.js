@@ -5,7 +5,7 @@ var db = new sqlite3.Database('dictionary.db');
 
 router.post('/getWordId', function (req, res) {
   db.serialize(function () {
-    db.all(`SELECT * FROM comments WHERE wordId='${req['body']['wordId']}'`, function (err, result) {
+    db.all(`SELECT comments.id, comments.userId, comments.comment, users.name FROM comments JOIN users ON comments.wordId='${req['body']['wordId']}' AND comments.userId==users.id`, function (err, result) {
       res.send(result)
     })
   })
