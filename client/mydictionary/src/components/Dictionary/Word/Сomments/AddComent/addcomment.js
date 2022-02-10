@@ -13,8 +13,7 @@ function AddComment(props) {
     let globalSetPage = props.globalSetPage
 
     async function sendComment() {
-        let reply = Send_Request_For_Database({ link: 'comments/set', wordId: wordId, userId: userId, comment: newComment.current.value })
-        await reply.then((value) => { })
+        let reply = await Send_Request_For_Database({ link: 'comments/set', wordId: wordId, userId: userId, comment: newComment.current.value })
 
         setCommentsList({...commentsList, [commentsList.lenght]: { ['comment']: newComment.current.value, ['name']: globalUserName }})
         

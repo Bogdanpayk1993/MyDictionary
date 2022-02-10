@@ -11,19 +11,7 @@ async function getLike(setLikes, setLikeStatus, userId, wordId) {
     })
 
     if (Object.keys(json).length != 0) {
-        for (let i = 0; i < Object.keys(json).length; i++) {
-            let json1
-
-            let reply = Send_Request_For_Database({ link: 'users/getId', id: `${json[i]['userId']}` })
-            await reply.then((value) => {
-                json1 = JSON.parse(value)
-            })
-
-            json = { ...json, [i]: { ...json[i], name: json1[0]['name'] } }
-        }
-
         let index = Object.keys(json).find(el => json[el]['userId'] == userId)
-
         if (index != undefined) {
             setLikeStatus(true)
         }
@@ -33,10 +21,7 @@ async function getLike(setLikes, setLikeStatus, userId, wordId) {
 }
 
 async function addLike(likes, setLikes, setLikeStatus, globalUserName, userId, wordId) {
-    let json
-
-    let reply = Send_Request_For_Database({ link: 'likes/set', userId: `${userId}`, wordId: `${wordId}` })
-    await reply.then((value) => {})
+    let reply = await Send_Request_For_Database({ link: 'likes/set', userId: `${userId}`, wordId: `${wordId}` })
 
     setLikeStatus(true)
 

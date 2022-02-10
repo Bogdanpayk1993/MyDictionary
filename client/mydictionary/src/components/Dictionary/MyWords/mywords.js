@@ -5,29 +5,22 @@ import Send_Request_For_Database from '../../send_request_for_database';
 
 async function getWordList(userId, setWordList) {
 
-    let json
-    let wordList = {}
+    let reply = await Send_Request_For_Database({ link: 'userswords/getUserWords', userId: `${userId}` })
+    let json = JSON.parse(reply)
 
-    let reply = Send_Request_For_Database({ link: 'userswords/getUserId', userId: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
+    let json1 = {}
+    Object.entries(json).forEach(([key, value]) => {
+        json1[value['id']] = value
     })
 
-    if (Object.keys(json).length != 0) {
-        for (let i = 0; i < Object.keys(json).length; i++) {
-            let json1
-            let reply = Send_Request_For_Database({ link: 'words/getId', id: `${json[i]['wordId']}` })
-            await reply.then((value) => {
-                json1 = JSON.parse(value)
-                wordList = {...wordList, [json[i]['id']]: {id: json[i]['id'], english: json1[0]['english'], ukrainian: json1[0]['ukrainian'], userId: `${userId}`}}
-            })
-        }
-        setWordList(wordList)
-    }
+    console.log(json1)
+
+    setWordList({...json1})
 }
 
 function MyWords(props) {
 
+    const userId = props.userId
     const userName = props.userName
     const globalSetPage = props.globalSetPage
     const [wordList, setWordList] = useState(NaN)
@@ -38,8 +31,8 @@ function MyWords(props) {
 
     return (
         <>
-            <AddWord userId={props.userId} wordList={wordList} setWordList={setWordList} />
-            <WordList userId={props.userId} userName={userName} wordList={wordList} setWordList={setWordList} globalSetPage={globalSetPage} />
+            <AddWord userId={userId} wordList={wordList} setWordList={setWordList} />
+            <WordList userId={userId} userName={userName} wordList={wordList} setWordList={setWordList} globalSetPage={globalSetPage} />
         </>
     )
 }

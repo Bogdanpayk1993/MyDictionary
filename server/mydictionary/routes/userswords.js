@@ -3,9 +3,9 @@ var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('dictionary.db');
 
-router.post('/getUserId', function (req, res) {
+router.post('/getUserWords', function (req, res) {
     db.serialize(function () {
-        db.all(`SELECT * FROM userswords WHERE userId='${req['body']['userId']}'`, function (err, result) {
+        db.all(`SELECT userswords.id, userswords.userId, words.english, words.ukrainian FROM userswords JOIN words ON userswords.userId='${req['body']['userId']}' and words.id=userswords.wordId`, function (err, result) {
             res.send(result)
         })
     })
