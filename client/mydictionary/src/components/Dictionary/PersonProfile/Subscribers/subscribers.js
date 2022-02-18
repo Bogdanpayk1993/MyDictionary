@@ -4,43 +4,28 @@ import '../../People/PeopleList/peoplelist.css';
 
 async function getSubscribers(globalUserId, userId, subscribersList, setSubscribersList) {
 
-    let reply = await Send_Request_For_Database({ link: 'subscribers/getSubscription', subscription: `${userId}` })
+    let reply = await Send_Request_For_Database({ link: 'subscribers/getSubscriptionOther', globalUserId: `${globalUserId}`, userId: `${userId}` })
     let json = JSON.parse(reply)
 
-    let json1 = {}
-    Object.entries(json).forEach(([key, value]) => {
-        json1[value['id']] = value
-    })
-
-    if (Object.keys(json1).length != 0) {
-        for (let i = 0; i < Object.keys(json1).length; i++) {
-            let id = Object.keys(json1)[i]
-            let json3
-
-            reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${json1[id]['id']}` })
-            await reply.then((value) => {
-                json3 = JSON.parse(value)
-            })
-
-            if (Object.keys(json3).length != 0) {
-                json1 = { ...json1, [id]: { ...json1[id], ['statys']: true } }
+    for (let i = 0; i < Object.keys(json).length; i++) {
+        if (json[i]['subscriber'] > 0) {
+            json = { ...json, [i]: { ...json[i], ['statys']: true } }
+        } else {
+            if (json[i]['id'] == globalUserId ) {
+                json = { ...json, [i]: { ...json[i], ['statys']: true } }
             } else {
-                if (globalUserId == json1[id]['id']) {
-                    json1 = { ...json1, [id]: { ...json1[id], ['statys']: true } }
-                } else {
-                    json1 = { ...json1, [id]: { ...json1[id], ['statys']: false } }
-                }
+                json = { ...json, [i]: { ...json[i], ['statys']: false } }
             }
         }
     }
-
+    
     if (JSON.stringify(subscribersList) == '{}') {
-        if (JSON.stringify(json1) !== '{}') {
-            setSubscribersList(json1)
+        if (JSON.stringify(json) !== '{}') {
+            setSubscribersList(json)
         }
     } else {
-        if (JSON.stringify(subscribersList) != JSON.stringify(json1)) {
-            setSubscribersList(json1)
+        if (JSON.stringify(subscribersList) != JSON.stringify(json)) {
+            setSubscribersList(json)
         }
     }
 }

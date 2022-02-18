@@ -12,14 +12,14 @@ async function subscribe(el, globalUserId, userId, peopleList, setPeopleList, su
 
     if (Object.keys(json).length == 0) {
         let reply = Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
-        await reply.then((value) => {})
+        await reply.then((value) => { })
 
         reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
         await reply.then((value) => {
             json = JSON.parse(value)
         })
 
-        setPeopleList({...peopleList, [el]: {...peopleList[el], ['statys']: true}})
+        setPeopleList({ ...peopleList, [el]: { ...peopleList[el], ['statys']: true } })
 
         setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
     }
@@ -27,15 +27,13 @@ async function subscribe(el, globalUserId, userId, peopleList, setPeopleList, su
 
 function PeopleList(props) {
     const [peopleList, setPeopleList] = useState(NaN)
-    const subscriptions = props.subscriptions 
+    const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
 
-    if (Object.keys(props['peopleList']).length != 0) {
-        if (Object.keys(props['peopleList']).length != Object.keys(peopleList).length) {
-            setPeopleList(props['peopleList'])
-        }
+    if (Object.keys(props['peopleList']).length != Object.keys(peopleList).length) {
+        setPeopleList(props['peopleList'])
     }
-    
+
     return (
         <div className='PeopleList'>
             {
@@ -46,7 +44,7 @@ function PeopleList(props) {
                                 <div onClick={() => props.setPage(peopleList[el]['id'])}> {peopleList[el]['name']} </div>
                                 <div>
                                     {
-                                        peopleList[el]['statys'] != true ?
+                                        peopleList[el]['subscriber'] == null ?
                                             <button onClick={() => subscribe(el, props['userId'], peopleList[el]['id'], peopleList, setPeopleList, subscriptions, setSubscriptions)} > Subscribe </button>
                                             : null
                                     }
