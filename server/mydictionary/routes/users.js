@@ -1,14 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('dictionary.db');
+var BetterSqlite3 = require('better-sqlite3');
+var db = new BetterSqlite3('dictionary.db');
 
 router.post('/getId', function (req, res) {
-  db.serialize(function () {
-    db.all(`SELECT * FROM users WHERE id='${req['body']['id']}'`, function (err, result) {
-      res.send(result)
-    })
-  })
+  const result = db.prepare(`SELECT * FROM users WHERE id='${req['body']['id']}'`).all()
+  res.send(result)
 })
 
 router.post('/getName', function (req, res) {   
@@ -20,19 +17,13 @@ router.post('/getName', function (req, res) {
     request = `SELECT * FROM users WHERE name='${req['body']['wantedName']}'`
   }
 
-  db.serialize(function () {
-    db.all(request, function (err, result) {
-      res.send(result)
-    })
-  })
+  const result = db.prepare(request).all()
+  res.send(result)
 });
 
 router.post('/getEmail', function (req, res) {
-  db.serialize(function() {
-    db.all(`SELECT * FROM users WHERE email='${req['body']['wantedEmail']}'`, function(err, result) {
-      res.send(result)
-    })
-  })
+    const result = db.prepare(`SELECT id, name, email FROM users WHERE email='${req['body']['wantedEmail']}'`).all()
+    res.send(result)
 })
 
 router.post('/set', function (req, res) {
