@@ -6,28 +6,11 @@ import Send_Request_For_Database from '../../../send_request_for_database';
 import './authentication.css';
 
 async function getUserData(user, setUserId, setUserName) {
-    let json
-    
-    let reply = Send_Request_For_Database({ link:'users/getEmail', wantedEmail: `${user.email}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
-        if (Object.keys(json).length != 0) {
-            setUserId(json[0].id)
-            setUserName(user.name)
-        }
-    })
+    let reply = await Send_Request_For_Database({ link: 'users/set', userName: `${user.name}`, userEmail: `${user.email}` })
+    let json = JSON.parse(reply)
 
-    if (Object.keys(json).length == 0) {
-        let reply = Send_Request_For_Database({ link: 'users/set', userName: `${user.name}`, userEmail: `${user.email}` })
-        await reply.then((value) => {})
-
-        let reply1 = Send_Request_For_Database({ link:'users/getEmail', wantedEmail: `${user.email}` })
-        await reply1.then((value) => {
-            json = JSON.parse(value)
-            setUserId(json[0].id)
-            setUserName(user.name)
-        })
-    }
+    setUserId(json[0].id)
+    setUserName(user.name)
 }
 
 function Authentication(props) {

@@ -14,10 +14,8 @@ router.post('/getUserIdWordId', function (req, res) {
 })
 
 router.post('/set', function (req, res) {
-    db.serialize(function () {
-        db.run(`INSERT INTO userswords (userId, wordId) VALUES ('${req['body']['userId']}','${req['body']['wordId']}')`)
-        res.send('ok')
-    })
+    let result = db.prepare(`INSERT INTO userswords (userId, wordId) SELECT '${req['body']['userId']}','${req['body']['wordId']}' WHERE not exists(SELECT * FROM userswords WHERE userId='${req['body']['userId']}' and wordId='${req['body']['wordId']}') RETURNING *`).all()
+    res.send(result)
 })
 
 router.post('/delete', function (req, res) {

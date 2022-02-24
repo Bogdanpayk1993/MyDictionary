@@ -16,36 +16,25 @@ function AddWord(props) {
 
         let reply = await Send_Request_For_Database({ link: 'words/set', english: `${englishRef.current.value}`, ukrainian: `${ukraineRef.current.value}` })
         json = JSON.parse(reply)
+        word_Id = json[0]['id']
 
-        console.log(json)
+        reply = await Send_Request_For_Database({ link: 'userswords/set', userId: `${user_Id}`, wordId: `${word_Id}` })
+        json = JSON.parse(reply)
 
-        /*reply = Send_Request_For_Database({ link: 'userswords/getUserIdWordId', userId: `${user_Id}`, wordId: `${word_Id}` })
-        await reply.then((value) => {
-            json = JSON.parse(value)
-        })
-
-        if (Object.keys(json).length == 0) {
-            reply = Send_Request_For_Database({ link: 'userswords/set', userId: `${user_Id}`, wordId: `${word_Id}` })
-            await reply.then((value) => {})
-
-            reply = Send_Request_For_Database({ link: 'userswords/getUserIdWordId', userId: `${user_Id}`, wordId: `${word_Id}` })
-            await reply.then((value) => {
-                json = JSON.parse(value)
-            })
-
+        if (json.length != 0) {
             setWordList({ ...wordList, [json[0]['id']]: { id: json[0]['id'], english: englishRef.current.value, ukrainian: ukraineRef.current.value } })
         }
 
         englishRef.current.value = ""
-        ukraineRef.current.value = ""*/
+        ukraineRef.current.value = ""
     }
 
     return (
         <div className="AddWord">
             <div>
-                <input placeholder="English" ref={englishRef} value="Snowman" ></input>
+                <input placeholder="English" ref={englishRef} ></input>
                 -
-                <input placeholder="Ukrainian" ref={ukraineRef} value="Сніговик" ></input>
+                <input placeholder="Ukrainian" ref={ukraineRef} ></input>
                 <div>
                     <button onClick={Add}> Add word </button>
                 </div>
