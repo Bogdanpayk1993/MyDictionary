@@ -9,15 +9,17 @@ import Send_Request_For_Database from '../send_request_for_database';
 import './dictionary.css';
 
 async function getSubscriptions(userId, setSubscriptions) {
-    let reply = await Send_Request_For_Database({ link: 'subscribers/getSubscribers', subscriber: `${userId}`})
+    let reply = await Send_Request_For_Database({ link: 'subscribers/getSubscribers', subscriber: `${userId}` })
     let json = JSON.parse(reply)
-    
+
     let json1 = {}
     Object.entries(json).forEach(([key, value]) => {
         json1[value['id']] = value
     })
 
-    setSubscriptions({...json1})
+    if (JSON.stringify(json1) !== '{}') {
+        setSubscriptions({ ...json1 })
+    }
 }
 
 async function getSubscribers(userId, setSubscribers) {
@@ -29,7 +31,9 @@ async function getSubscribers(userId, setSubscribers) {
         json1[value['id']] = value
     })
 
-    setSubscribers({...json1})
+    if (JSON.stringify(json1) !== '{}') {
+        setSubscribers({ ...json1 })
+    }
 }
 
 function Dictionary() {
@@ -38,14 +42,14 @@ function Dictionary() {
     const [page, setPage] = useState("MyWords")
     const [subscriptions, setSubscriptions] = useState({})
     const [subscribers, setSubscribers] = useState({})
-     
+
     if (!isNaN(userId) && JSON.stringify(subscriptions) === '{}') {
         getSubscriptions(userId, setSubscriptions)
     }
 
     if (!isNaN(userId) && JSON.stringify(subscribers) === '{}') {
-        getSubscribers(userId, setSubscribers) 
-    } 
+        getSubscribers(userId, setSubscribers)
+    }
 
     return (
         <>

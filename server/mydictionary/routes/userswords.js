@@ -19,7 +19,7 @@ router.post('/set', function (req, res) {
 })
 
 router.post('/delete', function (req, res) {
-    db.prepare(`DELETE FROM userswords WHERE id='${req['body']['id']}'`)
+    db.prepare(`DELETE FROM userswords WHERE id='${req['body']['id']}'`).run()
 })
 
 module.exports = router;

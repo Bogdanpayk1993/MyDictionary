@@ -3,26 +3,11 @@ import Send_Request_For_Database from '../../../send_request_for_database';
 import './peoplelist.css';
 
 async function subscribe(el, globalUserId, userId, peopleList, setPeopleList, subscriptions, setSubscriptions) {
-    let json
+    let reply = await Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
+    let json = JSON.parse(reply)
 
-    let reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
-    })
-
-    if (Object.keys(json).length == 0) {
-        let reply = Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
-        await reply.then((value) => { })
-
-        reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
-        await reply.then((value) => {
-            json = JSON.parse(value)
-        })
-
-        setPeopleList({ ...peopleList, [el]: { ...peopleList[el], ['statys']: true } })
-
-        setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
-    }
+    setPeopleList({ ...peopleList, [el]: { ...peopleList[el], ['subscriber']: globalUserId } })
+    setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
 }
 
 function PeopleList(props) {

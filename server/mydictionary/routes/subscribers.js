@@ -41,13 +41,13 @@ router.post('/getUserSubscriberSubscription', function (req, res) {
 })
 
 router.post('/set', function (req, res) {
-    db.serialize(function () {
-        db.run(`INSERT INTO subscribers (subscriber, subscription) VALUES ('${req['body']['subscriber']}','${req['body']['subscription']}')`)
-    })
+    let result = db.prepare(`INSERT INTO subscribers (subscriber, subscription) SELECT '${req['body']['subscriber']}','${req['body']['subscription']}'`).run()
+    result = db.prepare(`SELECT * FROM users WHERE id='${req['body']['subscription']}'`).all()
+    res.send(result)
 })
 
 router.post('/delete', function (req, res) {
-    db.prepare(`DELETE FROM subscribers WHERE subscriber='${req['body']['subscriber']}' and subscription='${req['body']['subscription']}'`)
+    db.prepare(`DELETE FROM subscribers WHERE subscriber='${req['body']['subscriber']}' and subscription='${req['body']['subscription']}'`).run()
 })
 
 module.exports = router;
