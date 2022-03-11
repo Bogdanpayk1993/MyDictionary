@@ -40,6 +40,17 @@ router.post('/getUserSubscriberSubscription', function (req, res) {
     res.send(result)
 })
 
+router.post('/getUserIdSubscriberSubscription', function (req, res) {
+    let reply = db.prepare(`SELECT name FROM users WHERE id=${req['body']['userId']}`).all()
+    let reply1 = db.prepare(`SELECT id FROM subscribers WHERE subscriber='${req['body']['subscriber']}' and subscription='${req['body']['userId']}'`).all()
+    if (reply1.length != 0) {
+        reply = {name: reply[0]['name'], subscriber: reply1[0]['id']}
+    } else {
+        reply = {name: reply[0]['name'], subscriber: 0}
+    }
+    res.send(reply)
+})
+
 router.post('/set', function (req, res) {
     let result = db.prepare(`INSERT INTO subscribers (subscriber, subscription) SELECT '${req['body']['subscriber']}','${req['body']['subscription']}'`).run()
     result = db.prepare(`SELECT * FROM users WHERE id='${req['body']['subscription']}'`).all()

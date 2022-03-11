@@ -6,20 +6,11 @@ import Subscribers from './Subscribers/subscribers';
 import './personprofile.css';
 
 async function getUserInformation(globalUserId, userId, setUserName, setUserStatys) {
-    let json
+    let reply = await Send_Request_For_Database({ link: 'subscribers/getUserIdSubscriberSubscription', userId: `${userId}`, subscriber: `${globalUserId}` })
+    let json = JSON.parse(reply)
 
-    let reply = Send_Request_For_Database({ link: 'users/getId', id: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
-        setUserName(json[0]['name'])
-    })
-
-    reply = Send_Request_For_Database({ link: 'subscribers/getSubscriberSubscription', subscriber: `${globalUserId}`, subscription: `${userId}` })
-    await reply.then((value) => {
-        json = JSON.parse(value)
-    })
-
-    if (Object.keys(json).length != 0) {
+    setUserName(json['name'])
+    if (json['subscriber'] > 0) {
         setUserStatys(true)
     }
 }
@@ -44,8 +35,8 @@ async function unsubscribe(globalUserId, userId, setUserStatys, subscriptions, s
 
 function PersonProfile(props) {
     const globalUserId = props.userId
-    const globalSetPage = props.setPage
     const globalUserName = props.userName
+    const globalSetPage = props.setPage
     const userId = props.page
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
