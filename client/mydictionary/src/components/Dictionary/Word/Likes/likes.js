@@ -31,6 +31,7 @@ async function addLike(likes, setLikes, setLikeStatus, globalUserName, userId, w
 function Likes(props) {
 
     let userId = props.userId
+    let userName = props.userName
     let globalUserName = props.globalUserName
     let wordId = props.wordId
     let globalSetPage = props.globalSetPage
@@ -61,7 +62,7 @@ function Likes(props) {
             </div>
             <div>
                 {
-                    likeStatus == false ?
+                    likeStatus == false && userName != globalUserName ?
                         <button onClick={() => addLike(likes, setLikes, setLikeStatus, globalUserName, userId, wordId)}> Likes </button>
                         :
                         null

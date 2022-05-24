@@ -30,8 +30,8 @@ function WordList(props) {
 
     const globalUserId = props.globalUserId
     const globalUserName = props.globalUserName
-    const userName = props.userName
     const userId = props.userId
+    const userName = props.userName
     const globalSetPage = props.globalSetPage
     const [wordList, setWordList] = useState({})
 

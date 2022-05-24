@@ -9,10 +9,8 @@ router.post('/getWordId', function (req, res) {
 })
 
 router.post('/set', function (req, res) {
-    db.serialize(function () {
-        db.run(`INSERT INTO likes (wordId, userId) VALUES ('${req['body']['wordId']}','${req['body']['userId']}')`)
-        res.send("ok")
-    })
+    let result = db.prepare(`INSERT INTO likes (wordId, userId) SELECT '${req['body']['wordId']}','${req['body']['userId']}'`).run()
+    res.send("ok")
 })
 
 module.exports = router;
