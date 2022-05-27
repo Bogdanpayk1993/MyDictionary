@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Menu from './Menu/menu';
+import Feed from './Feed';
 import MyWords from './MyWords/mywords';
 import People from './People/people';
 import PersonProfile from './PersonProfile';
@@ -39,7 +40,7 @@ async function getSubscribers(userId, setSubscribers) {
 function Dictionary() {
     const [userId, setUserId] = useState(NaN)
     const [userName, setUserName] = useState("")
-    const [page, setPage] = useState("MyWords")
+    const [page, setPage] = useState("Feed")
     const [subscriptions, setSubscriptions] = useState({})
     const [subscribers, setSubscribers] = useState({})
 
@@ -63,6 +64,12 @@ function Dictionary() {
                                 <Subscribers subscribers={subscribers} setPage={setPage} />
                             </div>
                             <div>
+                                {
+                                    page == "Feed" ?
+                                        (
+                                            <Feed userId={userId} userName={userName} setPage={setPage} />
+                                        ) : (null)
+                                }
                                 {
                                     page == "MyWords" ?
                                         (

@@ -9,10 +9,8 @@ router.post('/getWordId', function (req, res) {
 })
 
 router.post('/set', function (req, res) {
-  db.serialize(function () {
-    db.run(`INSERT INTO comments (wordId, userId, comment) VALUES ('${req['body']['wordId']}','${req['body']['userId']}','${req['body']['comment']}')`)
-    res.send('ok')
-  })
+  db.prepare(`INSERT INTO comments (wordId, userId, comment) VALUES ('${req['body']['wordId']}','${req['body']['userId']}','${req['body']['comment']}')`).run()
+    
 })
 
 router.post('/delete', function (req, res) {

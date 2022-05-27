@@ -11,6 +11,7 @@ function Nav(props) {
                 isAuthenticated ?
                     (
                         <>
+                            <p onClick={() => props.setPage("Feed")}> Feed </p>
                             <p onClick={() => props.setPage("MyWords")}> My words </p>
                             <p onClick={() => props.setPage("People")}> People </p>
                         </>
