@@ -39,7 +39,7 @@ function Feed(props) {
                     Object.keys(wordList).length != 0 ?
                         (
                             Object.keys(wordList).map(el => (
-                                <Word userId={wordList[el]['userId']} userName={wordList[el]['name']} globalUserName={userName} word={{ id: wordList[el]['id'], english: wordList[el]['english'], ukrainian: wordList[el]['ukrainian'] }} globalSetPage={setPage} key={wordList[el]['id']} />
+                                <Word userId={userId} userName={wordList[el]['name']} globalUserName={userName} word={{ id: wordList[el]['id'], userId: wordList[el]['userId'], english: wordList[el]['english'], ukrainian: wordList[el]['ukrainian'] }} globalSetPage={setPage} key={wordList[el]['id']} />
                             ))
                         ) :
                         (

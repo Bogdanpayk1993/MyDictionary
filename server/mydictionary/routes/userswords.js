@@ -9,8 +9,8 @@ router.post('/getUserWords', function (req, res) {
 })
 
 router.post('/getUsersWords', function (req, res) {
-    const result1 = db.prepare(`SELECT users.id AS userId, users.name, userswords.id, words.english, words.ukrainian FROM subscribers JOIN users ON subscribers.subscription=users.id JOIN userswords ON subscribers.subscriber='${req['body']['userId']}' and userswords.userId=subscribers.subscription JOIN words ON userswords.wordId=words.id`).all()
-    const result2 = db.prepare(`SELECT userswords.userId, words.id, words.english, words.ukrainian FROM userswords JOIN words ON userswords.userId='${req['body']['userId']}' and userswords.wordId=words.id;`).all()
+    const result1 = db.prepare(`SELECT userswords.id, users.id AS userId, users.name, words.english, words.ukrainian FROM subscribers JOIN users ON subscribers.subscription=users.id JOIN userswords ON subscribers.subscriber='${req['body']['userId']}' and userswords.userId=subscribers.subscription JOIN words ON userswords.wordId=words.id`).all()
+    const result2 = db.prepare(`SELECT userswords.id, userswords.userId, words.english, words.ukrainian FROM userswords JOIN words ON userswords.userId='${req['body']['userId']}' and userswords.wordId=words.id`).all()
     const result = result1.concat(result2) 
     res.send(result)
 })
