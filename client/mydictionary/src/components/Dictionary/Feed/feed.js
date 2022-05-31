@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Word from '../Word/word';
 import Send_Request_For_Database from '../../send_request_for_database';
-import './feed.css';
 
 async function getWordList(userId, userName, setWordList) {
     let reply = await Send_Request_For_Database({ link: 'userswords/getUsersWords', userId: `${userId}` })
@@ -25,6 +24,7 @@ function Feed(props) {
 
     const userId = props.userId
     const userName = props.userName
+    const globalUserName = props.globalUserName
     const setPage = props.setPage
     const [wordList, setWordList] = useState(NaN)
 
@@ -38,8 +38,8 @@ function Feed(props) {
                 {
                     Object.keys(wordList).length != 0 ?
                         (
-                            Object.keys(wordList).map(el => (
-                                <Word userId={userId} userName={wordList[el]['name']} globalUserName={userName} word={{ id: wordList[el]['id'], userId: wordList[el]['userId'], english: wordList[el]['english'], ukrainian: wordList[el]['ukrainian'] }} wordList={wordList} setWordList={setWordList} globalSetPage={setPage} key={wordList[el]['id']} />
+                            Object.keys(wordList).reverse().map(el => (
+                                <Word userId={userId} userName={wordList[el]['name']} globalUserName={globalUserName} word={{ id: wordList[el]['id'], userId: wordList[el]['userId'], english: wordList[el]['english'], ukrainian: wordList[el]['ukrainian'] }} wordList={wordList} setWordList={setWordList} globalSetPage={setPage} key={wordList[el]['id']} />
                             ))
                         ) :
                         (

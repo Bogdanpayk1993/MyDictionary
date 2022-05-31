@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Send_Request_For_Database from '../../send_request_for_database';
+import Feed from '../Feed';
 import WordList from './WordList/wordlist';
 import Subscriptions from './Subscriptions/subscriptions';
 import Subscribers from './Subscribers/subscribers';
@@ -42,7 +43,7 @@ function PersonProfile(props) {
     const setSubscriptions = props.setSubscriptions
     const [userName, setUserName] = useState("")
     const [userStatys, setUserStatys] = useState(false)
-    const [page, setPage] = useState("MyWords")
+    const [page, setPage] = useState("Feed")
 
     getUserInformation(globalUserId, userId, setUserName, setUserStatys)
 
@@ -51,7 +52,8 @@ function PersonProfile(props) {
             <div className='UserInformation'>
                 <span> {userName}  </span>
                 <span>
-                    <p onClick={() => setPage("MyWords")} > Words </p>
+                    <p onClick={() => setPage("Feed")}> Feed </p>
+                    <p onClick={() => setPage("MyWords")}> Words </p>
                     <p onClick={() => setPage("Subscriptions")}> Subscriptions </p>
                     <p onClick={() => setPage("Subscribers")}> Subscribers </p>
                 </span>
@@ -68,6 +70,12 @@ function PersonProfile(props) {
                 userName != "" ?
                     (
                         <>
+                            {
+                                page == "Feed" ?
+                                    (
+                                        <Feed userId={userId} globalUserName={globalUserName} userName={userName} setPage={globalSetPage} />
+                                    ) : (null) 
+                            }
                             {
                                 page == "MyWords" ?
                                     (

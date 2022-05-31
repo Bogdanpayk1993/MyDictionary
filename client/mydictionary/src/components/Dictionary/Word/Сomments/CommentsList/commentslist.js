@@ -14,6 +14,7 @@ function CommentsList(props) {
 
     const userId = props.userId
     const wordUserId = props.wordUserId
+    const globalUserName = props.globalUserName
     const commentsList = props.commentsList
     const setCommentsList = props.setCommentsList
     const globalSetPage = props.globalSetPage
@@ -39,7 +40,7 @@ function CommentsList(props) {
                                     <div className='Comment' key={el}>
                                         <div>
                                             <div>
-                                                <p onClick={() => {commentsList[el]['userId'] != userId ? globalSetPage(commentsList[el]['userId']) : globalSetPage('MyWords')}}> {commentsList[el]['name']} </p>
+                                                <p onClick={() => { commentsList[el]['name'] != globalUserName ? globalSetPage(commentsList[el]['userId']) : globalSetPage('Feed') }}> {commentsList[el]['name']} </p>
                                             </div>
                                             <div>
                                                 {

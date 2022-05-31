@@ -67,7 +67,9 @@ function Dictionary() {
                                 {
                                     page == "Feed" ?
                                         (
-                                            <Feed userId={userId} userName={userName} setPage={setPage} />
+                                            <div className='MyFeed'>
+                                                <Feed userId={userId} globalUserName={userName} userName={userName} setPage={setPage} />
+                                            </div>
                                         ) : (null)
                                 }
                                 {

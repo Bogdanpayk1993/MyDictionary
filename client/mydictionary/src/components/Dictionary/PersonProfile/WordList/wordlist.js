@@ -43,7 +43,7 @@ function WordList(props) {
                 {
                     Object.keys(wordList).length != 0 ?
                         (
-                            Object.keys(wordList).map(el => (
+                            Object.keys(wordList).reverse().map(el => (
                                 <Word userId={globalUserId} userName={userName} globalUserName={globalUserName} word={{ ...wordList[el], id: el }} globalSetPage={globalSetPage} key={wordList[el]['id']} />
                             ))
                         ) :

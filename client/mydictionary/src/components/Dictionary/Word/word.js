@@ -27,7 +27,7 @@ function Word(props) {
         <div className='Post' key={word['id']}>
             <div>
                 <div>
-                    <p onClick={() => { word['userId'] != userId ? globalSetPage(word['userId']) : globalSetPage('MyWords') }}> {userName} </p>
+                    <p onClick={() => { userName != globalUserName ? globalSetPage(word['userId']) : globalSetPage('Feed') }}> {userName} </p>
                 </div>
                 <div>
                     {

@@ -23,7 +23,7 @@ function AddComment(props) {
     return (
         <div className='AddComment'>
             <div>
-                <p onClick={() => globalSetPage("MyWords")}> {globalUserName} </p>
+                <p onClick={() => globalSetPage("Feed")}> {globalUserName} </p>
                 <div>
                     <textarea placeholder='Your comment:' ref={newComment} />
                     <div>

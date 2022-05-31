@@ -53,7 +53,7 @@ function Likes(props) {
                             <div>
                                 {
                                     Object.keys(likes).map(el => (
-                                        <p onClick={() => {likes[el]['userId'] != userId ? globalSetPage(likes[el]['userId']) : globalSetPage('MyWords')}} key={el}> {likes[el]['name']} </p>
+                                        <p onClick={() => { likes[el]['name'] != globalUserName ? globalSetPage(likes[el]['userId']) : globalSetPage('Feed') }} key={el}> {likes[el]['name']} </p>
                                     ))
                                 }
                             </div>

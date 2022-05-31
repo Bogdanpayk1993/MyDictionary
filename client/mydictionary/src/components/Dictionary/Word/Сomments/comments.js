@@ -37,7 +37,7 @@ function Comments(props) {
     return (
         <>
             <AddComment userId={userId} wordId={wordId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
-            <CommentsList userId={userId} wordUserId={wordUserId} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
+            <CommentsList userId={userId} wordUserId={wordUserId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
         </>
     )
 }

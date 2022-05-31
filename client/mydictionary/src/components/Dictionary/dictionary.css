@@ -10,3 +10,7 @@
 .Dictionary > div:nth-child(even) {
     width: 40vw;
 }
+
+.Dictionary .MyFeed {
+    margin-top: 6vh;
+}
