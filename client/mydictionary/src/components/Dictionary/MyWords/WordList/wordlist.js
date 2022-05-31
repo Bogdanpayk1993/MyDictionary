@@ -1,36 +1,21 @@
-import React, { useState } from 'react';
-import Send_Request_For_Database from '../../../send_request_for_database';
+import React from 'react';
 import Word from '../../Word/word';
-import Delete from './Delete/delete';
-
-function deleteWord(id, wordList, setWordList, setDelete) {
-    let reply = Send_Request_For_Database({ link: 'userswords/delete', id: `${id}` })
-    delete wordList[id]
-    setWordList({ ...wordList })
-    setDelete(NaN)
-}
 
 function WordList(props) {
 
     const userId = props.userId
     const userName = props.userName
     const globalSetPage = props.globalSetPage
-    const [deleteWordId, setDelete] = useState(NaN)
+    const wordList = props.wordList
+    const setWordList = props.setWordList
 
     return (
         <div className='WordList'>
             {
-                !isNaN(deleteWordId) ?
+                Object.keys(wordList).length != 0 ?
                     (
-                       <Delete deleteWordId={deleteWordId}  wordList={props['wordList']} deleteWord={deleteWord} setWordList={props['setWordList']} setDelete={setDelete} />
-                    ) :
-                    (null)
-            }
-            {
-                Object.keys(props['wordList']).length != 0 ?
-                    (
-                        Object.keys(props['wordList']).map(el => (
-                            <Word userId={userId} userName={userName} globalUserName={userName} word={props['wordList'][el]} globalSetPage={globalSetPage} setDelete={setDelete} key={props['wordList'][el]['id']} /> 
+                        Object.keys(wordList).map(el => (
+                            <Word userId={userId} userName={userName} globalUserName={userName} word={wordList[el]} wordList={wordList} setWordList={setWordList} globalSetPage={globalSetPage} key={wordList[el]['id']} /> 
                         ))
                     ) :
                     (

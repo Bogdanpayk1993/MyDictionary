@@ -10,29 +10,23 @@
     background-color: rgba(0, 0, 0, 60%);
 }
 
-.Delete div {
+.Delete > div {
     width: 36vw;
     background-color: lightgray;
     border-radius: 0.5vw;
 }
 
-.Delete div div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.Delete div div p:nth-child(1) {
+.Delete > div div p:nth-child(1) {
     width: 17vw;
     float: left;
 }
 
-.Delete div div p:nth-child(2) {
+.Delete > div div p:nth-child(2) {
     width: 17vw;
     float: right;
 }
 
-.Delete div button {
+.Delete > div button {
     width: 4vw;
     margin: 0.5vw;
 }
