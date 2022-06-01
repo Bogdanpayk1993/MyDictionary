@@ -24,6 +24,7 @@ async function getComments(wordId, setCommentsList) {
 function Comments(props) {
 
     const userId = props.userId
+    const globalUserId = props.globalUserId
     const globalUserName = props.globalUserName
     const wordId = props.wordId
     const wordUserId = props.wordUserId
@@ -37,7 +38,7 @@ function Comments(props) {
     return (
         <>
             <AddComment userId={userId} wordId={wordId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
-            <CommentsList userId={userId} wordUserId={wordUserId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
+            <CommentsList userId={userId} globalUserId={globalUserId} wordUserId={wordUserId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
         </>
     )
 }

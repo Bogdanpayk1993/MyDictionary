@@ -35,10 +35,10 @@ async function unsubscribe(globalUserId, userId, setUserStatys, subscriptions, s
 }
 
 function PersonProfile(props) {
+    const userId = props.page
     const globalUserId = props.userId
     const globalUserName = props.userName
     const globalSetPage = props.setPage
-    const userId = props.page
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
     const [userName, setUserName] = useState("")
@@ -73,7 +73,7 @@ function PersonProfile(props) {
                             {
                                 page == "Feed" ?
                                     (
-                                        <Feed userId={userId} globalUserName={globalUserName} userName={userName} setPage={globalSetPage} />
+                                        <Feed globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} setPage={globalSetPage} />
                                     ) : (null) 
                             }
                             {

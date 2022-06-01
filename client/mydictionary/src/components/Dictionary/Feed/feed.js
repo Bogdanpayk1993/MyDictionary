@@ -22,9 +22,10 @@ async function getWordList(userId, userName, setWordList) {
 
 function Feed(props) {
 
+    const globalUserId = props.globalUserId
     const userId = props.userId
-    const userName = props.userName
     const globalUserName = props.globalUserName
+    const userName = props.userName
     const setPage = props.setPage
     const [wordList, setWordList] = useState(NaN)
 
@@ -39,7 +40,7 @@ function Feed(props) {
                     Object.keys(wordList).length != 0 ?
                         (
                             Object.keys(wordList).reverse().map(el => (
-                                <Word userId={userId} userName={wordList[el]['name']} globalUserName={globalUserName} word={{ id: wordList[el]['id'], userId: wordList[el]['userId'], english: wordList[el]['english'], ukrainian: wordList[el]['ukrainian'] }} wordList={wordList} setWordList={setWordList} globalSetPage={setPage} key={wordList[el]['id']} />
+                                <Word userId={userId} globalUserId={globalUserId} userName={wordList[el]['name']} globalUserName={globalUserName} word={{ id: wordList[el]['id'], userId: wordList[el]['userId'], english: wordList[el]['english'], ukrainian: wordList[el]['ukrainian'] }} wordList={wordList} setWordList={setWordList} globalSetPage={setPage} key={wordList[el]['id']} />
                             ))
                         ) :
                         (

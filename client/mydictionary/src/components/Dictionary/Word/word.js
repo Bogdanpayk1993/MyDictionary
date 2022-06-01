@@ -15,6 +15,7 @@ function deleteWord(id, wordList, setWordList, setDelete) {
 function Word(props) {
 
     const userId = props.userId
+    const globalUserId = props.globalUserId
     const userName = props.userName
     const globalUserName = props.globalUserName
     const word = props.word
@@ -31,7 +32,7 @@ function Word(props) {
                 </div>
                 <div>
                     {
-                        setDelete != undefined && userId == word['userId'] ?
+                        setDelete != undefined && globalUserId == word['userId'] ?
                             <button onClick={() => setDelete(word['id'])}> Delete </button>
                             :
                             null
@@ -50,7 +51,7 @@ function Word(props) {
             }
             <Likes userId={userId} userName={userName} globalUserName={globalUserName} wordId={word['id']} globalSetPage={globalSetPage} />
             <hr />
-            <Comments userId={userId} globalUserName={globalUserName} wordId={word['id']} wordUserId={word['userId']} globalSetPage={globalSetPage} />
+            <Comments userId={userId} globalUserId={globalUserId} globalUserName={globalUserName} wordId={word['id']} wordUserId={word['userId']} globalSetPage={globalSetPage} />
         </div>
     )
 }
