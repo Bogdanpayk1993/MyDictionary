@@ -28,7 +28,7 @@ function Word(props) {
         <div className='Post' key={word['id']}>
             <div>
                 <div>
-                    <p onClick={() => { userName != globalUserName ? globalSetPage(word['userId']) : globalSetPage('Feed') }}> {userName} </p>
+                    <p onClick={() => { userId != globalUserId ? globalSetPage(word['userId']) : globalSetPage('Feed') }}> {userName} </p>
                 </div>
                 <div>
                     {
@@ -49,7 +49,7 @@ function Word(props) {
                     ) :
                     (null)
             }
-            <Likes userId={userId} userName={userName} globalUserName={globalUserName} wordId={word['id']} globalSetPage={globalSetPage} />
+            <Likes userId={userId} globalUserId={globalUserId} globalUserName={globalUserName} word={word} globalSetPage={globalSetPage} />
             <hr />
             <Comments userId={userId} globalUserId={globalUserId} globalUserName={globalUserName} wordId={word['id']} wordUserId={word['userId']} globalSetPage={globalSetPage} />
         </div>

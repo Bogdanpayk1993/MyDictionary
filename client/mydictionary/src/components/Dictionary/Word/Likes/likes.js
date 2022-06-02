@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Send_Request_For_Database from '../../../send_request_for_database';
 import './likes.css';
 
-async function getLike(setLikes, setLikeStatus, userId, wordId) {
+async function getLike(setLikes, setLikeStatus, globaluserId, wordId) {
     let json
 
     let reply = Send_Request_For_Database({ link: 'likes/getWordId', wordId: `${wordId}` })
@@ -11,7 +11,7 @@ async function getLike(setLikes, setLikeStatus, userId, wordId) {
     })
 
     if (Object.keys(json).length != 0) {
-        let index = Object.keys(json).find(el => json[el]['userId'] == userId)
+        let index = Object.keys(json).find(el => json[el]['userId'] == globaluserId)
         if (index != undefined) {
             setLikeStatus(true)
         }
@@ -31,16 +31,17 @@ async function addLike(likes, setLikes, setLikeStatus, globalUserName, userId, w
 function Likes(props) {
 
     let userId = props.userId
-    let userName = props.userName
+    let globalUserId = props.globalUserId
     let globalUserName = props.globalUserName
-    let wordId = props.wordId
+    let wordId = props.word['id']
+    let wordUserId = props.word['userId']
     let globalSetPage = props.globalSetPage
     const [likes, setLikes] = useState({})
     const [likeStatus, setLikeStatus] = useState(false)
     const [watchingLikes, setWatchingLikes] = useState(false)
 
     if (JSON.stringify(likes) === '{}') {
-        getLike(setLikes, setLikeStatus, userId, wordId)
+        getLike(setLikes, setLikeStatus, globalUserId, wordId)
     }
 
     return (
@@ -62,7 +63,7 @@ function Likes(props) {
             </div>
             <div>
                 {
-                    likeStatus == false && userName != globalUserName ?
+                    likeStatus == false && globalUserId != wordUserId ?
                         <button onClick={() => addLike(likes, setLikes, setLikeStatus, globalUserName, userId, wordId)}> Likes </button>
                         :
                         null
