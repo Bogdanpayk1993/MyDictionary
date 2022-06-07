@@ -1,19 +1,30 @@
 import React from 'react';
 import Authentication from './Authentication/authentication';
-import './menu.css';
 import Nav from './Nav/nav';
+import UserChoice from './UserChoice';
+import './menu.css';
+
+
 
 function Menu(props) {
+
     return (
         <div className="Menu">
             <div>
 
             </div>
             <div>
-                <Nav setPage={props.setPage} />
+                {
+                    !isNaN(props.userId) ? 
+                        <Nav setPage={props.setPage} />
+                        : null
+                }
             </div> 
             <div>
-                <Authentication userId={props.userId} setUserId={props.setUserId} setUserName={props.setUserName} />
+                {
+                    //<Authentication userId={props.userId} setUserId={props.setUserId} setUserName={props.setUserName} />
+                    <UserChoice setUserId={props.setUserId} setUserName={props.setUserName} />
+                }
             </div>
         </div>
     )
