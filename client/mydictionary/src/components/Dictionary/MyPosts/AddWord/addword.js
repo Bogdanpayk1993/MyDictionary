@@ -9,22 +9,22 @@ function AddWord(props) {
 
     async function Add() {
         let json
-        let word_Id
+        let post_Id
         let user_Id = props.userId
-        let wordList = props.wordList
-        let setWordList = props.setWordList
+        let postList = props.postList
+        let setPostList = props.setPostList
 
-        let reply = await Send_Request_For_Database({ link: 'words/set', english: `${englishRef.current.value}`, ukrainian: `${ukraineRef.current.value}` })
+        let reply = await Send_Request_For_Database({ link: 'posts/set', english: `${englishRef.current.value}`, ukrainian: `${ukraineRef.current.value}` })
         json = JSON.parse(reply)
-        word_Id = json[0]['id']
+        post_Id = json[0]['id']
 
         let today = new Date()
 
-        reply = await Send_Request_For_Database({ link: 'usersposts/set', userId: `${user_Id}`, wordId: `${word_Id}`, date: `${today}` })
+        reply = await Send_Request_For_Database({ link: 'usersposts/set', userId: `${user_Id}`, postId: `${post_Id}`, date: `${today}` })
         json = JSON.parse(reply)
 
         if (json.length != 0) {
-            setWordList({ ...wordList, [json[0]['id']]: { id: json[0]['id'], english: englishRef.current.value, ukrainian: ukraineRef.current.value } })
+            setPostList({ ...postList, [json[0]['id']]: { id: json[0]['id'], english: englishRef.current.value, ukrainian: ukraineRef.current.value } })
         }
 
         englishRef.current.value = ""
@@ -38,7 +38,7 @@ function AddWord(props) {
                 -
                 <input placeholder="Ukrainian" ref={ukraineRef} ></input>
                 <div>
-                    <button onClick={Add}> Add word </button>
+                    <button onClick={Add}> Add post </button>
                 </div>
             </div>
         </div>

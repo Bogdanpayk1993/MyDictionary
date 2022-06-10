@@ -14,7 +14,7 @@ function CommentsList(props) {
 
     const userId = props.userId
     const globalUserId = props.globalUserId
-    const wordUserId = props.wordUserId
+    const postUserId = props.postUserId
     const globalUserName = props.globalUserName
     const commentsList = props.commentsList
     const setCommentsList = props.setCommentsList
@@ -45,7 +45,7 @@ function CommentsList(props) {
                                             </div>
                                             <div>
                                                 {
-                                                    commentsList[el]['userId'] == globalUserId || wordUserId == globalUserId ?
+                                                    commentsList[el]['userId'] == globalUserId || postUserId == globalUserId ?
                                                         <button onClick={() => setDelete(commentsList[el]['id'])} > Delete </button>
                                                         :
                                                         null

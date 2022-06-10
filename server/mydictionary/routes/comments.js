@@ -3,7 +3,7 @@ var router = express.Router();
 var BetterSqlite3 = require('better-sqlite3');
 var db = new BetterSqlite3('dictionary.db');
 
-router.post('/getWordId', function (req, res) {
+router.post('/getPostId', function (req, res) {
   const result = db.prepare(`SELECT comments.id, comments.userId, comments.comment, users.name FROM comments JOIN users ON comments.wordId='${req['body']['wordId']}' AND comments.userId==users.id`).all()
   res.send(result)
 })

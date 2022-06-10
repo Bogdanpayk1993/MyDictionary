@@ -3,10 +3,10 @@ import Send_Request_For_Database from '../../../send_request_for_database';
 import AddComment from './AddComent/addcomment';
 import CommentsList from './CommentsList/commentslist';
 
-async function getComments(wordId, setCommentsList) {
+async function getComments(postId, setCommentsList) {
     let json
 
-    let reply = Send_Request_For_Database({ link: 'comments/getWordId', wordId: wordId })
+    let reply = Send_Request_For_Database({ link: 'comments/getPostId', postId: postId })
     await reply.then((value) => {
         json = JSON.parse(value)
     })
@@ -26,19 +26,19 @@ function Comments(props) {
     const userId = props.userId
     const globalUserId = props.globalUserId
     const globalUserName = props.globalUserName
-    const wordId = props.wordId
-    const wordUserId = props.wordUserId
+    const postId = props.postId
+    const postUserId = props.postUserId
     const globalSetPage = props.globalSetPage
     const [commentsList, setCommentsList] = useState({})
 
     if (JSON.stringify(commentsList) === '{}') {
-        getComments(wordId, setCommentsList)
+        getComments(postId, setCommentsList)
     }
 
     return (
         <>
-            <AddComment userId={userId} wordId={wordId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
-            <CommentsList userId={userId} globalUserId={globalUserId} wordUserId={wordUserId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
+            <AddComment userId={userId} postId={postId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
+            <CommentsList userId={userId} globalUserId={globalUserId} postUserId={postUserId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
         </>
     )
 }

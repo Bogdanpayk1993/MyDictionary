@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Word from '../Word/word';
+import Post from '../Post/post';
 import Send_Request_For_Database from '../../send_request_for_database';
 
-async function getWordList(userId, userName, setWordList) {
-    let reply = await Send_Request_For_Database({ link: 'usersposts/getUsersWords', userId: `${userId}` })
+async function getpostList(userId, userName, setPostList) {
+    let reply = await Send_Request_For_Database({ link: 'usersposts/getUsersPosts', userId: `${userId}` })
     let json = JSON.parse(reply)
 
     let json1 = {}
@@ -16,7 +16,7 @@ async function getWordList(userId, userName, setWordList) {
     })
 
     if (JSON.stringify(json1) !== '{}') {
-        setWordList({ ...json1 })
+        setPostList({ ...json1 })
     }
 }
 
@@ -27,24 +27,24 @@ function Feed(props) {
     const globalUserName = props.globalUserName
     const userName = props.userName
     const setPage = props.setPage
-    const [wordList, setWordList] = useState(NaN)
+    const [postList, setPostList] = useState(NaN)
 
-    if (Object.keys(wordList).length == 0) {
-        getWordList(userId, userName, setWordList)
+    if (Object.keys(postList).length == 0) {
+        getpostList(userId, userName, setPostList)
     }
 
     return (
         <div className='feed'>
-            <div className='WordList'>
+            <div className='postList'>
                 {
-                    Object.keys(wordList).length != 0 ?
+                    Object.keys(postList).length != 0 ?
                         (
-                            Object.keys(wordList).reverse().map(el => (
-                                <Word userId={userId} globalUserId={globalUserId} userName={wordList[el]['name']} globalUserName={globalUserName} word={{ id: wordList[el]['id'], userId: wordList[el]['userId'], english: wordList[el]['english'], ukrainian: wordList[el]['ukrainian'] }} wordList={wordList} setWordList={setWordList} globalSetPage={setPage} key={wordList[el]['id']} />
+                            Object.keys(postList).reverse().map(el => (
+                                <Post userId={userId} globalUserId={globalUserId} userName={postList[el]['name']} globalUserName={globalUserName} post={{ id: postList[el]['id'], userId: postList[el]['userId'], english: postList[el]['english'], ukrainian: postList[el]['ukrainian'] }} postList={postList} setPostList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
                             ))
                         ) :
                         (
-                            <p> You don't have word </p>
+                            <p> You don't have post </p>
                         )
                 }
             </div>
