@@ -4,9 +4,12 @@ import Nav from './Nav/nav';
 import UserChoice from './UserChoice';
 import './menu.css';
 
-
-
 function Menu(props) {
+
+    const userId = props.userId
+    const setUserId = props.setUserId
+    const setUserName = props.setUserName
+    const setPage = props.setPage
 
     return (
         <div className="Menu">
@@ -15,15 +18,15 @@ function Menu(props) {
             </div>
             <div>
                 {
-                    !isNaN(props.userId) ? 
-                        <Nav setPage={props.setPage} />
+                    !isNaN(userId) ? 
+                        <Nav setPage={setPage} />
                         : null
                 }
             </div> 
             <div>
                 {
-                    //<Authentication userId={props.userId} setUserId={props.setUserId} setUserName={props.setUserName} />
-                    <UserChoice setUserId={props.setUserId} setUserName={props.setUserName} />
+                    //<Authentication setUserId={setUserId} setUserName={setUserName} />
+                    <UserChoice setUserId={setUserId} setUserName={setUserName} />
                 }
             </div>
         </div>

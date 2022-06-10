@@ -6,7 +6,7 @@ import Send_Request_For_Database from '../../send_request_for_database';
 import './word.css';
 
 function deleteWord(id, wordList, setWordList, setDelete) {
-    let reply = Send_Request_For_Database({ link: 'userswords/delete', id: `${id}` })
+    let reply = Send_Request_For_Database({ link: 'usersposts/delete', id: `${id}` })
     delete wordList[id]
     setWordList({ ...wordList })
     setDelete(NaN)

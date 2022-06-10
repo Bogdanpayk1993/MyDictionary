@@ -3,7 +3,7 @@ import Word from '../Word/word';
 import Send_Request_For_Database from '../../send_request_for_database';
 
 async function getWordList(userId, userName, setWordList) {
-    let reply = await Send_Request_For_Database({ link: 'userswords/getUsersWords', userId: `${userId}` })
+    let reply = await Send_Request_For_Database({ link: 'usersposts/getUsersWords', userId: `${userId}` })
     let json = JSON.parse(reply)
 
     let json1 = {}

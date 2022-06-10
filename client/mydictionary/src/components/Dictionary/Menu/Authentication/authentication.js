@@ -15,9 +15,11 @@ async function getUserData(user, setUserId, setUserName) {
 
 function Authentication(props) {
     const { user, isAuthenticated } = useAuth0();
+    const setUserId = props.setUserId
+    const setUserName = props.setUserName
 
-    if (isAuthenticated && isNaN(props.userId)) {
-        getUserData(user, props.setUserId, props.setUserName)
+    if (isAuthenticated) {
+        getUserData(user, setUserId, setUserName)
     }
 
     return (

@@ -18,7 +18,9 @@ function AddWord(props) {
         json = JSON.parse(reply)
         word_Id = json[0]['id']
 
-        reply = await Send_Request_For_Database({ link: 'userswords/set', userId: `${user_Id}`, wordId: `${word_Id}` })
+        let today = new Date()
+
+        reply = await Send_Request_For_Database({ link: 'usersposts/set', userId: `${user_Id}`, wordId: `${word_Id}`, date: `${today}` })
         json = JSON.parse(reply)
 
         if (json.length != 0) {

@@ -9,7 +9,7 @@ var indexRouter = require('./routes/index');
 
 var usersRouter = require('./routes/users');
 var wordsRouter = require('./routes/words');
-var userswordsRouter = require('./routes/userswords');
+var usersPostsRouter = require('./routes/usersposts'); 
 var subscribersRouter = require('./routes/subscribers');
 var commentsRouter = require('./routes/comments');
 var likesRouter = require('./routes/likes');
@@ -31,7 +31,7 @@ app.use('/', indexRouter);
 
 app.use('/users', usersRouter);
 app.use('/words', wordsRouter);
-app.use('/userswords', userswordsRouter);
+app.use('/usersposts', usersPostsRouter);
 app.use('/subscribers', subscribersRouter);
 app.use('/comments', commentsRouter);
 app.use('/likes', likesRouter);
