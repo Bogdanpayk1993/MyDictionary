@@ -40,7 +40,7 @@ function Feed(props) {
                     Object.keys(postList).length != 0 ?
                         (
                             Object.keys(postList).reverse().map(el => (
-                                <Post userId={userId} globalUserId={globalUserId} userName={postList[el]['name']} globalUserName={globalUserName} post={{ id: postList[el]['id'], userId: postList[el]['userId'], english: postList[el]['english'], ukrainian: postList[el]['ukrainian'] }} postList={postList} setPostList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
+                                <Post userId={userId} globalUserId={globalUserId} userName={postList[el]['name']} globalUserName={globalUserName} post={postList[el]} postList={postList} setPostList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
                             ))
                         ) :
                         (

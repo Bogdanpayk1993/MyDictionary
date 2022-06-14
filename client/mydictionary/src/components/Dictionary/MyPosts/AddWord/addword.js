@@ -14,7 +14,7 @@ function AddWord(props) {
         let postList = props.postList
         let setPostList = props.setPostList
 
-        let reply = await Send_Request_For_Database({ link: 'posts/set', english: `${englishRef.current.value}`, ukrainian: `${ukraineRef.current.value}` })
+        let reply = await Send_Request_For_Database({ link: 'words/set', english: `${englishRef.current.value}`, ukrainian: `${ukraineRef.current.value}` })
         json = JSON.parse(reply)
         post_Id = json[0]['id']
 

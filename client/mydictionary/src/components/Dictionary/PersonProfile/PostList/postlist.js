@@ -43,7 +43,7 @@ function PostList(props) {
                     Object.keys(postList).length != 0 ?
                         (
                             Object.keys(postList).reverse().map(el => (
-                                <Post userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} post={{ ...postList[el], id: el }} globalSetPage={globalSetPage} key={postList[el]['id']} />
+                                <Post userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} post={postList[el]} postList={postList} globalSetPage={globalSetPage} key={postList[el]['id']} />
                             ))
                         ) :
                         (
