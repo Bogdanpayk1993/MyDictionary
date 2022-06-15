@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AddWord from './AddWord/addword';
-import PostList from './PostList/postlist';
+import WordList from './WordList/wordlist';
 import Send_Request_For_Database from '../../send_request_for_database';
 
 async function getpostList(userId, setPostList) {
@@ -18,7 +18,7 @@ async function getpostList(userId, setPostList) {
     }
 }
 
-function MyPosts(props) {
+function MyWords(props) {
 
     const userId = props.userId
     const userName = props.userName
@@ -32,9 +32,9 @@ function MyPosts(props) {
     return (
         <>
             <AddWord userId={userId} postList={postList} setPostList={setPostList} />
-            <PostList userId={userId} userName={userName} postList={postList} setPostList={setPostList} globalSetPage={globalSetPage} />
+            <WordList userId={userId} userName={userName} postList={postList} setPostList={setPostList} globalSetPage={globalSetPage} />
         </>
     )
 }
 
-export default MyPosts;
+export default MyWords;

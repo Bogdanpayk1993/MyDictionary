@@ -1,7 +1,7 @@
 import React from 'react';
 import Post from '../../Post/post';
 
-function PostList(props) {
+function WordList(props) {
 
     const userId = props.userId
     const userName = props.userName
@@ -26,4 +26,4 @@ function PostList(props) {
     )
 }
 
-export default PostList;
+export default WordList;

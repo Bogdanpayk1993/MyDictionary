@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Send_Request_For_Database from '../../../send_request_for_database';
 import Post from '../../Post/post';
+
 async function getpostLis(userId, postList, setPostList) {
     let postList1 = {}
 
@@ -25,7 +26,7 @@ async function getpostLis(userId, postList, setPostList) {
     }
 }
 
-function PostList(props) {
+function WordList(props) {
 
     const globalUserId = props.globalUserId
     const userId = props.userId
@@ -55,4 +56,4 @@ function PostList(props) {
     )
 }
 
-export default PostList;
+export default WordList;

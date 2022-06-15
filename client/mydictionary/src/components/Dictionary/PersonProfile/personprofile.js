@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Send_Request_For_Database from '../../send_request_for_database';
 import Feed from '../Feed';
-import PostList from './PostList/postlist';
+import WordList from './WordList/wordlist';
 import Subscriptions from './Subscriptions/subscriptions';
 import Subscribers from './Subscribers/subscribers';
 import './personprofile.css';
@@ -79,7 +79,7 @@ function PersonProfile(props) {
                             {
                                 page == "MyWords" ?
                                     (
-                                        <PostList globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} globalSetPage={globalSetPage} />
+                                        <WordList globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} globalSetPage={globalSetPage} />
                                     ) : (null)
                             }
                             {
