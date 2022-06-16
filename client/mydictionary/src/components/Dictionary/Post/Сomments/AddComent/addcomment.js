@@ -13,9 +13,12 @@ function AddComment(props) {
     let globalSetPage = props.globalSetPage
 
     async function sendComment() {
-        let reply = Send_Request_For_Database({ link: 'comments/set', postId: postId, userId: userId, comment: newComment.current.value })
 
-        setCommentsList({...commentsList, [commentsList.lenght]: { ['comment']: newComment.current.value, ['name']: globalUserName }})
+        let date = new Date()
+
+        let reply = Send_Request_For_Database({ link: 'comments/set', postId: postId, userId: userId, comment: newComment.current.value, date: date })
+
+        setCommentsList({...commentsList, [commentsList.lenght]: { ['comment']: newComment.current.value, ['name']: globalUserName, ['date']: date }})
         
         newComment.current.value = ""
     }

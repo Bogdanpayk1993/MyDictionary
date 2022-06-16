@@ -24,7 +24,10 @@
 
 .CommentsList .Comment div {
     width: 23vw;
-    height: 17px;
+}
+
+.CommentsList .Comment div:nth-child(1) {
+    height: 4vh;
 }
 
 .CommentsList .Comment div > div:nth-child(1) {
@@ -38,6 +41,11 @@
     font-weight: bold;
 }
 
+.CommentsList .Comment div > div:nth-child(1) samp {
+    margin-left: 0.6vw;
+}
+
+
 .CommentsList .Comment div > div:nth-child(2) {
     width: 7vw;
     float: left;
@@ -47,6 +55,10 @@
 .CommentsList .Comment > div:nth-child(2) {
     width: 23vw;
     float: none;
+    background-color: silver;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    border-radius: 0.2vw;
 }
 
 .CommentsList .Comment > div:nth-child(2) p {

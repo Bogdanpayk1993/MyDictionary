@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Delete from './Delete/delete';
 import Send_Request_For_Database from '../../../../send_request_for_database';
+import GetTimeLife from '../../../GetTimeLife/gettimelife';
 import './commentslist.css';
 
 function deleteComment(id, commentsList, setCommentsList, setDelete) {
@@ -22,6 +23,10 @@ function CommentsList(props) {
     const [deleteCommentId, setDelete] = useState(NaN)
     const [counterComments, setCounterComments] = useState(3)
 
+    Object.keys(commentsList).map(el => {
+        commentsList[el]['date'] = GetTimeLife(commentsList[el]['date'])
+    })
+
     return (
         JSON.stringify(commentsList) !== '{}' ?
             (
@@ -42,6 +47,7 @@ function CommentsList(props) {
                                         <div>
                                             <div>
                                                 <p onClick={() => { commentsList[el]['name'] != globalUserName ? globalSetPage(commentsList[el]['userId']) : globalSetPage('Feed') }}> {commentsList[el]['name']} </p>
+                                                <samp> {commentsList[el]['date']} </samp>
                                             </div>
                                             <div>
                                                 {
