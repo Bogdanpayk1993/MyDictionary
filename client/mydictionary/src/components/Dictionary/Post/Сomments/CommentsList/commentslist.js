@@ -24,7 +24,8 @@ function CommentsList(props) {
     const [counterComments, setCounterComments] = useState(3)
 
     Object.keys(commentsList).map(el => {
-        commentsList[el]['date'] = GetTimeLife(commentsList[el]['date'])
+        !commentsList[el]['date'].endsWith("ago") ? 
+            commentsList[el]['date'] = GetTimeLife(commentsList[el]['date']) : commentsList[el]['date'] = commentsList[el]['date']
     })
 
     return (
