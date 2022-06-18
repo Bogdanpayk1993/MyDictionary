@@ -15,9 +15,10 @@ function AddComment(props) {
     async function sendComment() {
         let date = new Date()
 
-        let reply = Send_Request_For_Database({ link: 'comments/set', postId: postId, userId: userId, comment: newComment.current.value, date: date })
+        let reply = await Send_Request_For_Database({ link: 'comments/set', postId: postId, userId: userId, comment: newComment.current.value, date: date })
+        let json = JSON.parse(reply)
 
-        setCommentsList({...commentsList, [commentsList.lenght]: { ['comment']: newComment.current.value, ['name']: globalUserName, ['date']: `${date}` }})
+        setCommentsList({...commentsList, [json[0]['id']]: { ['id']: json[0]['id'], ['userId']: userId, ['comment']: newComment.current.value, ['name']: globalUserName, ['date']: `${date}` }})
         
         newComment.current.value = ""
     }

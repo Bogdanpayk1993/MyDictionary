@@ -24,7 +24,7 @@ function AddWord(props) {
         json = JSON.parse(reply)
 
         if (json.length != 0) {
-            setPostList({ ...postList, [json[0]['id']]: { id: json[0]['id'], english: englishRef.current.value, ukrainian: ukraineRef.current.value, date: `${today}` } })
+            setPostList({ ...postList, [json[0]['id']]: { id: json[0]['id'], type: `Word`, userId: `${user_Id}`, english: englishRef.current.value, ukrainian: ukraineRef.current.value, date: `${today}` } })
         }
 
         englishRef.current.value = ""

@@ -9,7 +9,8 @@ router.post('/getPostId', function (req, res) {
 })
 
 router.post('/set', function (req, res) {
-  db.prepare(`INSERT INTO comments (userId, postId, comment, date) VALUES ('${req['body']['userId']}','${req['body']['postId']}','${req['body']['comment']}','${req['body']['date']}')`).run()
+  const result = db.prepare(`INSERT INTO comments (userId, postId, comment, date) VALUES ('${req['body']['userId']}','${req['body']['postId']}','${req['body']['comment']}','${req['body']['date']}') RETURNING*`).all()
+  res.send(result)
 })
 
 router.post('/delete', function (req, res) {
