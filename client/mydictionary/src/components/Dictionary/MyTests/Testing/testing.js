@@ -17,7 +17,7 @@ function answering(wordList1, wordList2, setCounterWord, wordId, wordId2, answer
 
     setWordId1(wordId_1)
     setWordId2(wordId_2)
-    setAnswer(wordId_1)
+    setAnswer(wordId_2)
 }
 
 function startTesting(wordList1, wordList2, setCounterWord, setWordId1, setWordId2, setAnswer) {
@@ -31,7 +31,7 @@ function startTesting(wordList1, wordList2, setCounterWord, setWordId1, setWordI
 
     setWordId1(wordId1)
     setWordId2(wordId2)
-    setAnswer(wordId1)
+    setAnswer(wordId2)
 }
 
 function restartTesting(setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterTrueAnswers) {
@@ -61,6 +61,8 @@ function Testing(props) {
         startTesting(wordList1, wordList2, setCounterWord, setWordId1, setWordId2, setAnswer)
     }
 
+    let positionAnswer = (Math.floor(Math.random() * 2))
+
     return (
         <div className="Testing">
             {
@@ -74,9 +76,9 @@ function Testing(props) {
                             <button> All </button>
                         </div>
                         <div>
-                            <button onClick={() => answering(wordList1, wordList2, setCounterWord, wordId1, wordId2, answer, counterTrueAnswers, setCounterTrueAnswers, setWordId1, setWordId2, setAnswer)}> {wordList2[wordId2]["english"]} </button>
+                            <button onClick={() => answering(wordList1, wordList2, setCounterWord, positionAnswer == 0 ? wordId1 : wordId2, wordId2, answer, counterTrueAnswers, setCounterTrueAnswers, setWordId1, setWordId2, setAnswer)}> {positionAnswer == 0 ? wordList1[wordId1]["english"] : wordList2[wordId2]["english"]} </button>
                             <span> {wordList2[wordId2]["ukrainian"]} </span>
-                            <button onClick={() => answering(wordList1, wordList2, setCounterWord, wordId2, wordId2, answer, counterTrueAnswers, setCounterTrueAnswers, setWordId1, setWordId2, setAnswer)}> {wordList1[wordId1]["english"]} </button>
+                            <button onClick={() => answering(wordList1, wordList2, setCounterWord, positionAnswer == 0 ? wordId2 : wordId1, wordId2, answer, counterTrueAnswers, setCounterTrueAnswers, setWordId1, setWordId2, setAnswer)}> {positionAnswer == 0 ? wordList2[wordId2]["english"] : wordList1[wordId1]["english"]} </button>
                         </div>
                     </div>
                     :
