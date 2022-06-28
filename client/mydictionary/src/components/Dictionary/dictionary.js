@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Menu from './Menu/menu';
 import Feed from './Feed';
 import MyWords from './MyWords/mywords';
+import MyTests from './MyTests/mytest';
 import People from './People/people';
 import PersonProfile from './PersonProfile';
 import Subscriptions from './Subscriptions/subscriptions';
@@ -76,6 +77,12 @@ function Dictionary() {
                                     page == "MyWords" ?
                                         (
                                             <MyWords userId={userId} userName={userName} globalSetPage={setPage} />
+                                        ) : (null)
+                                }
+                                {
+                                    page == "MyTests" ?
+                                        (
+                                            <MyTests userId={userId} userName={userName} globalSetPage={setPage} />
                                         ) : (null)
                                 }
                                 {

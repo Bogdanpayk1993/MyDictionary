@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import AddWord from './AddWord/addword';
-import WordList from './WordList/wordlist';
-import Send_Request_For_Database from '../../send_request_for_database';
+import React, { useState } from "react";
+import Testing from "./Testing/testing";
+import Send_Request_For_Database from "../../send_request_for_database";
 
 async function getPostList(userId, setPostList) {
 
@@ -14,27 +13,24 @@ async function getPostList(userId, setPostList) {
     })
 
     if (JSON.stringify(json1) !== '{}') {
-        setPostList({...json1})
+        setPostList({ ...json1 })
     }
 }
 
-function MyWords(props) {
+function MyTests(props) {
 
     const userId = props.userId
     const userName = props.userName
     const globalSetPage = props.globalSetPage
-    const [postList, setPostList] = useState(NaN)
+    const [postList, setPostList] = useState({})
 
     if (Object.keys(postList).length == 0) {
         getPostList(userId, setPostList)
     }
 
     return (
-        <>
-            <AddWord userId={userId} postList={postList} setPostList={setPostList} />
-            <WordList userId={userId} userName={userName} postList={postList} setPostList={setPostList} globalSetPage={globalSetPage} />
-        </>
+        <Testing wordList={{...postList}} />
     )
 }
 
-export default MyWords;
+export default MyTests;
