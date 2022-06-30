@@ -3,6 +3,7 @@
     width: 25vw;
     height: 25vw;
     margin-left: 7.5vw;
+    padding: 0.2vw;
     background-color: silver;
 }
 
@@ -13,7 +14,10 @@
 }
 
 .Testing .Test div:nth-child(1) {
-    height: 10%;
+    height: 8%;
+    margin: 1%;
+    border-radius: 0.5vw;
+    background-color: lightgrey;
 }
 
 .Testing .Test div:nth-child(2) {
