@@ -16,7 +16,7 @@ router.post('/getUsersPosts', function (req, res) {
 })
 
 router.post('/set', function (req, res) {
-    let result = db.prepare(`INSERT INTO usersposts (type, userId, postId, date) SELECT 'Word','${req['body']['userId']}','${req['body']['postId']}', '${req['body']['date']}' WHERE not exists(SELECT * FROM usersposts WHERE userId='${req['body']['userId']}' and postId='${req['body']['postId']}') RETURNING *`).all()
+    let result = db.prepare(`INSERT INTO usersposts (type, userId, postId, date) SELECT '${req['body']['type']}','${req['body']['userId']}','${req['body']['postId']}', '${req['body']['date']}' WHERE not exists(SELECT * FROM usersposts WHERE type='${req['body']['type']}' and userId='${req['body']['userId']}' and postId='${req['body']['postId']}') RETURNING *`).all()
     res.send(result)
 })
 

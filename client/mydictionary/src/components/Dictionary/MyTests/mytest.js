@@ -15,6 +15,8 @@ async function getPostList(userId, setPostList) {
     if (JSON.stringify(json1) !== '{}') {
         setPostList({ ...json1 })
     }
+
+    console.log(json1)
 }
 
 function MyTests(props) {
@@ -29,7 +31,7 @@ function MyTests(props) {
     }
 
     return (
-        <Testing wordList={{...postList}} />
+        <Testing userId={userId} wordList={{...postList}} />
     )
 }
 
