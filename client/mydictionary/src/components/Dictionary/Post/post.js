@@ -26,7 +26,7 @@ function Post(props) {
     const [deletepostId, setDelete] = useState(NaN)
 
     let timeLifePost = GetTimeLife(post['date'])
-    
+
     return (
         <div className='Post' key={post['id']}>
             <div>
@@ -44,7 +44,23 @@ function Post(props) {
                 </div>
             </div>
             <div>
-                <p> {post['english']} </p> - <p> {post['ukrainian']} </p>
+                {
+                    post['type'] == "Word" ?
+                        <div className='Word' >
+                            <p> {post['english']} </p> - <p> {post['ukrainian']} </p>
+                        </div>
+                        :
+                        null
+                }
+                {
+                    post['type'] == "Test" ?
+                        <div className='Test'>
+                            <p> Number of words - {post['wordCounter']} </p>
+                            <p> Number of correct answer - {post['trueAnswersCounter']} </p>
+                        </div>
+                        :
+                        null
+                }
             </div>
             {
                 !isNaN(deletepostId) ?

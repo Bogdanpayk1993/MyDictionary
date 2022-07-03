@@ -62,13 +62,13 @@ function Testing(props) {
     let userId = props.userId
     let wordList1 = props.wordList
     const [wordList2, setWordList2] = useState({})
-    const [counterWord, setCounterWord] = useState(NaN)
     const [wordId1, setWordId1] = useState(NaN)
     const [wordId2, setWordId2] = useState(NaN)
     const [answer, setAnswer] = useState(NaN)
     const [counterQuestion, setCounterQuestion] = useState(NaN)
     const [counterAnswers, setCounterAnswers] = useState(0)
     const [trueAnswersCounter, setTrueAnswersCounter] = useState(0)
+    const [counterWord, setCounterWord] = useState(NaN)
 
     if (JSON.stringify(wordList1) !== '{}' && isNaN(counterQuestion)) {
         setCounterQuestion(Object.keys(wordList1).length)

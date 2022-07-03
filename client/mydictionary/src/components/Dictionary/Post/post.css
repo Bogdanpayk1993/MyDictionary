@@ -53,16 +53,18 @@
     background-color: aquamarine;
 }
 
-.postList .Post > div:nth-child(2) p {
-    width: 18vw;
+.postList .Post div:nth-child(2) .Word {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.postList .Post > div:nth-child(2) div:nth-child(1) {
-    float: left;
+.postList .Post > div:nth-child(2) .Word p {
+    width: 11.8vw;
 }
 
-.postList .Post > div:nth-child(2) div:nth-child(2) {
-    float: right;
+.postList .Post > div:nth-child(2) .Test p {
+    width: 24.6vw;
 }
 
 .postList hr {

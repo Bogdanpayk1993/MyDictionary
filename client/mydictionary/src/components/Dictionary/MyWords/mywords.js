@@ -5,7 +5,7 @@ import Send_Request_For_Database from '../../send_request_for_database';
 
 async function getPostList(userId, setPostList) {
 
-    let reply = await Send_Request_For_Database({ link: 'usersposts/getUserPosts', userId: `${userId}` })
+    let reply = await Send_Request_For_Database({ link: 'usersposts/getUserWords', userId: `${userId}` })
     let json = JSON.parse(reply)
 
     let json1 = {}
