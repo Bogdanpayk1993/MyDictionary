@@ -19,7 +19,7 @@ function TestList(props) {
                         ))
                     ) :
                     (
-                        <p> You don't have posts </p>
+                        <p> You don't have tests </p>
                     )
             }
         </div>

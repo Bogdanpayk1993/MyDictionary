@@ -48,7 +48,7 @@ function TestList(props) {
                             ))
                         ) :
                         (
-                            <p> Person don't have test </p>
+                            <p> Person don't have tests </p>
                         )
                 }
             </div>

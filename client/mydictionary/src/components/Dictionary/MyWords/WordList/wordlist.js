@@ -19,7 +19,7 @@ function WordList(props) {
                         ))
                     ) :
                     (
-                        <p> You don't have posts </p>
+                        <p> You don't have words </p>
                     )
             }
         </div>

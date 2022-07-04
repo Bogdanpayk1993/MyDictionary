@@ -1,2 +1,2 @@
-import TestList from "./testList";
+import TestList from "./testlist";
 export default TestList;

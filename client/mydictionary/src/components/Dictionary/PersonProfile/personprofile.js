@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Send_Request_For_Database from '../../send_request_for_database';
 import Feed from '../Feed';
 import WordList from './WordList/wordlist';
-import TestList from './TestList';
+import TestList from './TestList/testlist';
 import Subscriptions from './Subscriptions/subscriptions';
 import Subscribers from './Subscribers/subscribers';
 import './personprofile.css';
