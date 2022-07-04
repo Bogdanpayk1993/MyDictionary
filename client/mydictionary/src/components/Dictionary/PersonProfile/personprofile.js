@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Send_Request_For_Database from '../../send_request_for_database';
 import Feed from '../Feed';
 import WordList from './WordList/wordlist';
+import TestList from './TestList';
 import Subscriptions from './Subscriptions/subscriptions';
 import Subscribers from './Subscribers/subscribers';
 import './personprofile.css';
@@ -53,7 +54,8 @@ function PersonProfile(props) {
                 <span> {userName}  </span>
                 <span>
                     <p onClick={() => setPage("Feed")}> Feed </p>
-                    <p onClick={() => setPage("MyWords")}> Words </p>
+                    <p onClick={() => setPage("Words")}> Words </p>
+                    <p onClick={() => setPage("Tests")}> Tests </p>
                     <p onClick={() => setPage("Subscriptions")}> Subscriptions </p>
                     <p onClick={() => setPage("Subscribers")}> Subscribers </p>
                 </span>
@@ -77,9 +79,15 @@ function PersonProfile(props) {
                                     ) : (null) 
                             }
                             {
-                                page == "MyWords" ?
+                                page == "Words" ?
                                     (
                                         <WordList globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} globalSetPage={globalSetPage} />
+                                    ) : (null)
+                            }
+                            {
+                                page == "Tests" ?
+                                    (
+                                        <TestList globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} globalSetPage={globalSetPage} />
                                     ) : (null)
                             }
                             {

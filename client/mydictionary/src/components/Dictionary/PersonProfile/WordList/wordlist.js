@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Send_Request_For_Database from '../../../send_request_for_database';
 import Post from '../../Post/post';
 
-async function getpostLis(userId, postList, setPostList) {
-    let postList1 = {}
+async function getWordList(userId, wordList, setWordList) {
+    let wordList1 = {}
 
     let reply = await Send_Request_For_Database({ link: 'usersposts/getUserWords', userId: `${userId}` })
     let json = JSON.parse(reply)
@@ -13,15 +13,15 @@ async function getpostLis(userId, postList, setPostList) {
         json1[value['id']] = value
     })
 
-    postList1 = {...json1}
+    wordList1 = {...json1}
 
-    if (JSON.stringify(postList) == '{}') {
-        if (JSON.stringify(postList1) !== '{}') {
-            setPostList(postList1)
+    if (JSON.stringify(wordList) == '{}') {
+        if (JSON.stringify(wordList1) !== '{}') {
+            setWordList(wordList1)
         }
     } else {
-        if (JSON.stringify(postList) != JSON.stringify(postList1)) {
-            setPostList(postList1)
+        if (JSON.stringify(wordList) != JSON.stringify(wordList1)) {
+            setWordList(wordList1)
         }
     }
 }
@@ -33,22 +33,22 @@ function WordList(props) {
     const globalUserName = props.globalUserName
     const userName = props.userName
     const globalSetPage = props.globalSetPage
-    const [postList, setPostList] = useState({})
+    const [wordList, setWordList] = useState({})
 
-    getpostLis(userId, postList, setPostList)
+    getWordList(userId, wordList, setWordList)
 
     return (
         <>
             <div className='postList'>
                 {
-                    Object.keys(postList).length != 0 ?
+                    Object.keys(wordList).length != 0 ?
                         (
-                            Object.keys(postList).reverse().map(el => (
-                                <Post userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} post={postList[el]} postList={postList} globalSetPage={globalSetPage} key={postList[el]['id']} />
+                            Object.keys(wordList).reverse().map(el => (
+                                <Post userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} post={wordList[el]} postList={wordList} globalSetPage={globalSetPage} key={wordList[el]['id']} />
                             ))
                         ) :
                         (
-                            <p> Person don't have posts </p>
+                            <p> Person don't have words </p>
                         )
                 }
             </div>
