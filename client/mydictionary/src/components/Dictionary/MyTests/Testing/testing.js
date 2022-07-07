@@ -36,17 +36,7 @@ function startTesting(wordList1, wordList2, setCounterWord, setWordId1, setWordI
     setAnswer({ wordId: wordId2, position: Math.floor(Math.random() * 2) })
 }
 
-async function restartTesting(userId, setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterAnswers, trueAnswersCounter, setTrueAnswersCounter, setCounterQuestion, counterQuestion, saving) {
-    if (saving == true) {
-        let reply = await Send_Request_For_Database({ link: 'resultstests/set', wordCounter: `${counterQuestion}`, trueAnswersCounter: `${trueAnswersCounter}` })
-        let json = JSON.parse(reply)
-        let postId = json[0]['id']
-
-        let today = new Date()
-        reply = await Send_Request_For_Database({ link: 'usersposts/set', type: 'Test', userId: `${userId}`, postId: `${postId}`, date: `${today}` })
-        json = JSON.parse(reply)
-    }
-    
+function changeCounterQuestion(setWordList2, setWordId1, setWordId2, setAnswer, counterQuestion, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord) {
     setWordList2({})
     setWordId1(NaN)
     setWordId2(NaN)
@@ -57,10 +47,30 @@ async function restartTesting(userId, setWordList2, setCounterWord, setWordId1, 
     setCounterWord(NaN)
 }
 
+async function finishTesting(userId, counterQuestion, trueAnswersCounter, saving, postList, setPostList, setRegime) {
+    if (saving == true) {
+        let reply = await Send_Request_For_Database({ link: 'resultstests/set', wordCounter: `${counterQuestion}`, trueAnswersCounter: `${trueAnswersCounter}` })
+        let json = JSON.parse(reply)
+        let resultTestId = json[0]['id']
+
+        let today = new Date()
+        reply = await Send_Request_For_Database({ link: 'usersposts/set', type: 'Test', userId: `${userId}`, postId: `${resultTestId}`, date: `${today}` })
+        json = JSON.parse(reply)
+        let postId = json[0]['id']
+
+        setPostList({...postList, [postId]: {['id']: postId, ['userId']: userId, ['type']: "Test", ['wordCounter']: counterQuestion, ['trueAnswersCounter']: trueAnswersCounter, ['date']: today }})
+    }
+    
+    setRegime("TestList")
+}
+
 function Testing(props) {
 
     let userId = props.userId
     let wordList1 = props.wordList
+    let setRegime = props.setRegime
+    let postList = props.postList
+    let setPostList = props.setPostList
     const [wordList2, setWordList2] = useState({})
     const [wordId1, setWordId1] = useState(NaN)
     const [wordId2, setWordId2] = useState(NaN)
@@ -91,32 +101,32 @@ function Testing(props) {
                             {
                                 Object.keys(wordList1).length > 10 ?
                                     <>
-                                        <input type="radio" name="counterWords" value={10} onClick={(even) => restartTesting(userId, setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterAnswers, trueAnswersCounter, setTrueAnswersCounter, setCounterQuestion, even.target.value, false)} onChange={() => null} checked={counterQuestion == 10 ? true : false} />
+                                        <input type="radio" name="counterWords" value={10} onClick={(even) => changeCounterQuestion(setWordList2, setWordId1, setWordId2, setAnswer, even.target.value, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)} onChange={() => null} checked={counterQuestion == 10 ? true : false} />
                                         <label> 10 </label>
                                     </> : null
                             }
                             {
                                 Object.keys(wordList1).length > 20 ?
                                     <>
-                                        <input type="radio" name="counterWords" value={20} onClick={(even) => restartTesting(userId, setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterAnswers, trueAnswersCounter, setTrueAnswersCounter, setCounterQuestion, even.target.value, false)} onChange={() => null} checked={counterQuestion == 20 ? true : false} />
+                                        <input type="radio" name="counterWords" value={20} onClick={(even) => changeCounterQuestion(setWordList2, setWordId1, setWordId2, setAnswer, even.target.value, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)} onChange={() => null} checked={counterQuestion == 20 ? true : false} />
                                         <label> 20 </label>
                                     </> : null
                             }
                             {
                                 Object.keys(wordList1).length > 50 ?
                                     <>
-                                        <input type="radio" name="counterWords" value={50} onClick={(even) => restartTesting(userId, setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterAnswers, trueAnswersCounter, setTrueAnswersCounter, setCounterQuestion, even.target.value, false)} onChange={() => null} checked={counterQuestion == 50 ? true : false} />
+                                        <input type="radio" name="counterWords" value={50} onClick={(even) => changeCounterQuestion(setWordList2, setWordId1, setWordId2, setAnswer, even.target.value, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)} onChange={() => null} checked={counterQuestion == 50 ? true : false} />
                                         <label> 50 </label>
                                     </> : null
                             }
                             {
                                 Object.keys(wordList1).length > 100 ?
                                     <>
-                                        <input type="radio" name="counterWords" value={100} onClick={(even) => restartTesting(userId, setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterAnswers, trueAnswersCounter, setTrueAnswersCounter, setCounterQuestion, even.target.value, false)} onChange={() => null} checked={counterQuestion == 100 ? true : false} />
+                                        <input type="radio" name="counterWords" value={100} onClick={(even) => changeCounterQuestion(setWordList2, setWordId1, setWordId2, setAnswer, even.target.value, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)} onChange={() => null} checked={counterQuestion == 100 ? true : false} />
                                         <label> 100 </label>
                                     </> : null
                             }
-                            <input type="radio" name="counterWords" value={Object.keys(wordList1).length} onClick={(even) => restartTesting(userId, setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterAnswers, trueAnswersCounter, setTrueAnswersCounter, setCounterQuestion, even.target.value, false)} onChange={() => null} checked={counterQuestion == Object.keys(wordList1).length ? true : false} />
+                            <input type="radio" name="counterWords" value={Object.keys(wordList1).length} onClick={(even) => changeCounterQuestion(setWordList2, setWordId1, setWordId2, setAnswer, even.target.value, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)} onChange={() => null} checked={counterQuestion == Object.keys(wordList1).length ? true : false} />
                             <label> {`All(${Object.keys(wordList1).length})`} </label>
                         </div>
                         <div>
@@ -131,8 +141,8 @@ function Testing(props) {
                             <p> Number of words - {counterQuestion} </p>
                             <p> Number of correct answer - {trueAnswersCounter} </p>
                             <p> Do you want save result of this test. </p>
-                            <button onClick={() => restartTesting(userId, setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterAnswers, trueAnswersCounter, setTrueAnswersCounter, setCounterQuestion, counterQuestion, true)}> Yes </button>
-                            <button onClick={() => restartTesting(userId, setWordList2, setCounterWord, setWordId1, setWordId2, setAnswer, setCounterAnswers, trueAnswersCounter, setTrueAnswersCounter, setCounterQuestion, counterQuestion, false)}> No </button>
+                            <button onClick={() => finishTesting(userId, counterQuestion, trueAnswersCounter, true, postList, setPostList, setRegime)}> Yes </button>
+                            <button onClick={() => finishTesting(userId, counterQuestion, trueAnswersCounter, false, postList, setPostList, setRegime)}> No </button>
                         </div>
                     </div>
             }

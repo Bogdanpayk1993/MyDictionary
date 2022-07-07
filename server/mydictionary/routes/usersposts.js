@@ -14,9 +14,11 @@ router.post('/getUserTests', function (req, res) {
 })
 
 router.post('/getUsersPosts', function (req, res) {
-    const result1 = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, users.id AS userId, users.name, words.english, words.ukrainian FROM subscribers JOIN users ON subscribers.subscription=users.id JOIN usersposts ON subscribers.subscriber='${req['body']['userId']}' and usersposts.userId=subscribers.subscription JOIN words ON usersposts.postId=words.id`).all()
-    const result2 = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, usersposts.userId, words.english, words.ukrainian FROM usersposts JOIN words ON usersposts.userId='${req['body']['userId']}' and usersposts.postId=words.id`).all()
-    const result = result1.concat(result2) 
+    const result1 = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, users.id AS userId, users.name, words.english, words.ukrainian FROM subscribers JOIN users ON subscribers.subscription=users.id JOIN usersposts ON subscribers.subscriber='${req['body']['userId']}' and usersposts.userId=subscribers.subscription JOIN words ON usersposts.type='Word' and usersposts.postId=words.id`).all()
+    const result2 = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, usersposts.userId, words.english, words.ukrainian FROM usersposts JOIN words ON usersposts.type='Word' and usersposts.userId='${req['body']['userId']}' and usersposts.postId=words.id`).all()
+    const result3 = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, users.id AS userId, users.name, resultstests.wordCounter, resultstests.trueAnswersCounter FROM subscribers JOIN users ON subscribers.subscription=users.id JOIN usersposts ON subscribers.subscriber='${req['body']['userId']}' and usersposts.userId=subscribers.subscription JOIN resultstests ON usersposts.type='Test' and usersposts.postId=resultstests.id`).all()
+    const result4 = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, usersposts.userId, resultstests.wordCounter, resultstests.trueAnswersCounter FROM usersposts JOIN resultstests ON usersposts.type='Test' and usersposts.userId='${req['body']['userId']}' and usersposts.postId=resultstests.id`).all()
+    const result = result1.concat(result2.concat(result3.concat(result4))) 
     res.send(result)
 })
 

@@ -56,7 +56,7 @@ function Post(props) {
                     post['type'] == "Test" ?
                         <div className='Test'>
                             <p> Number of words - {post['wordCounter']} </p>
-                            <p> Number of correct answer - {post['trueAnswersCounter']} </p>
+                            <p> Number of correct answers - {post['trueAnswersCounter']} </p>
                         </div>
                         :
                         null

@@ -1,0 +1,17 @@
+.MyTesting {
+    width: 100%;
+    height: 89vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TestMenu {
+    border-radius: 0.5vw;
+    width: 100%;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: silver;
+}
