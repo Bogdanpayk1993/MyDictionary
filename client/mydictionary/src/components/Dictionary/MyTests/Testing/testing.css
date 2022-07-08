@@ -1,3 +1,11 @@
+.Testing {
+    width: 100%;
+    height: 89vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .Testing > div {
     border-radius: 0.5vw;
     width: 24.6vw;
@@ -7,12 +15,6 @@
     display: block;
 }
 
-.Testing .Test div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .Testing .Test div:nth-child(1) {
     height: 8%;
     margin: 1%;
@@ -20,8 +22,15 @@
     background-color: lightgrey;
 }
 
+.Testing .Test div:nth-child(1) p {
+    margin: 0px;
+}
+
 .Testing .Test div:nth-child(2) {
     height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .Testing .Test div:nth-child(1) button {

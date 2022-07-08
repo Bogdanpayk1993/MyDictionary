@@ -47,10 +47,10 @@ function MyTests(props) {
     }
 
     return (
-        <>
+        <div className="MyTesting">
             {
                 regime == "Testing" ?
-                    <div className="MyTesting">
+                    <div>
                         <Testing userId={userId} wordList={{ ...postList }} setRegime={setRegime} postList={testList} setPostList={setTestList} />
                     </div>
                     :
@@ -61,7 +61,7 @@ function MyTests(props) {
                         <TestList userId={userId} userName={userName} postList={testList} setPostList={setTestList} globalSetPage={globalSetPage} />
                     </>
             }
-        </>
+        </div>
     )
 }
 

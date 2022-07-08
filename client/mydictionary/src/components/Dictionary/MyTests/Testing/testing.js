@@ -98,6 +98,7 @@ function Testing(props) {
                 !isNaN(wordId1) && !isNaN(wordId2) && counterAnswers < counterQuestion ?
                     <div className="Test">
                         <div className="RadioGroup">
+                            <p> Number of words </p>
                             {
                                 Object.keys(wordList1).length > 10 ?
                                     <>
