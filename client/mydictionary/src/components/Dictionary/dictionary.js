@@ -3,6 +3,7 @@ import Menu from './Menu/menu';
 import Feed from './Feed';
 import MyWords from './MyWords/mywords';
 import MyTests from './MyTests/mytest';
+import TestsFromFriends from './TestsFromFriends/testsfromfriends';
 import People from './People/people';
 import PersonProfile from './PersonProfile';
 import Subscriptions from './Subscriptions/subscriptions';
@@ -83,6 +84,12 @@ function Dictionary() {
                                     page == "MyTests" ?
                                         (
                                             <MyTests userId={userId} userName={userName} globalSetPage={setPage} />
+                                        ) : (null)
+                                }
+                                {
+                                    page == "TestsFromFriends" ?
+                                        (
+                                            <TestsFromFriends userId={userId} userName={userName} subscriptions={subscriptions} globalSetPage={setPage} />
                                         ) : (null)
                                 }
                                 {

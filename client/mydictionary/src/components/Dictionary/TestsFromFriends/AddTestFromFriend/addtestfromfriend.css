@@ -1,0 +1,73 @@
+.css-b62m3t-container {
+    width: 10vw;
+    margin-right: 0.2vw;
+}
+
+.TestsFromFriends .Testing {
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TestsFromFriends .Testing .Test {
+    border-radius: 0.5vw;
+    width: 23vw;
+    height: 23vw;
+    padding: 1vw;
+    background-color: silver;
+}
+
+.TestsFromFriends .Testing .Test .Select {
+    display: flex;
+    align-items: center;
+}
+
+.TestsFromFriends .Testing .Test .Select p {
+    margin-right: 0.15vw;
+}
+
+.TestsFromFriends .Testing .Test .Select .SelectP {
+    margin-left: 0.2vw;
+}
+
+.TestsFromFriends .Testing .Test .SelectWord {
+    height: 70%;
+    background-color: lightgrey;
+    border-radius: 0.5vw;
+    padding: 0.2vw;
+    margin-bottom: 0.5vw;
+}
+
+.TestsFromFriends .Testing .Test .SelectWord .SelectWordSelect {
+    height: 4vw;
+}
+
+.TestsFromFriends .Testing .Test .SelectWord .WordContainer {
+    width: 100%;
+    height: 12vw;
+    overflow: auto;
+}
+
+.TestsFromFriends .Testing .Test .SelectWord .WordContainer div {
+    height: 1.85vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TestsFromFriends .Testing .Test .SelectWord .WordContainer div:nth-child(odd) {
+    width: 60%;
+    float: left;
+}
+
+.TestsFromFriends .Testing .Test .SelectWord .WordContainer div:nth-child(odd) p {
+    margin: 0.5vw;
+}
+
+
+.TestsFromFriends .Testing .Test .SelectWord .WordContainer div:nth-child(even) {
+    width: 40%;
+    float: left;
+}

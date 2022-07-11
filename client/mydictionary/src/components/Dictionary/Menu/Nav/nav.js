@@ -7,7 +7,8 @@ function Nav(props) {
         <div className="Nav">
             <p onClick={() => props.setPage("Feed")}> Feed </p>
             <p onClick={() => props.setPage("MyWords")}> My words </p>
-            <p onClick={() => props.setPage("MyTests")}> My Tests </p>
+            <p onClick={() => props.setPage("MyTests")}> My tests </p>
+            <p onClick={() => props.setPage("TestsFromFriends")}> Tests from friends </p> 
             <p onClick={() => props.setPage("People")}> People </p>
         </div>
     )
