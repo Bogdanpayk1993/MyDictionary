@@ -12,7 +12,7 @@ function AddWord(wordRef, wordsOptionS, setWordOptionS, selectedWord, setSelecte
     setSelectedWord({ ...selectedWord, [word[0]["value"]]: word[0] })
 }
 
-function Delete(value, label, wordRef, wordsOptionS, setWordOptionS, selectedWord, setSelectedWord) {
+function DeleteWord(value, label, wordRef, wordsOptionS, setWordOptionS, selectedWord, setSelectedWord) {
     wordsOptionS.push({ value: value, label: label })
     wordsOptionS.sort((a, b) => a["value"] - b["value"])
     setWordOptionS(wordsOptionS)
@@ -23,6 +23,33 @@ function Delete(value, label, wordRef, wordsOptionS, setWordOptionS, selectedWor
     setSelectedWord({ ...selectedWord })
 }
 
+async function SendTest(userId, recipientRef, languageRef, selectedWord, setRegime, setMessage) {
+    if (Object.keys(selectedWord).length != 0) {
+        let reaply = await Send_Request_For_Database({ link: 'tasksforfriends/set', senderId: `${recipientRef.current.getValue()[0]["value"]}`, receiverId: `${userId}`, taskLanguage: `${languageRef.current.getValue()[0]["value"]}`, wordCounter: `${Object.keys(selectedWord).length}`, trueAnswerCounter: `-1` })
+        let json = JSON.parse(reaply) 
+        let post_Id = json[0]['id']
+
+        let today = new Date()
+
+        reaply = await Send_Request_For_Database({ link: 'usersposts/set', type: 'Taskforfriend', userId: `${recipientRef.current.getValue()[0]["value"]}`, postId: post_Id, date: `${today}` })
+        json = JSON.parse(reaply)
+
+        for (let i = 0; i < Object.keys(selectedWord).length; i++) { 
+            reaply = await Send_Request_For_Database({ link: 'tasksforfriendswords/set', taskForFriendId: `${post_Id}`, wordId: `${selectedWord[Object.keys(selectedWord)[i]]["wordId"]}` })
+            json = JSON.parse(reaply)
+        }
+
+        setRegime("TestList")
+    }
+    else {
+        setMessage(true)
+    }
+}
+
+function CloseMessage(setMessage) {
+    setMessage(false)
+}
+
 function AddTestFromFriend(props) {
 
     const userId = props.userId
@@ -30,8 +57,10 @@ function AddTestFromFriend(props) {
     const subscriptions = props.subscriptions
     const setRegime = props.setRegime
     const [selectedWord, setSelectedWord] = useState({})
+    const [message, setMessage] = useState(false)
 
     const recipientRef = useRef()
+    const languageRef = useRef()
     const wordRef = useRef()
 
     let recipientsOption = []
@@ -39,9 +68,14 @@ function AddTestFromFriend(props) {
         recipientsOption.push({ value: subscriptions[el]["id"], label: subscriptions[el]["name"] })
     })
 
+    let languageOption = [
+        { value: "English", label: "English"},
+        { value: "Ukrainian", label: "Ukrainian" }
+    ]
+
     let wordsOption = []
     Object.keys(wordList).map(el => {
-        wordsOption.push({ value: wordList[el]["id"], label: `${wordList[el]["english"]} - ${wordList[el]["ukrainian"]}` })
+        wordsOption.push({ value: wordList[el]["id"], label: `${wordList[el]["english"]} - ${wordList[el]["ukrainian"]}`, wordId: `${wordList[el]["wordId"]}` })
     })
     const [wordsOptionS, setWordOptionS] = useState(wordsOption)
 
@@ -52,6 +86,10 @@ function AddTestFromFriend(props) {
                 <div className="Select">
                     <p className="SelectP"> Select a recipient - </p>
                     <Select ref={recipientRef} defaultValue={recipientsOption[0]} options={recipientsOption} />
+                </div>
+                <div className="Select"> 
+                    <p className="SelectP"> Select a language - </p>
+                    <Select ref={languageRef} defaultValue={languageOption[0]} options={languageOption} />
                 </div>
                 <div className="SelectWord">
                     <div className="SelectWordSelect">
@@ -75,15 +113,24 @@ function AddTestFromFriend(props) {
                                         <p> {`${selectedWord[el]['label']}`} </p>
                                     </div>
                                     <div>
-                                        <button onClick={() => Delete(selectedWord[el]['value'], selectedWord[el]['label'], wordRef, wordsOptionS, setWordOptionS, selectedWord, setSelectedWord)}> Delete </button>
+                                        <button onClick={() => DeleteWord(selectedWord[el]['value'], selectedWord[el]['label'], wordRef, wordsOptionS, setWordOptionS, selectedWord, setSelectedWord)}> Delete </button>
                                     </div>
                                 </>
                             ))
                         }
                     </div>
                 </div>
-                <button> Send test </button>
+                <button onClick={() => SendTest(userId, recipientRef, languageRef, selectedWord, setRegime, setMessage)}> Send test </button>
             </div>
+            {
+                message == true ?
+                    <div className="Message">
+                        <div> 
+                            <p> You need select one or more words. </p>
+                            <button onClick={() => CloseMessage(setMessage)}> Ok </button>
+                        </div>
+                    </div> : null
+            }
         </div>
     )
 }

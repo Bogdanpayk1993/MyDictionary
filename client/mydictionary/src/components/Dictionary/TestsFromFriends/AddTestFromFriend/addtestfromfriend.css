@@ -19,6 +19,10 @@
     background-color: silver;
 }
 
+.TestsFromFriends .Testing .Test h3 {
+    margin: 0px;
+}
+
 .TestsFromFriends .Testing .Test .Select {
     display: flex;
     align-items: center;
@@ -33,7 +37,7 @@
 }
 
 .TestsFromFriends .Testing .Test .SelectWord {
-    height: 70%;
+    height: 66%;
     background-color: lightgrey;
     border-radius: 0.5vw;
     padding: 0.2vw;
@@ -46,7 +50,7 @@
 
 .TestsFromFriends .Testing .Test .SelectWord .WordContainer {
     width: 100%;
-    height: 12vw;
+    height: 11vw;
     overflow: auto;
 }
 
@@ -70,4 +74,30 @@
 .TestsFromFriends .Testing .Test .SelectWord .WordContainer div:nth-child(even) {
     width: 40%;
     float: left;
+}
+
+.TestsFromFriends .Message {
+    width: 100vw;
+    height: 100vh;
+    margin-top: -5vh;
+    background-color: rgba(255, 255, 255, 0.4);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.TestsFromFriends .Message div {
+    padding-left: 1vw;
+    padding-right: 1vw;
+    border-radius: 0.5vw;
+    background-color: silver;
+}
+
+.TestsFromFriends .Message div p {
+    margin: 0.5vw;
+}
+
+.TestsFromFriends .Message div button {
+    margin-bottom: 0.5vw;
 }

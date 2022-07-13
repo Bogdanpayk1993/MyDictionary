@@ -4,7 +4,7 @@ var BetterSqlite3 = require('better-sqlite3');
 var db = new BetterSqlite3('dictionary.db');
 
 router.post('/getUserWords', function (req, res) {
-    const result = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.userId, usersposts.date, words.english, words.ukrainian FROM usersposts JOIN words ON usersposts.type='Word' and usersposts.userId='${req['body']['userId']}' and words.id=usersposts.postId`).all()
+    const result = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.userId, usersposts.date, words.Id AS wordId, words.english, words.ukrainian FROM usersposts JOIN words ON usersposts.type='Word' and usersposts.userId='${req['body']['userId']}' and words.id=usersposts.postId`).all()
     res.send(result)
 })
 

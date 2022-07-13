@@ -26,7 +26,7 @@ router.post('/getEmail', function (req, res) {
 })
 
 router.post('/set', function (req, res) {
-  let result = db.prepare(`SELECT * FROM users WHERE name='${req['body']['userName']}' and email='${req['body']['userEmail']}'`).all()
+  const result = db.prepare(`SELECT * FROM users WHERE name='${req['body']['userName']}' and email='${req['body']['userEmail']}'`).all()
   result.length == 0 ?
     result = db.prepare(`INSERT INTO users (name, email) VALUES ('${req['body']['userName']}','${req['body']['userEmail']}') RETURNING *`).all()
     : null
