@@ -13,6 +13,11 @@ router.post('/getUserTests', function (req, res) {
     res.send(result)
 })
 
+router.post('/getUserTestsFromFriends', function (req, res) {
+    const result = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, tasksforfriends.id AS tasksforfriendsId, tasksforfriends.senderId, tasksforfriends.receiverId, tasksforfriends.taskLanguage, tasksforfriends.wordCounter, tasksforfriends.trueAnswerCounter, users.name AS senderName FROM usersposts JOIN tasksforfriends ON usersposts.type='Taskforfriend' and usersposts.userId='${req['body']['userId']}' and tasksforfriends.id=usersposts.postId JOIN users ON tasksforfriends.senderId=users.id`).all()
+    res.send(result)
+})
+
 router.post('/getUsersPosts', function (req, res) {
     const result1 = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, users.id AS userId, users.name, words.english, words.ukrainian FROM subscribers JOIN users ON subscribers.subscription=users.id JOIN usersposts ON subscribers.subscriber='${req['body']['userId']}' and usersposts.userId=subscribers.subscription JOIN words ON usersposts.type='Word' and usersposts.postId=words.id`).all()
     const result2 = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, usersposts.userId, words.english, words.ukrainian FROM usersposts JOIN words ON usersposts.type='Word' and usersposts.userId='${req['body']['userId']}' and usersposts.postId=words.id`).all()

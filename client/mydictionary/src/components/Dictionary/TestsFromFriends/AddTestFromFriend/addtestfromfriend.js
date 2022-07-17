@@ -25,7 +25,7 @@ function DeleteWord(value, label, wordRef, wordsOptionS, setWordOptionS, selecte
 
 async function SendTest(userId, recipientRef, languageRef, selectedWord, setRegime, setMessage) {
     if (Object.keys(selectedWord).length != 0) {
-        let reaply = await Send_Request_For_Database({ link: 'tasksforfriends/set', senderId: `${recipientRef.current.getValue()[0]["value"]}`, receiverId: `${userId}`, taskLanguage: `${languageRef.current.getValue()[0]["value"]}`, wordCounter: `${Object.keys(selectedWord).length}`, trueAnswerCounter: `-1` })
+        let reaply = await Send_Request_For_Database({ link: 'tasksforfriends/set', senderId: `${userId}`, receiverId: `${recipientRef.current.getValue()[0]["value"]}`, taskLanguage: `${languageRef.current.getValue()[0]["value"]}`, wordCounter: `${Object.keys(selectedWord).length}`, trueAnswerCounter: `-1` })
         let json = JSON.parse(reaply) 
         let post_Id = json[0]['id']
 
