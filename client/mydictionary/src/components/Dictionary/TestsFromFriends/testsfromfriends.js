@@ -31,7 +31,7 @@ async function getTestList(userId, userName, setTestList) {
 
     for (let i = 0; i < Object.keys(json1).length; i++)
     {
-        json1 = {...json1, [Object.keys(json1)[i]]: {...json1[Object.keys(json1)[i]], title: `${userName} from ${json1[Object.keys(json1)[i]]['senderName']}`} }
+        json1 = {...json1, [Object.keys(json1)[i]]: {...json1[Object.keys(json1)[i]], name: `${userName}`} }
     }
 
     if (JSON.stringify(json1) !== '{}') {

@@ -17,8 +17,10 @@ function Post(props) {
 
     const userId = props.userId
     const globalUserId = props.globalUserId
+    const senderPostId = props.senderPostId
     const userName = props.userName
     const globalUserName = props.globalUserName
+    const senderPostName = props.senderPostName
     const post = props.post
     const postList = props.postList
     const setPostList = props.setPostList
@@ -32,6 +34,10 @@ function Post(props) {
             <div>
                 <div>
                     <p onClick={() => { userId != globalUserId ? globalSetPage(post['userId']) : globalSetPage('Feed') }}> {userName} </p>
+                    {
+                        senderPostId != undefined ?
+                        <p onClick={() => { senderPostId != globalUserId ? globalSetPage(senderPostId) : globalSetPage('Feed') }}> from {senderPostName} </p> : null
+                    }
                     <samp> {timeLifePost} </samp>
                 </div>
                 <div>

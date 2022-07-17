@@ -14,7 +14,7 @@ router.post('/getUserTests', function (req, res) {
 })
 
 router.post('/getUserTestsFromFriends', function (req, res) {
-    const result = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, tasksforfriends.id AS tasksforfriendsId, tasksforfriends.senderId, tasksforfriends.receiverId, tasksforfriends.taskLanguage, tasksforfriends.wordCounter, tasksforfriends.trueAnswerCounter, users.name AS senderName FROM usersposts JOIN tasksforfriends ON usersposts.type='Taskforfriend' and usersposts.userId='${req['body']['userId']}' and tasksforfriends.id=usersposts.postId JOIN users ON tasksforfriends.senderId=users.id`).all()
+    const result = db.prepare(`SELECT usersposts.id, usersposts.type, usersposts.date, tasksforfriends.id AS tasksforfriendsId, tasksforfriends.senderId, tasksforfriends.receiverId AS userId, tasksforfriends.taskLanguage, tasksforfriends.wordCounter, tasksforfriends.trueAnswerCounter, users.name AS senderName FROM usersposts JOIN tasksforfriends ON usersposts.type='Taskforfriend' and usersposts.userId='${req['body']['userId']}' and tasksforfriends.id=usersposts.postId JOIN users ON tasksforfriends.senderId=users.id`).all()
     res.send(result)
 })
 

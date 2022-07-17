@@ -3,6 +3,7 @@ import Send_Request_For_Database from '../../send_request_for_database';
 import Feed from '../Feed';
 import WordList from './WordList/wordlist';
 import TestList from './TestList/testlist';
+import TestsFromFriends from './TestsFromFliends/testsfromfriends';
 import Subscriptions from './Subscriptions/subscriptions';
 import Subscribers from './Subscribers/subscribers';
 import './personprofile.css';
@@ -47,7 +48,7 @@ function PersonProfile(props) {
     const [page, setPage] = useState("Feed")
 
     getUserInformation(globalUserId, userId, setUserName, setUserStatys)
-
+    
     return (
         <div>
             <div className='UserInformation'>
@@ -56,6 +57,7 @@ function PersonProfile(props) {
                     <p onClick={() => setPage("Feed")}> Feed </p>
                     <p onClick={() => setPage("Words")}> Words </p>
                     <p onClick={() => setPage("Tests")}> Tests </p>
+                    <p onClick={() => setPage("TestsForFriends")}> TestsForFriends </p>
                     <p onClick={() => setPage("Subscriptions")}> Subscriptions </p>
                     <p onClick={() => setPage("Subscribers")}> Subscribers </p>
                 </span>
@@ -76,7 +78,7 @@ function PersonProfile(props) {
                                 page == "Feed" ?
                                     (
                                         <Feed globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} setPage={globalSetPage} />
-                                    ) : (null) 
+                                    ) : (null)
                             }
                             {
                                 page == "Words" ?
@@ -88,6 +90,12 @@ function PersonProfile(props) {
                                 page == "Tests" ?
                                     (
                                         <TestList globalUserId={globalUserId} userId={userId} globalUserName={globalUserName} userName={userName} globalSetPage={globalSetPage} />
+                                    ) : (null)
+                            }
+                            {
+                                page == "TestsForFriends" ?
+                                    (
+                                        <TestsFromFriends userId={userId} userName={userName} globalUserName={globalUserName} globalSetPage={globalSetPage} />
                                     ) : (null)
                             }
                             {

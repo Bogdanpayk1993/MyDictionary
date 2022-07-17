@@ -89,7 +89,7 @@ function Dictionary() {
                                 {
                                     page == "TestsFromFriends" ?
                                         (
-                                            <TestsFromFriends userId={userId} userName={userName} subscriptions={subscriptions} globalSetPage={setPage} />
+                                            <TestsFromFriends userId={userId} userName={userName} globalUserName={userName} subscriptions={subscriptions} globalSetPage={setPage} />
                                         ) : (null)
                                 }
                                 {
