@@ -39,6 +39,7 @@ async function getTestList(userId, userName, setTestList) {
 function TestsFromFriends(props) {
 
     const userId = props.userId
+    const globalUserId = props.globalUserId
     const userName = props.userName
     const globalUserName = props.globalUserName
     const globalSetPage = props.globalSetPage
@@ -52,7 +53,7 @@ function TestsFromFriends(props) {
     return (
         <div className="TestsFromFriends">
             {
-                <TestList userId={userId} userName={userName} globalUserName={globalUserName} globalSetPage={globalSetPage} testList={testList} setTestList={setTestList} />
+                <TestList userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} globalSetPage={globalSetPage} testList={testList} setTestList={setTestList} />
             }
         </div>
     )

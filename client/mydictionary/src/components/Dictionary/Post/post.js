@@ -67,6 +67,12 @@ function Post(props) {
                         :
                         null
                 }
+                {
+                    post['type'] == "TaskForFriend" ?
+                        <p> Test for friends </p>
+                        :
+                        null
+                }
             </div>
             {
                 !isNaN(deletepostId) ?

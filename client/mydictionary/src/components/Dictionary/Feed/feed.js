@@ -32,7 +32,7 @@ function Feed(props) {
     if (Object.keys(postList).length == 0) {
         getpostList(userId, userName, setPostList)
     }
-
+    
     return (
         <div className='feed'>
             <div className='postList'>
@@ -40,7 +40,10 @@ function Feed(props) {
                     Object.keys(postList).length != 0 ?
                         (
                             Object.keys(postList).reverse().map(el => (
-                                <Post userId={userId} globalUserId={globalUserId} userName={postList[el]['name']} globalUserName={globalUserName} post={postList[el]} postList={postList} setPostList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
+                                postList[el]["type"] != "TaskForFriend" ?
+                                    <Post userId={userId} globalUserId={globalUserId} userName={postList[el]['name']} globalUserName={globalUserName} post={postList[el]} postList={postList} setTestList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
+                                    :
+                                    <Post userId={postList[el]['receiverId']} globalUserId={globalUserId} senderPostId={postList[el]['senderId']} userName={postList[el]['receiverName']} globalUserName={globalUserName} senderPostName={postList[el]['senderName']} post={postList[el]} postList={postList} setTestList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
                             ))
                         ) :
                         (

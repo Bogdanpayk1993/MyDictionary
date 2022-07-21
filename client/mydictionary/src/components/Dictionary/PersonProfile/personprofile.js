@@ -48,19 +48,11 @@ function PersonProfile(props) {
     const [page, setPage] = useState("Feed")
 
     getUserInformation(globalUserId, userId, setUserName, setUserStatys)
-    
+
     return (
         <div>
             <div className='UserInformation'>
                 <span> {userName}  </span>
-                <span>
-                    <p onClick={() => setPage("Feed")}> Feed </p>
-                    <p onClick={() => setPage("Words")}> Words </p>
-                    <p onClick={() => setPage("Tests")}> Tests </p>
-                    <p onClick={() => setPage("TestsForFriends")}> TestsForFriends </p>
-                    <p onClick={() => setPage("Subscriptions")}> Subscriptions </p>
-                    <p onClick={() => setPage("Subscribers")}> Subscribers </p>
-                </span>
                 <span>
                     {
                         userStatys == false ?
@@ -68,6 +60,14 @@ function PersonProfile(props) {
                             :
                             <button onClick={() => unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions)}> Unsubscribe </button>
                     }
+                </span>
+                <span>
+                    <p onClick={() => setPage("Feed")}> Feed </p>
+                    <p onClick={() => setPage("Words")}> Words </p>
+                    <p onClick={() => setPage("Tests")}> Tests </p>
+                    <p onClick={() => setPage("TestsForFriends")}> Tests from friends </p>
+                    <p onClick={() => setPage("Subscriptions")}> Subscriptions </p>
+                    <p onClick={() => setPage("Subscribers")}> Subscribers </p>
                 </span>
             </div>
             {
@@ -95,7 +95,7 @@ function PersonProfile(props) {
                             {
                                 page == "TestsForFriends" ?
                                     (
-                                        <TestsFromFriends userId={userId} userName={userName} globalUserName={globalUserName} globalSetPage={globalSetPage} />
+                                        <TestsFromFriends userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} globalSetPage={globalSetPage} />
                                     ) : (null)
                             }
                             {

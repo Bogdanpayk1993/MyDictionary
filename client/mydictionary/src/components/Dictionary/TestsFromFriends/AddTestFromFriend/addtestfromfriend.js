@@ -31,7 +31,7 @@ async function SendTest(userId, recipientRef, languageRef, selectedWord, setRegi
 
         let today = new Date()
 
-        reaply = await Send_Request_For_Database({ link: 'usersposts/set', type: 'Taskforfriend', userId: `${recipientRef.current.getValue()[0]["value"]}`, postId: post_Id, date: `${today}` })
+        reaply = await Send_Request_For_Database({ link: 'usersposts/set', type: 'TaskForFriend', userId: `${recipientRef.current.getValue()[0]["value"]}`, postId: post_Id, date: `${today}` })
         json = JSON.parse(reaply)
 
         for (let i = 0; i < Object.keys(selectedWord).length; i++) { 
