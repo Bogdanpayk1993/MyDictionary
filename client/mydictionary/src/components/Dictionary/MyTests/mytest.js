@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Testing from "./Testing/testing";
+import Testing from "../Testing/testing";
 import TestList from "./TestsList/testlist";
 import Send_Request_For_Database from "../../send_request_for_database";
 import './mytest.css';
@@ -51,7 +51,7 @@ function MyTests(props) {
             {
                 regime == "Testing" ?
                     <div>
-                        <Testing userId={userId} wordList={{ ...postList }} setRegime={setRegime} postList={testList} setPostList={setTestList} />
+                        <Testing typeTest="MyTest" userId={userId} wordList={{ ...postList }} setRegime={setRegime} postList={testList} setPostList={setTestList} />
                     </div>
                     :
                     <>

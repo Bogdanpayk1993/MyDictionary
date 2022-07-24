@@ -8,4 +8,8 @@ router.post('/set', function (req, res) {
     res.send(result)
 })
 
+router.post('/update', function (req, res) {
+    const result = db.prepare(`UPDATE tasksforfriends SET trueAnswerCounter='${req['body']['trueAnswerCounter']}' WHERE id='${req['body']['taskforfriendId']}'`).run()
+})
+
 module.exports = router;
