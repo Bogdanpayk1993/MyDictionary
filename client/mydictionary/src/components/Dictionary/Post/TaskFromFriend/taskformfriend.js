@@ -16,7 +16,7 @@ async function getWordList(postId, setWordList) {
     }
 }
 
-function TaskForFriend(props) {
+function TaskFromFriend(props) {
 
     const globalUserId = props.globalUserId
     const [post, setPost] = useState({ ...props.post })
@@ -40,4 +40,4 @@ function TaskForFriend(props) {
     )
 }
 
-export default TaskForFriend;
+export default TaskFromFriend;

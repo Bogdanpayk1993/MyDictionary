@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Comments from './Сomments/comments';
 import Likes from './Likes/likes';
 import Delete from './Delete/delete';
-import TaskForFriend from './TaskForFriend/taskforfriend';
+import TaskFromFriend from './TaskFromFriend/taskformfriend';
 import GetTimeLife from '../GetTimeLife/gettimelife';
 import Send_Request_For_Database from '../../send_request_for_database';
 import './post.css';
@@ -70,7 +70,7 @@ function Post(props) {
                 }
                 {
                     post['type'] == "TaskForFriend" ?
-                            <TaskForFriend globalUserId={globalUserId} post={post} />
+                            <TaskFromFriend globalUserId={globalUserId} post={post} />
                         :
                         null
                 }

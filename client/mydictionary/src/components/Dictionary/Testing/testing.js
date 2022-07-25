@@ -77,10 +77,11 @@ function Testing(props) {
 
     let typeTest = props.typeTest
     let userId = props.userId
-    let wordList1 = props.wordList
+    let wordList = props.wordList
     let setRegime = props.setRegime
     let postList = props.postList
     let setPostList = props.setPostList
+    const [wordList1, setWordList1] = useState({})
     const [wordList2, setWordList2] = useState({})
     const [wordId1, setWordId1] = useState(NaN)
     const [wordId2, setWordId2] = useState(NaN)
@@ -90,8 +91,20 @@ function Testing(props) {
     const [trueAnswersCounter, setTrueAnswersCounter] = useState(0)
     const [counterWord, setCounterWord] = useState(NaN)
 
-    if (JSON.stringify(wordList1) !== '{}' && isNaN(counterQuestion)) {
-        setCounterQuestion(Object.keys(wordList1).length)
+    if (JSON.stringify(wordList) !== '{}' && JSON.stringify(wordList1) === '{}' && isNaN(counterQuestion)) {
+
+        if (typeTest == 'TestForFriend') {
+            if (postList['taskLanguage'] == "Ukrainian") {
+                Object.keys(wordList).forEach(el => {
+                    let buf = wordList[el]['ukrainian']
+                    wordList[el]['ukrainian'] = wordList[el]['english']
+                    wordList[el]['english'] = buf
+                })
+            }
+        }
+
+        setWordList1({ ...wordList })
+        setCounterQuestion(Object.keys(wordList).length)
     }
 
     if (JSON.stringify(wordList1) !== '{}' && JSON.stringify(wordList2) === '{}') {
