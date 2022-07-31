@@ -43,6 +43,7 @@ function PersonProfile(props) {
     const globalSetPage = props.setPage
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
+    const setRecipientOfCorrespondence = props.setRecipientOfCorrespondence
     const [userName, setUserName] = useState("")
     const [userStatys, setUserStatys] = useState(false)
     const [page, setPage] = useState("Feed")
@@ -54,6 +55,7 @@ function PersonProfile(props) {
             <div className='UserInformation'>
                 <span> {userName}  </span>
                 <span>
+                    <button onClick={() => setRecipientOfCorrespondence({ 'id': userId, 'name': userName })} > Correspondence </button>
                     {
                         userStatys == false ?
                             <button onClick={() => subscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions)} > Subscribe </button>
@@ -101,13 +103,13 @@ function PersonProfile(props) {
                             {
                                 page == "Subscriptions" ?
                                     (
-                                        <Subscriptions globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
+                                        <Subscriptions globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                                     ) : (null)
                             }
                             {
                                 page == "Subscribers" ?
                                     (
-                                        <Subscribers globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
+                                        <Subscribers globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                                     ) : (null)
                             }
                         </>

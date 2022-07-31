@@ -14,6 +14,7 @@ function PeopleList(props) {
     const [peopleList, setPeopleList] = useState(NaN)
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
+    const setRecipientOfCorrespondence = props.setRecipientOfCorrespondence
 
     if (Object.keys(props['peopleList']).length != Object.keys(peopleList).length) {
         setPeopleList(props['peopleList'])
@@ -28,6 +29,7 @@ function PeopleList(props) {
                             <div key={el}>
                                 <div onClick={() => props.setPage(peopleList[el]['id'])}> {peopleList[el]['name']} </div>
                                 <div>
+                                    <button onClick={() => setRecipientOfCorrespondence({ 'id': peopleList[el]['id'], 'name': peopleList[el]["name"] })}> Correspondence </button>
                                     {
                                         peopleList[el]['subscriber'] == null ?
                                             <button onClick={() => subscribe(el, props['userId'], peopleList[el]['id'], peopleList, setPeopleList, subscriptions, setSubscriptions)} > Subscribe </button>

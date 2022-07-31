@@ -51,7 +51,7 @@ function TestsFromFriends(props) {
         getTestList(userId, userName, setTestList)
     }
     return (
-        <div className="TestsFromFriends">
+        <div>
             {
                 <TestList userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} globalSetPage={globalSetPage} testList={testList} setTestList={setTestList} />
             }

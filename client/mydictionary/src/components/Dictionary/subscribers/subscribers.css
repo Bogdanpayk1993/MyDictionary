@@ -16,8 +16,15 @@
 
 .Subscribers div div {
     width: 100%;
+    height: 90%;
+    overflow: auto;
 }
 
 .Subscribers div div p {
     margin: 2%;
+}
+
+.Subscribers div div p label {
+    width: 50%;
+    float: left;
 }

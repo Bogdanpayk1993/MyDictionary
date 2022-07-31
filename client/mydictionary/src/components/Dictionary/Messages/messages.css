@@ -1,0 +1,63 @@
+.MyContacts {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MyContacts div {
+    width: 96%;
+    height: 92%;
+}
+
+.MyContacts div p {
+    margin: 2%;
+}
+
+.MyContacts div div {
+    width: 100%;
+    overflow: auto;
+}
+
+.MyContacts div div p {
+    margin: 1%;
+}
+
+.MyMessages {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MyMessages div {
+    width: 96%;
+    height: 92%;
+}
+
+.MyMessages div .MessageList {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.MyMessages div .MessageList div {
+    height: auto;
+    overflow: auto;
+}
+
+.MyMessages div .SendMessage {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MyMessages div .SendMessage textarea {
+    width: 70%;
+    margin-left: 5%;
+    margin-right: 5%;
+}

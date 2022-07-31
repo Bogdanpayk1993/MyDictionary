@@ -8,6 +8,7 @@ import People from './People/people';
 import PersonProfile from './PersonProfile';
 import Subscriptions from './Subscriptions/subscriptions';
 import Subscribers from './Subscribers/subscribers';
+import Messages from './Messages/messages';
 import Send_Request_For_Database from '../send_request_for_database';
 import './dictionary.css';
 
@@ -45,6 +46,7 @@ function Dictionary() {
     const [page, setPage] = useState("Feed")
     const [subscriptions, setSubscriptions] = useState({})
     const [subscribers, setSubscribers] = useState({})
+    const [recipientOfCorrespondence, setRecipientOfCorrespondence] = useState({})
 
     if (!isNaN(userId) && JSON.stringify(subscriptions) === '{}') {
         getSubscriptions(userId, setSubscriptions)
@@ -62,8 +64,8 @@ function Dictionary() {
                     (
                         <div className='Dictionary'>
                             <div>
-                                <Subscriptions subscriptions={subscriptions} setPage={setPage} />
-                                <Subscribers subscribers={subscribers} setPage={setPage} />
+                                <Subscriptions subscriptions={subscriptions} setPage={setPage} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
+                                <Subscribers subscribers={subscribers} setPage={setPage} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                             </div>
                             <div>
                                 {
@@ -95,18 +97,18 @@ function Dictionary() {
                                 {
                                     page == "People" ?
                                         (
-                                            <People userId={userId} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
+                                            <People userId={userId} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                                         ) : (null)
                                 }
                                 {
                                     !isNaN(page) ?
                                         (
-                                            <PersonProfile userId={userId} userName={userName} page={page} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
+                                            <PersonProfile userId={userId} userName={userName} page={page} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                                         ) : (null)
                                 }
                             </div>
                             <div>
-
+                                <Messages recipientOfCorrespondence={recipientOfCorrespondence} />
                             </div>
                         </div>
                     ) : (null)

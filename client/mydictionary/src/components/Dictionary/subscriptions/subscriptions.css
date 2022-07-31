@@ -16,8 +16,15 @@
 
 .Subscriptions div div {
     width: 100%;
+    height: 90%;
+    overflow: auto;
 }
 
 .Subscriptions div div p {
     margin: 1%;
+}
+
+.Subscriptions div div p label {
+    width: 50%;
+    float: left;
 }

@@ -50,6 +50,7 @@ function Subscribers(props) {
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
     const setPage = props.setPage
+    const setRecipientOfCorrespondence = props.setRecipientOfCorrespondence
     const [subscribersList, setSubscribersList] = useState({})
 
     getSubscribers(globalUserId, userId, subscribersList, setSubscribersList)
@@ -63,6 +64,11 @@ function Subscribers(props) {
                             <div key={el}>
                                 <div onClick={() => { subscribersList[el]['id'] != globalUserId ? setPage(subscribersList[el]['id']) : setPage("MyWords") }}> {subscribersList[el]['name']} </div>
                                 <div>
+                                    {
+                                        subscribersList[el]['id'] != globalUserId ?
+                                            <button onClick={() => setRecipientOfCorrespondence({ 'id': subscribersList[el]['id'], 'name': subscribersList[el]['name'] })}> Correspondence </button>
+                                            : null
+                                    }
                                     {
                                         subscribersList[el]['statys'] != true ?
                                             <button onClick={() => subscribe(el, globalUserId, subscribersList[el]['id'], subscribersList, setSubscribersList, subscriptions, setSubscriptions)} > Subscribe </button>

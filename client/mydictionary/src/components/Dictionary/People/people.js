@@ -29,13 +29,14 @@ function People(props) {
     const setPage = props.setPage
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
+    const setRecipientOfCorrespondence = props.setRecipientOfCorrespondence
 
     getPeopleList(userId, wantedPerson, peopleList, setPeopleList)
 
     return (
         <>
             <SearchPeople setWantedPerson={setWantedPerson} />
-            <PeopleList userId={userId} setPage={setPage} peopleList={peopleList} subscriptions={subscriptions} setSubscriptions={setSubscriptions} />
+            <PeopleList userId={userId} setPage={setPage} peopleList={peopleList} subscriptions={subscriptions} setSubscriptions={setSubscriptions}  setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
         </>
     )
 }
