@@ -1,41 +1,46 @@
-.MyContacts {
+.MyCorrespondences {
     height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.MyContacts div {
+.MyCorrespondences div {
     width: 96%;
     height: 92%;
 }
 
-.MyContacts div p {
+.MyCorrespondences div p {
     margin: 2%;
 }
 
-.MyContacts div div {
+.MyCorrespondences div div {
     width: 100%;
     overflow: auto;
 }
 
-.MyContacts div div p {
+.MyCorrespondences div div p {
     margin: 1%;
 }
 
-.MyMessages {
+.MyCorrespondences div div p label {
+    width: 50%;
+    float: left;
+}
+
+.MyCorrespondence {
     height: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.MyMessages div {
+.MyCorrespondence div {
     width: 96%;
     height: 92%;
 }
 
-.MyMessages div .MessageList {
+.MyCorrespondence div .MessageList {
     width: 100%;
     height: 90%;
     display: flex;
@@ -44,19 +49,56 @@
     justify-content: flex-end;
 }
 
-.MyMessages div .MessageList div {
+.MyCorrespondence div .MessageList div {
     height: auto;
     overflow: auto;
 }
 
-.MyMessages div .SendMessage {
+.MyCorrespondence div .MessageList .MessageContainer div {
+    width: 60%;
+    text-align: left;
+    padding: 1%;
+    margin: 2%;
+    background-color: silver;
+    border-radius: 0.5vw;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div p {
+    margin: 0px;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div p:nth-child(1) {
+    margin-left: 3%;
+    font-weight: bold;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div p:nth-child(3) {
+    margin: 1%;
+    padding: 2%;
+    border-radius: 0.5vw;
+    background-color: lightgray;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div samp {
+    margin-left: 3%;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer .Sender {
+    margin-right: 36%;
+} 
+
+.MyCorrespondence div .MessageList .MessageContainer .Receiver {
+    margin-left: 36%;
+}
+
+.MyCorrespondence div .SendMessage {
     height: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.MyMessages div .SendMessage textarea {
+.MyCorrespondence div .SendMessage textarea {
     width: 70%;
     margin-left: 5%;
     margin-right: 5%;

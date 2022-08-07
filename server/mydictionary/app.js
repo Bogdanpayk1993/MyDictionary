@@ -16,6 +16,7 @@ var likesRouter = require('./routes/likes');
 var resultsTestsRouter = require('./routes/resultstests');
 var taskForFriends = require('./routes/tasksforfriends');
 var taskForFriendsWords = require('./routes/tasksforfriendswords');
+var messages = require('./routes/messages');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use('/likes', likesRouter);
 app.use('/resultstests', resultsTestsRouter);
 app.use('/tasksforfriends', taskForFriends);
 app.use('/tasksforfriendswords', taskForFriendsWords);
+app.use('/messages', messages);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

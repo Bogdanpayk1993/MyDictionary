@@ -108,7 +108,7 @@ function Dictionary() {
                                 }
                             </div>
                             <div>
-                                <Messages recipientOfCorrespondence={recipientOfCorrespondence} />
+                                <Messages userId={userId} userName={userName} setPage={setPage} recipientOfCorrespondence={recipientOfCorrespondence} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                             </div>
                         </div>
                     ) : (null)
