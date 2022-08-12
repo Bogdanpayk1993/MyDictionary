@@ -24,8 +24,22 @@
 }
 
 .MyCorrespondences div div p label {
-    width: 50%;
+    width: 100%;
     float: left;
+}
+
+.MyCorrespondences div div p label label {
+    width: 48%;
+    float: left;
+    margin-bottom: 1%;
+}
+
+.MyCorrespondences div div p label label label {
+    width: 90%;
+}
+
+.MyCorrespondences div div p label label label svg {
+    margin-left: 1vh;
 }
 
 .MyCorrespondence {
@@ -55,40 +69,59 @@
 }
 
 .MyCorrespondence div .MessageList .MessageContainer div {
-    width: 60%;
+    width: 56%;
     text-align: left;
     padding: 1%;
     margin: 2%;
-    background-color: silver;
     border-radius: 0.5vw;
 }
 
-.MyCorrespondence div .MessageList .MessageContainer div p {
+.MyCorrespondence div .MessageList .MessageContainer .Sender {
+    margin-right: 40%;
+} 
+
+.MyCorrespondence div .MessageList .MessageContainer .Receiver {
+    margin-left: 40%;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div div {
+    width: 94%;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div .NoReaded {
+    background-color: darkgray;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div .Readed {
+    background-color: silver;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div div p {
     margin: 0px;
 }
 
-.MyCorrespondence div .MessageList .MessageContainer div p:nth-child(1) {
+.MyCorrespondence div .MessageList .MessageContainer div div p:nth-child(1) {
+    width: 57%;
     margin-left: 3%;
     font-weight: bold;
+    float: left;
 }
 
-.MyCorrespondence div .MessageList .MessageContainer div p:nth-child(3) {
+.MyCorrespondence div .MessageList .MessageContainer div div p:nth-child(2) {
+    width: 37%;
+    float: left;
+    text-align: right;
+}
+
+.MyCorrespondence div .MessageList .MessageContainer div div p:nth-child(4) {
     margin: 1%;
     padding: 2%;
     border-radius: 0.5vw;
     background-color: lightgray;
 }
 
-.MyCorrespondence div .MessageList .MessageContainer div samp {
+.MyCorrespondence div .MessageList .MessageContainer div div samp {
     margin-left: 3%;
-}
-
-.MyCorrespondence div .MessageList .MessageContainer .Sender {
-    margin-right: 36%;
-} 
-
-.MyCorrespondence div .MessageList .MessageContainer .Receiver {
-    margin-left: 36%;
 }
 
 .MyCorrespondence div .SendMessage {
@@ -102,4 +135,36 @@
     width: 70%;
     margin-left: 5%;
     margin-right: 5%;
+}
+
+.DeleteMessage {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    height: 95vh;
+    top: 5vh;
+    left: 70vw;
+    padding-top: 0.2vw;
+    padding-bottom: 0.2vw;
+    background-color: rgba(0, 0, 0, 60%);
+}
+
+.DeleteMessage > div {
+    width: 25vw;
+    height: 15vh;
+    background-color: lightgrey;
+    border-radius: 0.5vw;
+}
+
+.DeleteMessage div div {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.DeleteMessage div button {
+    width: 4vw;
+    margin: 0.5vw;
 }

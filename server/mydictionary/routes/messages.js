@@ -13,4 +13,12 @@ router.post('/set', function (req, res) {
     res.send(result)
 })
 
+router.post('/update', function (req, res) {
+    const result = db.prepare(`UPDATE message SET status='true' WHERE sender='${req['body']['sender']}' and receiver='${req['body']['receiver']}'`).run()
+})
+
+router.post('/delete', function (req, res) {
+    db.prepare(`DELETE FROM message WHERE id='${req['body']['id']}'`).run()
+})
+
 module.exports = router;

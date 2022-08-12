@@ -19,9 +19,51 @@ async function getCorrespondence(userId, correspondence, setCorrespondence) {
         }
     })
 
-    if (JSON.stringify(json1) !== JSON.stringify(correspondence)) {
-        setCorrespondence({ ...json1 })
+    let status = []
+    Object.keys(json1).map(el => {
+        let status1 = true
+        Object.keys(json1[el]).map(ell => (
+            ell.match(/^\d+$/) != null ?
+                json1[el][ell]['status'] == 'false' && json1[el][ell]['receiver'] == userId ?
+                    status1 = false
+                    :
+                    null
+                : null
+        ))
+        status.push(status1)
+    })
+
+    let json2 = {}
+    Object.keys(json1).map((el, index) => {
+        json2 = { ...json2, [el]: { ...json1[el], ['status']: status[index] } }
+    })
+
+    if (JSON.stringify(json2) !== JSON.stringify(correspondence)) {
+        setCorrespondence({ ...json2 })
     }
+}
+
+async function changeStatusMessages(userId, correspondence, setCorrespondence, recipientOfCorrespondence) {
+    Object.keys(correspondence[recipientOfCorrespondence['name']]).forEach(el => (
+        el.match(/^\d+$/) != null ?
+            correspondence[recipientOfCorrespondence['name']][el]['receiver'] == userId ?
+                correspondence = { ...correspondence, [recipientOfCorrespondence['name']]: { ...correspondence[recipientOfCorrespondence['name']], ['status']: true, [el]: { ...correspondence[recipientOfCorrespondence['name']][el], ['status']: 'true' } } }
+                : null
+            : null
+    ))
+
+    setCorrespondence({ ...correspondence })
+
+    let reply = await Send_Request_For_Database({ link: 'messages/update', sender: `${recipientOfCorrespondence['id']}`, receiver: `${userId}` })
+}
+
+async function deleteMessage(messageId, correspondence, setCorrespondence, recipientOfCorrespondence, setDeleteMessageId) {
+    delete correspondence[recipientOfCorrespondence['name']][messageId]
+
+    setCorrespondence({ ...correspondence })
+    setDeleteMessageId(NaN)
+
+    let reply = await Send_Request_For_Database({ link: 'messages/delete', id: `${messageId}` })
 }
 
 function Messages(props) {
@@ -32,8 +74,11 @@ function Messages(props) {
     var recipientOfCorrespondence = props.recipientOfCorrespondence
     var setRecipientOfCorrespondence = props.setRecipientOfCorrespondence
     var [correspondence, setCorrespondence] = useState({})
+    var [deleteMessageId, setDeleteMessageId] = useState(NaN)
 
-    getCorrespondence(userId, correspondence, setCorrespondence)
+    if (JSON.stringify(correspondence) === '{}') {
+        getCorrespondence(userId, correspondence, setCorrespondence)
+    }
 
     var messageRef = createRef()
 
@@ -41,8 +86,8 @@ function Messages(props) {
         var messageList = document.getElementById("MessageContainer")
         if (messageList != null) {
             messageList.scrollTop = messageList.scrollHeight
-        }            
-    },[recipientOfCorrespondence, correspondence])
+        }
+    }, [recipientOfCorrespondence, correspondence])
 
 
     async function send(userId, recipientOfCorrespondence, correspondence, setCorrespondence) {
@@ -53,7 +98,7 @@ function Messages(props) {
 
         messageRef.current.value = ''
 
-        setCorrespondence({...correspondence, [json[0]['id']]: {sender: userId, senderName: userName, receiver: `${recipientOfCorrespondence['id']}`, message: `${json[0]['message']}`, date: today }})
+        setCorrespondence({ ...correspondence, [recipientOfCorrespondence['name']]: { ...correspondence[recipientOfCorrespondence['name']], [json[0]['id']]: { sender: userId, senderName: userName, receiver: `${recipientOfCorrespondence['id']}`, message: `${json[0]['message']}`, date: today } } })
     }
 
     return (
@@ -67,9 +112,22 @@ function Messages(props) {
                                 Object.keys(correspondence).map((el) => (
                                     <p key={el}>
                                         <label>
-                                            <span onClick={() => setPage(correspondence[el]['senderId'])}> {el} </span>
+                                            <label>
+                                                <label onClick={() => setPage(correspondence[el]['senderId'])}> {el}
+                                                    {
+                                                        correspondence[el]['status'] == false ?
+                                                            <svg height="1vh" width="1vh">
+                                                                <circle cx="0.5vh" cy="0.5vh" r="0.4vh" stroke="darkgray" strokeWidth="0.2vh" fill="lightgreen" />
+                                                            </svg>
+                                                            :
+                                                            null
+                                                    }
+                                                </label>
+                                            </label>
+                                            <label>
+                                                <button onClick={() => setRecipientOfCorrespondence({ 'id': correspondence[el]['senderId'], 'name': correspondence[el]['senderName'] })}> Correspondence </button>
+                                            </label>
                                         </label>
-                                        <button onClick={() => setRecipientOfCorrespondence({ 'id': correspondence[el]['senderId'], 'name': correspondence[el]['senderName'] })}> Correspondence </button>
                                     </p>
                                 ))
                             ) : null
@@ -90,9 +148,12 @@ function Messages(props) {
                                                 Object.keys(correspondence[recipientOfCorrespondence['name']]).map(el => (
                                                     el.match(/^\d+$/) != null ?
                                                         <div className={correspondence[recipientOfCorrespondence['name']][el]['sender'] == userId ? 'Sender' : 'Receiver'} key={el}>
-                                                            <p> {correspondence[recipientOfCorrespondence['name']][el]['senderName']} </p>
-                                                            <samp> {GetTimeLife(correspondence[recipientOfCorrespondence['name']][el]['date'])} </samp>
-                                                            <p> {correspondence[recipientOfCorrespondence['name']][el]['message']} </p>
+                                                            <div className={correspondence[recipientOfCorrespondence['name']][el]['status'] == 'true' ? 'Readed' : 'NoReaded'}>
+                                                                <p> {correspondence[recipientOfCorrespondence['name']][el]['senderName']} </p>
+                                                                <p> <button onClick={() => setDeleteMessageId(correspondence[recipientOfCorrespondence['name']][el]['id'])}> Delete </button> </p>
+                                                                <samp> {GetTimeLife(correspondence[recipientOfCorrespondence['name']][el]['date'])} </samp>
+                                                                <p> {correspondence[recipientOfCorrespondence['name']][el]['message']} </p>
+                                                            </div>
                                                         </div>
                                                         : null
                                                 )) : null
@@ -100,16 +161,30 @@ function Messages(props) {
                                     </div>
                                 </div>
                                 <div className='SendMessage'>
-                                    <textarea ref={messageRef} placeholder='Your message:' />
+                                    <textarea ref={messageRef} placeholder='Your message:' onClick={() => changeStatusMessages(userId, correspondence, setCorrespondence, recipientOfCorrespondence)} />
                                     <button onClick={() => send(userId, recipientOfCorrespondence, correspondence, setCorrespondence)} > Send </button>
                                 </div>
                             </div>
                         </div>
                     ) : null
             }
+            {
+                !isNaN(deleteMessageId) ?
+                    <div className='DeleteMessage'>
+                        <div>
+                            <p> Do you want delete this message? </p>
+                            <div>
+                                <p> {correspondence[recipientOfCorrespondence['name']][deleteMessageId]['message']} </p>
+                            </div>
+                            <button onClick={() => deleteMessage(deleteMessageId, correspondence, setCorrespondence, recipientOfCorrespondence, setDeleteMessageId)}> Yes </button>
+                            <button onClick={() => setDeleteMessageId(NaN)} > No </button>
+                        </div>
+                    </div>
+                    :
+                    null
+            }
         </>
     )
 }
 
 export default Messages;
-

@@ -12,6 +12,7 @@
 
 .Delete > div {
     width: 36vw;
+    min-height: 15vh;
     background-color: lightgray;
     border-radius: 0.5vw;
 }
@@ -21,7 +22,7 @@
     float: left;
 }
 
-.Delete > div div p:nth-child(2) {
+.Delete > div div p:nth-child(3) {
     width: 17vw;
     float: right;
 }

@@ -15,7 +15,7 @@ function Delete(props) {
             <div>
                 <p> Do you want delete next post? </p>
                 <div>
-                    <p> {post[`english`]} </p> - <p> {post['ukrainian']} </p>
+                    <p> {post[`english`]} </p> <p> - </p> <p> {post['ukrainian']} </p>
                 </div>
                 <button onClick={() => deletepost(deletepostId, postList, setPostList, setDelete)}> Yes </button>
                 <button onClick={() => setDelete(NaN)} > No </button>
