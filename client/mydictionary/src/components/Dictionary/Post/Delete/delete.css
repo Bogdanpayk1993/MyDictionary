@@ -17,14 +17,26 @@
     border-radius: 0.5vw;
 }
 
-.Delete > div div p:nth-child(1) {
+.Delete > div > div {
+    height: 6vh;
+}
+
+.Delete > div div .Word p:nth-child(1) {
     width: 17vw;
     float: left;
 }
 
-.Delete > div div p:nth-child(3) {
+.Delete > div div .Word p:nth-child(3) {
     width: 17vw;
     float: right;
+}
+
+.Delete > div div .Test {
+    display: block;
+}
+
+.Delete > div div .Test p {
+    margin: 0px;
 }
 
 .Delete > div button {

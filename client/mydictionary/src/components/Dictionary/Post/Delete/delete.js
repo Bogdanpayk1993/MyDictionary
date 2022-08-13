@@ -15,12 +15,34 @@ function Delete(props) {
             <div>
                 <p> Do you want delete next post? </p>
                 <div>
-                    <p> {post[`english`]} </p> <p> - </p> <p> {post['ukrainian']} </p>
+                    {
+                        post['type'] == "Word" ?
+                            <div className='Word'>
+                                <p> {post[`english`]} </p> <p> - </p> <p> {post['ukrainian']} </p>
+                            </div>
+                            : null
+                    }
+                    {
+                        post['type'] == "Test" ?
+                            < div className='Test'>
+                                <p> Number of words - {post['wordCounter']} </p>
+                                <p> Number of correct answers - {post['trueAnswersCounter']} </p>
+                            </div>
+                            : null
+                    }
+                    {
+                        post['type'] == "TaskForFriend" ?
+                            < div className='Test'>
+                                <p> Number of words - {post['wordCounter']} </p>
+                                <p> Number of correct answers - {post['trueAnswerCounter']} </p>
+                            </div>
+                            : null
+                    }
                 </div>
                 <button onClick={() => deletepost(deletepostId, postList, setPostList, setDelete)}> Yes </button>
                 <button onClick={() => setDelete(NaN)} > No </button>
             </div>
-        </div>
+        </div >
     )
 }
 

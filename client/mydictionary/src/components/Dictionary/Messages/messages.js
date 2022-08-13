@@ -110,10 +110,10 @@ function Messages(props) {
                         {
                             correspondence != undefined ? (
                                 Object.keys(correspondence).map((el) => (
-                                    <p key={el}>
-                                        <label>
-                                            <label>
-                                                <label onClick={() => setPage(correspondence[el]['senderId'])}> {el}
+                                    <div key={el}>
+                                        <div>
+                                            <div>
+                                                <div onClick={() => setPage(correspondence[el]['senderId'])}> {el}
                                                     {
                                                         correspondence[el]['status'] == false ?
                                                             <svg height="1vh" width="1vh">
@@ -122,13 +122,13 @@ function Messages(props) {
                                                             :
                                                             null
                                                     }
-                                                </label>
-                                            </label>
-                                            <label>
+                                                </div>
+                                            </div>
+                                            <div>
                                                 <button onClick={() => setRecipientOfCorrespondence({ 'id': correspondence[el]['senderId'], 'name': correspondence[el]['senderName'] })}> Correspondence </button>
-                                            </label>
-                                        </label>
-                                    </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 ))
                             ) : null
                         }

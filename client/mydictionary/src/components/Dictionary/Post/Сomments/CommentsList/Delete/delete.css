@@ -22,16 +22,6 @@
     align-items: center;
 }
 
-.Delete div div p:nth-child(1) {
-    width: 17vw;
-    float: left;
-}
-
-.Delete div div p:nth-child(2) {
-    width: 17vw;
-    float: right;
-}
-
 .Delete div button {
     width: 4vw;
     margin: 0.5vw;
