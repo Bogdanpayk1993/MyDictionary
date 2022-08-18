@@ -10,7 +10,7 @@ router.post('/getPostId', function (req, res) {
 
 router.post('/set', function (req, res) {
     let result = db.prepare(`INSERT INTO likes (wordId, userId) SELECT '${req['body']['wordId']}','${req['body']['userId']}'`).run()
-    res.send("ok")
+    res.send(result)
 })
 
 module.exports = router;

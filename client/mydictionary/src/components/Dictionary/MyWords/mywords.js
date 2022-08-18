@@ -31,7 +31,7 @@ function MyWords(props) {
 
     return (
         <>
-            <AddWord userId={userId} postList={postList} setPostList={setPostList} />
+            <AddWord userId={userId} userName={userName} postList={postList} setPostList={setPostList} />
             <WordList userId={userId} userName={userName} postList={postList} setPostList={setPostList} globalSetPage={globalSetPage} />
         </>
     )

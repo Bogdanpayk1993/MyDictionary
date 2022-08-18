@@ -97,7 +97,7 @@ function Dictionary() {
                                 {
                                     page == "People" ?
                                         (
-                                            <People userId={userId} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
+                                            <People userId={userId} userName={userName} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                                         ) : (null)
                                 }
                                 {

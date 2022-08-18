@@ -13,7 +13,7 @@ function Subscribers(props) {
                 <p> Subscribers </p>
                 <div>
                     {
-                        subscribers != undefined ? (
+                        JSON.stringify(subscribers) !== '{}' ? (
                             Object.keys(subscribers).map((el) => (
                                 <p key={el}>
                                     <label>
@@ -22,7 +22,7 @@ function Subscribers(props) {
                                     <button onClick={() => setRecipientOfCorrespondence({ 'id': subscribers[el]['id'], 'name': subscribers[el]['name'] })}> Correspondence </button>
                                 </p>
                             ))
-                        ) : null
+                        ) : <p> You don't have subscribers </p>
                     }
                 </div>
             </div>

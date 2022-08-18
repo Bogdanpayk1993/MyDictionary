@@ -108,7 +108,7 @@ function Messages(props) {
                     <p> My correspondences </p>
                     <div>
                         {
-                            correspondence != undefined ? (
+                            JSON.stringify(correspondence) !== '{}' ? (
                                 Object.keys(correspondence).map((el) => (
                                     <div key={el}>
                                         <div>
@@ -130,7 +130,7 @@ function Messages(props) {
                                         </div>
                                     </div>
                                 ))
-                            ) : null
+                            ) : <p> You don't have correspondences </p>
                         }
                     </div>
                 </div>

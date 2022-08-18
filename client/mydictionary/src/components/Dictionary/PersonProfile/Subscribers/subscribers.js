@@ -36,16 +36,21 @@ async function getSubscribers(globalUserId, userId, subscribersList, setSubscrib
     }
 }
 
-async function subscribe(el, globalUserId, userId, subscribersList, setSubscribersList, subscriptions, setSubscriptions) {
+async function subscribe(el, globalUserId, globalUserName, userId, userName, subscribersList, setSubscribersList, subscriptions, setSubscriptions) {
     let reply = await Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
     let json = JSON.parse(reply)
 
     setSubscribersList({ ...subscribersList, [el]: { ...subscribersList[el], ['subscribers']: globalUserId } })
     setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
+
+    let today = new Date()
+    reply = await Send_Request_For_Database({ link: 'notifications/set', userId: `${globalUserId}`, postId: undefined,  action: `${globalUserName} subscribed to ${userName}`, date: `${today}` })
+    json = JSON.parse(reply)
 }
 
 function Subscribers(props) {
     const globalUserId = props.globalUserId
+    const globalUserName = props.globalUserName
     const userId = props.userId
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
@@ -71,7 +76,7 @@ function Subscribers(props) {
                                     }
                                     {
                                         subscribersList[el]['statys'] != true ?
-                                            <button onClick={() => subscribe(el, globalUserId, subscribersList[el]['id'], subscribersList, setSubscribersList, subscriptions, setSubscriptions)} > Subscribe </button>
+                                            <button onClick={() => subscribe(el, globalUserId, globalUserName, subscribersList[el]['id'], subscribersList[el]['name'], subscribersList, setSubscribersList, subscriptions, setSubscriptions)} > Subscribe </button>
                                             : null
                                     }
                                 </div>

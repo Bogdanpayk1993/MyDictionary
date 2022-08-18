@@ -18,12 +18,16 @@ async function getUserInformation(globalUserId, userId, setUserName, setUserStat
     }
 }
 
-async function subscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions) {
+async function subscribe(globalUserId, globalUserName, userId, userName, setUserStatys, subscriptions, setSubscriptions) {
     let reply = await Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
     let json = JSON.parse(reply)
 
     setUserStatys(true)
     setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
+
+    let today = new Date()
+    reply = await Send_Request_For_Database({ link: 'notifications/set', userId: `${globalUserId}`, postId: undefined,  action: `${globalUserName} subscribed to ${userName}`, date: `${today}` })
+    json = JSON.parse(reply)
 }
 
 async function unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions) {
@@ -58,7 +62,7 @@ function PersonProfile(props) {
                     <button onClick={() => setRecipientOfCorrespondence({ 'id': userId, 'name': userName })} > Correspondence </button>
                     {
                         userStatys == false ?
-                            <button onClick={() => subscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions)} > Subscribe </button>
+                            <button onClick={() => subscribe(globalUserId, globalUserName, userId, userName, setUserStatys, subscriptions, setSubscriptions)} > Subscribe </button>
                             :
                             <button onClick={() => unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions)}> Unsubscribe </button>
                     }
@@ -103,13 +107,13 @@ function PersonProfile(props) {
                             {
                                 page == "Subscriptions" ?
                                     (
-                                        <Subscriptions globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
+                                        <Subscriptions globalUserId={globalUserId} globalUserName={globalUserName} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                                     ) : (null)
                             }
                             {
                                 page == "Subscribers" ?
                                     (
-                                        <Subscribers globalUserId={globalUserId} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
+                                        <Subscribers globalUserId={globalUserId} globalUserName={globalUserName} userId={userId} setPage={globalSetPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                                     ) : (null)
                             }
                         </>

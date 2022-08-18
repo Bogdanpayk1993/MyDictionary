@@ -36,16 +36,21 @@ async function getSubscriptions(globalUserId, userId, subscriptionsList, setSubs
     }
 }
 
-async function subscribe(el, globalUserId, userId, subscriptionsList, setSubscriptionsList, subscriptions, setSubscriptions) {
+async function subscribe(el, globalUserId, globalUserName, userId, userName, subscriptionsList, setSubscriptionsList, subscriptions, setSubscriptions) {
     let reply = await Send_Request_For_Database({ link: 'subscribers/set', subscriber: `${globalUserId}`, subscription: `${userId}` })
     let json = JSON.parse(reply)
 
     setSubscriptionsList({ ...subscriptionsList, [el]: { ...subscriptionsList[el], ['subscribers']: globalUserId } })
     setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
+
+    let today = new Date()
+    reply = await Send_Request_For_Database({ link: 'notifications/set', userId: `${globalUserId}`, postId: undefined,  action: `${globalUserName} subscribed to ${userName}`, date: `${today}` })
+    json = JSON.parse(reply)
 }
 
 function Subscriptions(props) {
     const globalUserId = props.globalUserId
+    const globalUserName = props.globalUserName
     const userId = props.userId
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
@@ -71,7 +76,7 @@ function Subscriptions(props) {
                                     }
                                     {
                                         subscriptionsList[el]['statys'] != true ?
-                                            <button onClick={() => subscribe(el, globalUserId, subscriptionsList[el]['id'], subscriptionsList, setSubscriptionsList, subscriptions, setSubscriptions)} > Subscribe </button>
+                                            <button onClick={() => subscribe(el, globalUserId, globalUserName, subscriptionsList[el]['id'], subscriptionsList[el]['name'], subscriptionsList, setSubscriptionsList, subscriptions, setSubscriptions)} > Subscribe </button>
                                             : null
                                     }
                                 </div>
