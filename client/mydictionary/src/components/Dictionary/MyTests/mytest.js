@@ -51,7 +51,7 @@ function MyTests(props) {
             {
                 regime == "Testing" ?
                     <div>
-                        <Testing typeTest="MyTest" userId={userId} wordList={{ ...postList }} setRegime={setRegime} postList={testList} setPostList={setTestList} />
+                        <Testing typeTest="MyTest" userId={userId} userName={userName} wordList={{ ...postList }} setRegime={setRegime} postList={testList} setPostList={setTestList} />
                     </div>
                     :
                     <>

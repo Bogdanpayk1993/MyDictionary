@@ -59,7 +59,7 @@ function TestsFromFriends(props) {
         <div className="TestsFromFriends">
             {
                 regime == "SendingTest" ?
-                    <AddTestFromFriend userId={userId} wordList={wordList} subscriptions={subscriptions} setRegime={setRegime} />
+                    <AddTestFromFriend userId={userId} userName={userName} wordList={wordList} subscriptions={subscriptions} setRegime={setRegime} />
                     :
                     <>
                         <div className="TestMenu">

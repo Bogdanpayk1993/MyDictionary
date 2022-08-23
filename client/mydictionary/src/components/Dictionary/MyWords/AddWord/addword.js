@@ -25,8 +25,7 @@ function AddWord(props) {
         json = JSON.parse(reply)
         post_Id = json[0]['id']
 
-        reply = await Send_Request_For_Database({ link: 'notifications/set', userId: `${user_Id}`, postId: `${post_Id}`, action: `${userName} added word: ${englishRef.current.value} - ${ukraineRef.current.value}`, date: `${today}` })
-        let json1 = JSON.parse(reply)
+        reply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${user_Id}`, receiver: undefined, postId: `${post_Id}`, action: `${userName} added word: ${englishRef.current.value} - ${ukraineRef.current.value}`, date: `${today}` })
 
         if (json.length != 0) {
             setPostList({ ...postList, [json[0]['id']]: { id: json[0]['id'], type: `Word`, userId: `${user_Id}`, english: englishRef.current.value, ukrainian: ukraineRef.current.value, date: `${today}` } })

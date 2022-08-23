@@ -23,7 +23,7 @@ function DeleteWord(value, label, wordRef, wordsOptionS, setWordOptionS, selecte
     setSelectedWord({ ...selectedWord })
 }
 
-async function SendTest(userId, recipientRef, languageRef, selectedWord, setRegime, setMessage) {
+async function SendTest(userId, userName, recipientRef, languageRef, selectedWord, setRegime, setMessage) {
     if (Object.keys(selectedWord).length != 0) {
         let reaply = await Send_Request_For_Database({ link: 'tasksforfriends/set', senderId: `${userId}`, receiverId: `${recipientRef.current.getValue()[0]["value"]}`, taskLanguage: `${languageRef.current.getValue()[0]["value"]}`, wordCounter: `${Object.keys(selectedWord).length}`, trueAnswerCounter: `-1` })
         let json = JSON.parse(reaply) 
@@ -33,11 +33,14 @@ async function SendTest(userId, recipientRef, languageRef, selectedWord, setRegi
 
         reaply = await Send_Request_For_Database({ link: 'usersposts/set', type: 'TaskForFriend', userId: `${recipientRef.current.getValue()[0]["value"]}`, postId: post_Id, date: `${today}` })
         json = JSON.parse(reaply)
+        post_Id = json[0]['id']
 
         for (let i = 0; i < Object.keys(selectedWord).length; i++) { 
             reaply = await Send_Request_For_Database({ link: 'tasksforfriendswords/set', taskForFriendId: `${post_Id}`, wordId: `${selectedWord[Object.keys(selectedWord)[i]]["wordId"]}` })
             json = JSON.parse(reaply)
         }
+
+        reaply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${userId}`, receiver: `${recipientRef.current.getValue()[0]["value"]}`, postId: `${post_Id}`, action: `${userName} sended test ${recipientRef.current.getValue()[0]["label"]}`, date: `${today}` })        
 
         setRegime("TestList")
     }
@@ -53,6 +56,7 @@ function CloseMessage(setMessage) {
 function AddTestFromFriend(props) {
 
     const userId = props.userId
+    const userName = props.userName
     const wordList = props.wordList
     const subscriptions = props.subscriptions
     const setRegime = props.setRegime
@@ -120,7 +124,7 @@ function AddTestFromFriend(props) {
                         }
                     </div>
                 </div>
-                <button onClick={() => SendTest(userId, recipientRef, languageRef, selectedWord, setRegime, setMessage)}> Send test </button>
+                <button onClick={() => SendTest(userId, userName, recipientRef, languageRef, selectedWord, setRegime, setMessage)}> Send test </button>
             </div>
             {
                 message == true ?

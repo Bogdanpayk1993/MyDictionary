@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.TestsFromFriends .Testing .Test {
+.TestsFromFriends > .Testing .Test {
     border-radius: 0.5vw;
     width: 23vw;
     height: 23vw;

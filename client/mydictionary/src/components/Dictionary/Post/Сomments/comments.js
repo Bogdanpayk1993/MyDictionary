@@ -25,6 +25,7 @@ function Comments(props) {
 
     const userId = props.userId
     const globalUserId = props.globalUserId
+    const userName = props.userName 
     const globalUserName = props.globalUserName
     const postId = props.postId
     const postUserId = props.postUserId
@@ -37,7 +38,7 @@ function Comments(props) {
 
     return (
         <>
-            <AddComment userId={userId} postId={postId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
+            <AddComment userId={userId}  globalUserId={globalUserId} postUserId={postUserId} userName={userName} globalUserName={globalUserName} postId={postId} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
             <CommentsList userId={userId} globalUserId={globalUserId} postUserId={postUserId} globalUserName={globalUserName} commentsList={commentsList} setCommentsList={setCommentsList} globalSetPage={globalSetPage} />
         </>
     )

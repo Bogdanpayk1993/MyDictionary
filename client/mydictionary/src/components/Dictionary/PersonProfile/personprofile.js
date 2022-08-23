@@ -26,18 +26,19 @@ async function subscribe(globalUserId, globalUserName, userId, userName, setUser
     setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
 
     let today = new Date()
-    reply = await Send_Request_For_Database({ link: 'notifications/set', userId: `${globalUserId}`, postId: undefined,  action: `${globalUserName} subscribed to ${userName}`, date: `${today}` })
-    json = JSON.parse(reply)
+    reply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${globalUserId}`, receiver: `${userId}`, postId: undefined,  action: `${globalUserName} subscribed to ${userName}`, date: `${today}` })
 }
 
-async function unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions) {
+async function unsubscribe(globalUserId, globalUserName, userId, userName, setUserStatys, subscriptions, setSubscriptions) {
     let reply = Send_Request_For_Database({ link: 'subscribers/delete', subscriber: `${globalUserId}`, subscription: `${userId}` })
+    
     setUserStatys(false)
-
     let user = Object.keys(subscriptions).find(el => subscriptions[el]['id'] == userId)
     delete subscriptions[user]
-
     setSubscriptions({ ...subscriptions })
+
+    let today = new Date()
+    reply = await Send_Request_For_Database({ link: 'notifications/set', userId: `${globalUserId}`, postId: undefined, action: `${globalUserName} unsubscribed to ${userName}`, date: `${today}`})
 }
 
 function PersonProfile(props) {
@@ -64,7 +65,7 @@ function PersonProfile(props) {
                         userStatys == false ?
                             <button onClick={() => subscribe(globalUserId, globalUserName, userId, userName, setUserStatys, subscriptions, setSubscriptions)} > Subscribe </button>
                             :
-                            <button onClick={() => unsubscribe(globalUserId, userId, setUserStatys, subscriptions, setSubscriptions)}> Unsubscribe </button>
+                            <button onClick={() => unsubscribe(globalUserId, globalUserName, userId, userName, setUserStatys, subscriptions, setSubscriptions)}> Unsubscribe </button>
                     }
                 </span>
                 <span>

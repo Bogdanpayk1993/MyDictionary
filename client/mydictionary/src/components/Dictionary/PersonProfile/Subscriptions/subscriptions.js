@@ -44,8 +44,7 @@ async function subscribe(el, globalUserId, globalUserName, userId, userName, sub
     setSubscriptions({ ...subscriptions, [json[0]['id']]: { ['id']: json[0]['id'], ['name']: json[0]['name'], ['email']: json[0]['email'] } })
 
     let today = new Date()
-    reply = await Send_Request_For_Database({ link: 'notifications/set', userId: `${globalUserId}`, postId: undefined,  action: `${globalUserName} subscribed to ${userName}`, date: `${today}` })
-    json = JSON.parse(reply)
+    reply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${globalUserId}`, receiver: `${userId}`, postId: undefined,  action: `${globalUserName} subscribed to ${userName}`, date: `${today}` })
 }
 
 function Subscriptions(props) {

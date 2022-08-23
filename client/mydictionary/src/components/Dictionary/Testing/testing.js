@@ -47,7 +47,7 @@ function changeCounterQuestion(setWordList2, setWordId1, setWordId2, setAnswer, 
     setCounterWord(NaN)
 }
 
-async function finishMyTest(userId, counterQuestion, trueAnswersCounter, saving, postList, setPostList, setRegime) {
+async function finishMyTest(userId, userName, counterQuestion, trueAnswersCounter, saving, postList, setPostList, setRegime) {
     if (saving == true) {
         let reply = await Send_Request_For_Database({ link: 'resultstests/set', wordCounter: `${counterQuestion}`, trueAnswersCounter: `${trueAnswersCounter}` })
         let json = JSON.parse(reply)
@@ -59,6 +59,8 @@ async function finishMyTest(userId, counterQuestion, trueAnswersCounter, saving,
         let postId = json[0]['id']
 
         setPostList({ ...postList, [postId]: { ['id']: postId, ['userId']: userId, ['type']: "Test", ['wordCounter']: counterQuestion, ['trueAnswersCounter']: trueAnswersCounter, ['date']: today } })
+
+        reply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${userId}`, receiver: undefined, postId: `${postId}`, action: `${userName} executed test`, date: `${today}` })
     }
 
     setRegime("TestList")
@@ -67,7 +69,11 @@ async function finishMyTest(userId, counterQuestion, trueAnswersCounter, saving,
 async function finishTestFromFriend(trueAnswerCounter, saving, postList, setPostList, setWordList2, setWordId1, setWordId2, setAnswer, counterQuestion, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord) {
     if (saving == true) {
         let reply = Send_Request_For_Database({ link: 'tasksforfriends/update', taskforfriendId: `${postList['tasksforfriendsId']}`, trueAnswerCounter: `${trueAnswerCounter}` })
+        
         setPostList({ ...postList, ['trueAnswerCounter']: trueAnswerCounter })
+
+        let today = new Date()
+        reply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${postList['receiverId']}`, receiver: `${postList['senderId']}`,  postId: `${postList['id']}`, action: `${postList['receiverName']} executed test from ${postList['senderName']}`, date: `${today}` })
     } else {
         changeCounterQuestion(setWordList2, setWordId1, setWordId2, setAnswer, counterQuestion, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)
     }
@@ -77,6 +83,7 @@ function Testing(props) {
 
     let typeTest = props.typeTest
     let userId = props.userId
+    let userName = props.userName
     let wordList = props.wordList
     let setRegime = props.setRegime
     let postList = props.postList
@@ -171,8 +178,8 @@ function Testing(props) {
                                 <p> Number of words - {counterQuestion} </p>
                                 <p> Number of correct answer - {trueAnswersCounter} </p>
                                 <p> Do you want save result of this test. </p>
-                                <button onClick={() => typeTest == "MyTest" ? finishMyTest(userId, counterQuestion, trueAnswersCounter, true, postList, setPostList, setRegime) : finishTestFromFriend(trueAnswersCounter, true, postList, setPostList, setWordList2, setWordId1, setWordId2, setAnswer, counterQuestion, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)}> Yes </button>
-                                <button onClick={() => typeTest == "MyTest" ? finishMyTest(userId, counterQuestion, trueAnswersCounter, false, postList, setPostList, setRegime) : finishTestFromFriend(trueAnswersCounter, false, postList, setPostList, setWordList2, setWordId1, setWordId2, setAnswer, counterQuestion, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)}> No </button>
+                                <button onClick={() => typeTest == "MyTest" ? finishMyTest(userId, userName, counterQuestion, trueAnswersCounter, true, postList, setPostList, setRegime) : finishTestFromFriend(trueAnswersCounter, true, postList, setPostList, setWordList2, setWordId1, setWordId2, setAnswer, counterQuestion, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)}> Yes </button>
+                                <button onClick={() => typeTest == "MyTest" ? finishMyTest(userId, userName, counterQuestion, trueAnswersCounter, false, postList, setPostList, setRegime) : finishTestFromFriend(trueAnswersCounter, false, postList, setPostList, setWordList2, setWordId1, setWordId2, setAnswer, counterQuestion, setCounterQuestion, setCounterAnswers, setTrueAnswersCounter, setCounterWord)}> No </button>
                             </div>
                         </div>
                 :

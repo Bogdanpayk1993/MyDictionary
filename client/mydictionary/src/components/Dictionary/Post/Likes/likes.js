@@ -20,18 +20,22 @@ async function getLike(setLikes, setLikeStatus, globaluserId, postId) {
     setLikes(json)
 }
 
-async function addLike(likes, setLikes, setLikeStatus, globalUserName, userId, postId) {
+async function addLike(likes, setLikes, setLikeStatus, userId, userName, postUserId, globalUserName, postId) {
     let reply = await Send_Request_For_Database({ link: 'likes/set', userId: `${userId}`, postId: `${postId}` })
+    let json = JSON.parse(reply)
 
     setLikeStatus(true)
+    setLikes({ ...likes, [Object.keys(likes).length]: { id: json[0]['id'], userId: `${userId}`, name: globalUserName }})
 
-    setLikes({ ...likes, [Object.keys(likes).length]: globalUserName })
+    let today = new Date()
+    reply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${userId}`, receiver: `${postUserId}`, postId: `${postId}`, action: `${globalUserName} liked post ${userName}`, date: `${today}` }) 
 }
 
 function Likes(props) {
 
     let userId = props.userId
     let globalUserId = props.globalUserId
+    let userName = props.userName
     let globalUserName = props.globalUserName
     let postId = props.post['id']
     let postUserId = props.post['userId']
@@ -43,7 +47,7 @@ function Likes(props) {
     if (JSON.stringify(likes) === '{}') {
         getLike(setLikes, setLikeStatus, globalUserId, postId)
     }
-
+    
     return (
         <div className='Likes'>
             <div>
@@ -64,7 +68,7 @@ function Likes(props) {
             <div>
                 {
                     likeStatus == false && globalUserId != postUserId ?
-                        <button onClick={() => addLike(likes, setLikes, setLikeStatus, globalUserName, userId, postId)}> Likes </button>
+                        <button onClick={() => addLike(likes, setLikes, setLikeStatus, userId, userName, postUserId, globalUserName, postId)}> Likes </button>
                         :
                         null
                 }

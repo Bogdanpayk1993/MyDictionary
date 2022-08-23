@@ -82,9 +82,9 @@ function Post(props) {
                     ) :
                     (null)
             }
-            <Likes userId={userId} globalUserId={globalUserId} globalUserName={globalUserName} post={post} globalSetPage={globalSetPage} />
+            <Likes userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} post={post} globalSetPage={globalSetPage} />
             <hr />
-            <Comments userId={userId} globalUserId={globalUserId} globalUserName={globalUserName} postId={post['id']} postUserId={post['userId']} globalSetPage={globalSetPage} />
+            <Comments userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} postId={post['id']} postUserId={post['userId']} globalSetPage={globalSetPage} />
         </div>
     )
 }
