@@ -33,14 +33,14 @@ async function SendTest(userId, userName, recipientRef, languageRef, selectedWor
 
         reaply = await Send_Request_For_Database({ link: 'usersposts/set', type: 'TaskForFriend', userId: `${recipientRef.current.getValue()[0]["value"]}`, postId: post_Id, date: `${today}` })
         json = JSON.parse(reaply)
-        post_Id = json[0]['id']
+        let post_Id1 = json[0]['id']
 
         for (let i = 0; i < Object.keys(selectedWord).length; i++) { 
             reaply = await Send_Request_For_Database({ link: 'tasksforfriendswords/set', taskForFriendId: `${post_Id}`, wordId: `${selectedWord[Object.keys(selectedWord)[i]]["wordId"]}` })
             json = JSON.parse(reaply)
         }
 
-        reaply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${userId}`, receiver: `${recipientRef.current.getValue()[0]["value"]}`, postId: `${post_Id}`, action: `${userName} sended test ${recipientRef.current.getValue()[0]["label"]}`, date: `${today}` })        
+        reaply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${userId}`, receiver: `${recipientRef.current.getValue()[0]["value"]}`, postId: `${post_Id1}`, action: `${userName} sended test ${recipientRef.current.getValue()[0]["label"]}`, date: `${today}` })        
 
         setRegime("TestList")
     }
