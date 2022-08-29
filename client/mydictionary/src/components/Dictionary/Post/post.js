@@ -7,13 +7,6 @@ import GetTimeLife from '../GetTimeLife/gettimelife';
 import Send_Request_For_Database from '../../send_request_for_database';
 import './post.css';
 
-function deletepost(id, postList, setPostList, setDelete) {
-    let reply = Send_Request_For_Database({ link: 'usersposts/delete', id: `${id}` })
-    delete postList[id]
-    setPostList({ ...postList })
-    setDelete(NaN)
-}
-
 function Post(props) {
 
     const userId = props.userId
@@ -30,6 +23,33 @@ function Post(props) {
 
     let timeLifePost = GetTimeLife(post['date'])
 
+    async function deletepost(id, postList, setPostList, setDelete) {
+        let post = {...postList[id]}
+    
+        delete postList[id]
+        setPostList({ ...postList })
+        setDelete(NaN)
+    
+        let reply = Send_Request_For_Database({ link: 'usersposts/delete', id: `${id}` })
+    
+        let text
+    
+        if (post['type'] == "Word") {
+            text = `"${post['english']} - ${post['ukrainian']}"`
+        }
+    
+        if (post['type'] == "Test") {
+            text = `"Number of words - ${post['wordCounter']}; Number of correct answers - ${post['trueAnswersCounter']}"`
+        }    
+    
+        if (post['type'] == "TaskForFriend") {
+            text = `"Number of words - ${post['wordCounter']}; Number of correct answers - ${post['trueAnswerCounter']}"`
+        }
+    
+        let today = new Date()
+        reply = await Send_Request_For_Database({ link: 'notifications/set', sender: `${globalUserId}`, receiver: undefined, postId: undefined, action: `${globalUserName} delete post: ${text}`, date: `${today}` })
+    }
+    
     return (
         <div className='Post' key={post['id']}>
             <div>

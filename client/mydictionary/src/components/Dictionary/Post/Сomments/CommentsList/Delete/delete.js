@@ -4,6 +4,11 @@ import './delete.css';
 function Delete(props) {
 
     let deleteCommentId = props.deleteCommentId
+    let userId = props.userId
+    let globalUserId = props.globalUserId
+    let postId = props.postId 
+    let userName = props.userName
+    let globalUserName = props.globalUserName
     let commentsList = props.commentsList
     let deleteComment = props.deleteComment
     let setCommentsList = props.setCommentsList
@@ -16,7 +21,7 @@ function Delete(props) {
                 <div>
                     <p> {commentsList[deleteCommentId]['comment']} </p>
                 </div>
-                <button onClick={() => deleteComment(deleteCommentId, commentsList, setCommentsList, setDelete)}> Yes </button>
+                <button onClick={() => deleteComment(deleteCommentId, userId, globalUserId, userName, globalUserName, postId, commentsList[deleteCommentId]['comment'], commentsList, setCommentsList, setDelete)}> Yes </button>
                 <button onClick={() => setDelete(NaN)}> No </button>
             </div>
         </div>

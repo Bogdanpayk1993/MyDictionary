@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Post from '../Post/post';
 import Send_Request_For_Database from '../../send_request_for_database';
 
-async function getpostList(userId, userName, setPostList) {
+async function getPostList(userId, userName, setPostList) {
     let reply = await Send_Request_For_Database({ link: 'usersposts/getUsersPosts', userId: `${userId}` })
     let json = JSON.parse(reply)
 
@@ -30,7 +30,7 @@ function Feed(props) {
     const [postList, setPostList] = useState(NaN)
 
     if (Object.keys(postList).length == 0) {
-        getpostList(userId, userName, setPostList)
+        getPostList(userId, userName, setPostList)
     }
     
     return (
@@ -41,9 +41,9 @@ function Feed(props) {
                         (
                             Object.keys(postList).reverse().map(el => (
                                 postList[el]["type"] != "TaskForFriend" ?
-                                    <Post userId={userId} globalUserId={globalUserId} userName={postList[el]['name']} globalUserName={globalUserName} post={postList[el]} postList={postList} setTestList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
+                                    <Post userId={userId} globalUserId={globalUserId} userName={postList[el]['name']} globalUserName={globalUserName} post={postList[el]} postList={postList} setPostList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
                                     :
-                                    <Post userId={postList[el]['receiverId']} globalUserId={globalUserId} senderPostId={postList[el]['senderId']} userName={postList[el]['receiverName']} globalUserName={globalUserName} senderPostName={postList[el]['senderName']} post={postList[el]} postList={postList} setTestList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
+                                    <Post userId={postList[el]['receiverId']} globalUserId={globalUserId} senderPostId={postList[el]['senderId']} userName={postList[el]['receiverName']} globalUserName={globalUserName} senderPostName={postList[el]['senderName']} post={postList[el]} postList={postList} setPostList={setPostList} globalSetPage={setPage} key={postList[el]['id']} />
                             ))
                         ) :
                         (

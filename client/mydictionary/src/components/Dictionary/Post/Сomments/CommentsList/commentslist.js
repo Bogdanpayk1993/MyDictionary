@@ -4,11 +4,16 @@ import Send_Request_For_Database from '../../../../send_request_for_database';
 import GetTimeLife from '../../../GetTimeLife/gettimelife';
 import './commentslist.css';
 
-function deleteComment(id, commentsList, setCommentsList, setDelete) {
-    let leply = Send_Request_For_Database({ link: 'comments/delete', id: `${id}` })
+function deleteComment(id, userId, globalUserId, userName, globalUserName, postId, comment, commentsList, setCommentsList, setDelete) {
     delete commentsList[id]
+
     setCommentsList({ ...commentsList })
     setDelete(NaN)
+
+    let leply = Send_Request_For_Database({ link: 'comments/delete', id: `${id}` })
+    
+    let today = new Date()
+    leply = Send_Request_For_Database({ link: 'notifications/set', sender: `${globalUserId}`, receiver: `${userId}`, postId: `${postId}`, action: `${globalUserName} deleted comment "${comment}" in the post of ${userName}`, date: `${today}` })
 }
 
 function CommentsList(props) {
@@ -16,6 +21,8 @@ function CommentsList(props) {
     const userId = props.userId
     const globalUserId = props.globalUserId
     const postUserId = props.postUserId
+    const postId = props.postId
+    const userName = props.userName
     const globalUserName = props.globalUserName
     const commentsList = props.commentsList
     const setCommentsList = props.setCommentsList
@@ -36,7 +43,7 @@ function CommentsList(props) {
                         {
                             !isNaN(deleteCommentId) ?
                                 (
-                                    <Delete deleteCommentId={deleteCommentId} deleteComment={deleteComment} commentsList={commentsList} setCommentsList={setCommentsList} setDelete={setDelete} />
+                                    <Delete deleteCommentId={deleteCommentId} userId={userId} globalUserId={globalUserId} userName={userName} globalUserName={globalUserName} postId={postId} deleteComment={deleteComment} commentsList={commentsList} setCommentsList={setCommentsList} setDelete={setDelete} />
                                 ) :
                                 (null)
                         }
