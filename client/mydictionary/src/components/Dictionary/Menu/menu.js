@@ -1,6 +1,7 @@
 import React from 'react';
-import Authentication from './Authentication/authentication';
 import Nav from './Nav/nav';
+import Notifications from './Notifications/notifications';
+import Authentication from './Authentication/authentication';
 import UserChoice from './UserChoice';
 import './menu.css';
 
@@ -18,11 +19,18 @@ function Menu(props) {
             </div>
             <div>
                 {
-                    !isNaN(userId) ? 
+                    !isNaN(userId) ?
                         <Nav setPage={setPage} />
                         : null
                 }
-            </div> 
+            </div>
+            <div>
+                {
+                    !isNaN(userId) ?
+                        <Notifications userId={userId} setPage={setPage} />
+                        : null
+                }
+            </div>
             <div>
                 {
                     //<Authentication setUserId={setUserId} setUserName={setUserName} />
@@ -31,6 +39,6 @@ function Menu(props) {
             </div>
         </div>
     )
-} 
+}
 
 export default Menu;

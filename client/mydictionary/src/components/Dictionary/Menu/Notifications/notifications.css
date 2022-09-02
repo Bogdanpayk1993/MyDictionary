@@ -1,0 +1,29 @@
+.ContainerNotifications {
+    width: 10vw;
+    height: 5vh;
+}
+
+.ContainerNotifications:hover {
+    background-color: silver;
+}
+
+.ContainerNotifications p {
+    height: 5vh;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ContainerNotifications .Notifications {
+    position: fixed;
+    background-color: silver;
+    width: 30vw;
+    height: 50vh;
+    margin-top: -1000vh;
+    border-bottom-left-radius: 0.5vw;
+}
+
+.ContainerNotifications:hover .Notifications {
+    margin-top: 0px;
+}
