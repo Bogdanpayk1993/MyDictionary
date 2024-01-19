@@ -6,30 +6,30 @@
     align-items: center;
 }
 
-.Menu div:nth-child(1) {
+.Menu > div:nth-child(1) {
     width: 30vw;
 }
 
-.Menu div:nth-child(2) {
+.Menu > div:nth-child(2) {
     width: 40vw;
 }
 
-.Menu div:nth-child(2) .Nav {
+.Menu > div:nth-child(2) .Nav {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.Menu div:nth-child(3) {
+.Menu > div:nth-child(3) {
     width: 10vw;
 }
 
-.Menu div:nth-child(4) {
+.Menu > div:nth-child(4) {
     width: 20vw;
     justify-content: flex-end;
 }
 
-.Menu div:nth-child(4) button {
+.Menu > div:nth-child(4) button {
     margin-left: 1vw;
     margin-right: 1vw;
 }

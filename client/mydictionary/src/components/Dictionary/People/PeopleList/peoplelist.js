@@ -15,13 +15,15 @@ async function subscribe(el, globalUserId, globalUserName, userId, peopleList, s
 
 function PeopleList(props) {
     const [peopleList, setPeopleList] = useState(NaN)
+    const globalPeopelist = props.peopleList
+    const userId = props.userId
     const userName = props.userName
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
     const setRecipientOfCorrespondence = props.setRecipientOfCorrespondence
 
-    if (Object.keys(props['peopleList']).length != Object.keys(peopleList).length) {
-        setPeopleList(props['peopleList'])
+    if (Object.keys(globalPeopelist).length != Object.keys(peopleList).length) {
+        setPeopleList(globalPeopelist)
     }
 
     return (
@@ -36,7 +38,7 @@ function PeopleList(props) {
                                     <button onClick={() => setRecipientOfCorrespondence({ 'id': peopleList[el]['id'], 'name': peopleList[el]["name"] })}> Correspondence </button>
                                     {
                                         peopleList[el]['subscriber'] == null ?
-                                            <button onClick={() => subscribe(el, props['userId'], userName, peopleList[el]['id'], peopleList, setPeopleList, subscriptions, setSubscriptions)} > Subscribe </button>
+                                            <button onClick={() => subscribe(el, userId, userName, peopleList[el]['id'], peopleList, setPeopleList, subscriptions, setSubscriptions)} > Subscribe </button>
                                             : null
                                     }
                                 </div>

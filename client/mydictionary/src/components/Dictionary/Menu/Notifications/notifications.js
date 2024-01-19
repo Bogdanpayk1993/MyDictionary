@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import GetTimeLife from '../../GetTimeLife/gettimelife';
 import Send_Request_For_Database from '../../../send_request_for_database';
 import './notifications.css';
 
@@ -29,7 +30,10 @@ function Notifications(props) {
             <div className='Notifications'>
                 {
                     Object.keys(notifications).reverse().map(el => (
-                        console.log(notifications[el])
+                        <div> 
+                            <p> { GetTimeLife(notifications[el]['date']) } </p>
+                            <p> { notifications[el]['action'] } </p>
+                        </div>
                     ))
                 }     
             </div>
