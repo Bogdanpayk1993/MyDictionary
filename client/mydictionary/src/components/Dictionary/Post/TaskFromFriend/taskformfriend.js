@@ -19,7 +19,8 @@ async function getWordList(postId, setWordList) {
 function TaskFromFriend(props) {
 
     const globalUserId = props.globalUserId
-    const [post, setPost] = useState({ ...props.post })
+    const globalUserPost = props.post
+    const [post, setPost] = useState({ ...globalUserPost })
     const [wordList, setWordList] = useState({})
 
     if (JSON.stringify(wordList) === '{}' && post['trueAnswerCounter'] == -1 && post['userId'] == globalUserId) {

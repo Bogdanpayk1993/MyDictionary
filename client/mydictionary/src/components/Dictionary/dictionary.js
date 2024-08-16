@@ -106,6 +106,12 @@ function Dictionary() {
                                             <PersonProfile userId={userId} userName={userName} page={page} setPage={setPage} subscriptions={subscriptions} setSubscriptions={setSubscriptions} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />
                                         ) : (null)
                                 }
+                                {
+                                    typeof page === 'object' ?
+                                        (
+                                            null
+                                        ) : (null)
+                                }
                             </div>
                             <div>
                                 <Messages userId={userId} userName={userName} setPage={setPage} recipientOfCorrespondence={recipientOfCorrespondence} setRecipientOfCorrespondence={setRecipientOfCorrespondence} />

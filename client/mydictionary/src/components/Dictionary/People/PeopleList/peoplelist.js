@@ -18,6 +18,7 @@ function PeopleList(props) {
     const globalPeopelist = props.peopleList
     const userId = props.userId
     const userName = props.userName
+    const setPage = props.setPage
     const subscriptions = props.subscriptions
     const setSubscriptions = props.setSubscriptions
     const setRecipientOfCorrespondence = props.setRecipientOfCorrespondence
@@ -33,7 +34,7 @@ function PeopleList(props) {
                     (
                         Object.keys(peopleList).map(el => (
                             <div key={el}>
-                                <div onClick={() => props.setPage(peopleList[el]['id'])}> {peopleList[el]['name']} </div>
+                                <div onClick={() => setPage(peopleList[el]['id'])}> {peopleList[el]['name']} </div>
                                 <div>
                                     <button onClick={() => setRecipientOfCorrespondence({ 'id': peopleList[el]['id'], 'name': peopleList[el]["name"] })}> Correspondence </button>
                                     {

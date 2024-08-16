@@ -18,6 +18,7 @@ async function getNotifications(userId, setNotifications) {
 function Notifications(props) {
 
     const userId = props.userId
+    const setPage = props.setPage
     const [notifications, setNotifications] = useState({})
 
     if (!isNaN(userId) && JSON.stringify(notifications) === '{}') {
@@ -30,7 +31,7 @@ function Notifications(props) {
             <div className='Notifications'>
                 {
                     Object.keys(notifications).reverse().map(el => (
-                        <div> 
+                        <div onClick={() => setPage(notifications[el])} > 
                             <p> { GetTimeLife(notifications[el]['date']) } </p>
                             <p> { notifications[el]['action'] } </p>
                         </div>
